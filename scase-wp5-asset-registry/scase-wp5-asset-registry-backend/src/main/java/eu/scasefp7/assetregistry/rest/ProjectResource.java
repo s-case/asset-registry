@@ -1,6 +1,6 @@
 package eu.scasefp7.assetregistry.rest;
 
-import eu.fp7.scase.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.service.ProjectService;
 
 import org.slf4j.Logger;

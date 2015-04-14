@@ -1,7 +1,7 @@
 package eu.scasefp7.assetregistry.service.es;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.fp7.scase.assetregistry.data.BaseEntity;
+import eu.scasefp7.assetregistry.data.BaseEntity;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;

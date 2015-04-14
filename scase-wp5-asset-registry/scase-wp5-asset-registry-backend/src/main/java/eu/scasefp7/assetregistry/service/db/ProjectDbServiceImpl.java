@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import eu.fp7.scase.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.Project;
 
 import java.util.Date;
 

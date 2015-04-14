@@ -1,6 +1,6 @@
 package eu.scasefp7.assetregistry.service.exception;
 
-import eu.fp7.scase.assetregistry.data.BaseEntity;
+import eu.scasefp7.assetregistry.data.BaseEntity;
 import eu.scasefp7.base.ScaseException;
 
 

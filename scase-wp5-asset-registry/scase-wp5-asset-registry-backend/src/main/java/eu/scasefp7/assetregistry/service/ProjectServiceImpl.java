@@ -1,6 +1,6 @@
 package eu.scasefp7.assetregistry.service;
 
-import eu.fp7.scase.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 import eu.scasefp7.assetregistry.service.es.ProjectEsService;

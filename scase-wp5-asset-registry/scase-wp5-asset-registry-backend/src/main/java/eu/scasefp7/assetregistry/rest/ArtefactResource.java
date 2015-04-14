@@ -1,7 +1,7 @@
 package eu.scasefp7.assetregistry.rest;
 
 
-import eu.fp7.scase.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.service.ArtefactService;
 
 import org.slf4j.Logger;

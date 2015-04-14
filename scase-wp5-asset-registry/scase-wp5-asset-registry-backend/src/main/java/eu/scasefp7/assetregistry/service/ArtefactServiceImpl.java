@@ -1,6 +1,6 @@
 package eu.scasefp7.assetregistry.service;
 
-import eu.fp7.scase.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
 import eu.scasefp7.assetregistry.service.es.ArtefactEsService;

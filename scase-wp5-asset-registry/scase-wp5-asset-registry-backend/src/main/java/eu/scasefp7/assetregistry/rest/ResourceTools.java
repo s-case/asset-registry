@@ -1,6 +1,6 @@
 package eu.scasefp7.assetregistry.rest;
 
-import eu.fp7.scase.assetregistry.data.BaseEntity;
+import eu.scasefp7.assetregistry.data.BaseEntity;
 
 import javax.ws.rs.core.Response;
 import java.net.URI;
