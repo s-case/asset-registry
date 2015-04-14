@@ -6,7 +6,8 @@ import eu.fp7.scase.assetregistry.service.ArtefactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,11 +28,12 @@ import static eu.fp7.scase.assetregistry.rest.ResourceTools.redirect;
 @Path( AssetRegistryRestApp.PART_ARTEFACT)
 @Produces( "application/json;charset=UTF-8" )
 @Consumes("application/json")
+@Stateless
 public class ArtefactResource extends Application{
 
     private static final Logger LOG = LoggerFactory.getLogger(ArtefactResource.class);
 
-    @Inject
+    @EJB
     private ArtefactService artefactService;
 
 

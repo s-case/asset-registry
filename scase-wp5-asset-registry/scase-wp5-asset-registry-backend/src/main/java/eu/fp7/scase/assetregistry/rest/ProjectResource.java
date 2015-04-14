@@ -2,11 +2,11 @@ package eu.fp7.scase.assetregistry.rest;
 
 import eu.fp7.scase.assetregistry.data.Project;
 import eu.fp7.scase.assetregistry.service.ProjectService;
-import eu.fp7.scase.assetregistry.service.db.ProjectDbService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,11 +27,12 @@ import static eu.fp7.scase.assetregistry.rest.ResourceTools.redirect;
 @Path( AssetRegistryRestApp.PART_PROJECT)
 @Produces( "application/json;charset=UTF-8" )
 @Consumes("application/json")
+@Stateless
 public class ProjectResource extends Application{
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectResource.class);
 
-    @Inject
+    @EJB
     private ProjectService projectService;
 
     /**
