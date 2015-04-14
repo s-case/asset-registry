@@ -1,8 +1,8 @@
-package eu.fp7.scase.assetregistry.data.testdata;
+package eu.scasefp7.assetregistry.data.testdata;
 
 import de.akquinet.jbosscc.needle.db.testdata.AbstractTestdataBuilder;
 
-import eu.fp7.scase.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.Project;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package eu.fp7.scase.assetregistry.data;
+package eu.scasefp7.assetregistry.data;
 
 /**
  * Enumeration of payload types

@@ -1,7 +1,7 @@
-package eu.fp7.scase.assetregistry.data;
+package eu.scasefp7.assetregistry.data;
 
 import de.akquinet.jbosscc.needle.junit.DatabaseRule;
-import eu.fp7.scase.assetregistry.data.testdata.ProjectTestdataBuilder;
+import eu.scasefp7.assetregistry.data.testdata.ProjectTestdataBuilder;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

@@ -1,12 +1,12 @@
-package eu.fp7.scase.assetregistry.data.testdata;
+package eu.scasefp7.assetregistry.data.testdata;
 
 import java.util.Arrays;
 
 import javax.persistence.EntityManager;
 
 import de.akquinet.jbosscc.needle.db.testdata.AbstractTestdataBuilder;
-import eu.fp7.scase.assetregistry.data.Artefact;
-import eu.fp7.scase.assetregistry.data.ArtefactType;
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.ArtefactType;
 
 /**
  * Artefact test data builder

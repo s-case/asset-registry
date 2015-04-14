@@ -8,9 +8,9 @@
     <persistence-unit name="TestDataModel" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-        <class>eu.fp7.scase.assetregistry.data.Artefact</class>
-        <class>eu.fp7.scase.assetregistry.data.ArtefactPayload</class>
-        <class>eu.fp7.scase.assetregistry.data.Project</class>
+        <class>eu.scasefp7.assetregistry.data.Artefact</class>
+        <class>eu.scasefp7.assetregistry.data.ArtefactPayload</class>
+        <class>eu.scasefp7.assetregistry.data.Project</class>
 
         <properties>
 
