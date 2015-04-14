@@ -3,17 +3,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>scase-wp5-asset-registry</artifactId>
-    <name>SCASE - WP5 - AssetRegistry</name>
-    <description>The Asset Registry is responsible for storing
-    requirements and software artefacts</description>
-    <packaging>pom</packaging>
-
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+
+    <artifactId>scase-wp5-asset-registry</artifactId>
+    <name>SCASE - WP5 - AssetRegistry</name>
+    <description>The Asset Registry is responsible for storing
+    requirements and software artefacts</description>
+    <packaging>pom</packaging>
 
     <modules>
         <module>scase-wp5-asset-registry-datamodel</module>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-base</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
