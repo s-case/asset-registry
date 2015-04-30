@@ -8,7 +8,7 @@ import eu.scasefp7.base.BuildProperties;
  * @author Robert Magnus
  *
  */
-public class VersionService
+public class VersionServiceImpl
 {
 
     /**

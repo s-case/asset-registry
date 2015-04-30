@@ -4,4 +4,7 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
              version="6">
 
+    <module id="scase-wp5-asset-registry-backend-impl-EJB">
+        <ejb>ejb.jar</ejb>
+    </module>
 </application>

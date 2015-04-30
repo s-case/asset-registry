@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="assetregistry">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <jta-data-source>java:/AssetRegistryDS</jta-data-source>
+        <jta-data-source>java:jboss/datasources/AssetRegistryDS</jta-data-source>
 
         <class>eu.scasefp7.assetregistry.data.Artefact</class>
         <class>eu.scasefp7.assetregistry.data.ArtefactPayload</class>
@@ -10,6 +10,10 @@
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.transaction.flush_before_completion" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>

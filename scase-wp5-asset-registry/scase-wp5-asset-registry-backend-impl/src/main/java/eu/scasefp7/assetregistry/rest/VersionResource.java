@@ -1,6 +1,6 @@
 package eu.scasefp7.assetregistry.rest;
 
-import eu.scasefp7.assetregistry.service.VersionService;
+import eu.scasefp7.assetregistry.service.VersionServiceImpl;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -17,7 +17,7 @@ public final class VersionResource {
     private VersionResource() {}
 
     @Inject
-    VersionService versionService;
+    VersionServiceImpl versionService;
 
 
     /**

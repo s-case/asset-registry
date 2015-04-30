@@ -36,9 +36,9 @@ public class ElasticSearchConnectorService {
     @PostConstruct
     public void init(){
 
-        LOG.info( "Sarting ElasticSearch Connector" );
+        LOG.info( "Starting ElasticSearch Connector" );
 
-        final String esServerNode = System.getProperty("es_node");
+        final String esServerNode = System.getProperty("es.node");
 
         client = new TransportClient()
                 .addTransportAddress(new InetSocketTransportAddress(esServerNode, 9300));
