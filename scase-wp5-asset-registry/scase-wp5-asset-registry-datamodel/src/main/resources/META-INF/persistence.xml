@@ -4,6 +4,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <jta-data-source>java:jboss/datasources/AssetRegistryDS</jta-data-source>
 
+        <class>eu.scasefp7.assetregistry.data.Domain</class>
+        <class>eu.scasefp7.assetregistry.data.SubDomain</class>
         <class>eu.scasefp7.assetregistry.data.Artefact</class>
         <class>eu.scasefp7.assetregistry.data.ArtefactPayload</class>
         <class>eu.scasefp7.assetregistry.data.Project</class>

@@ -8,6 +8,8 @@
     <persistence-unit name="TestDataModel" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
+        <class>eu.scasefp7.assetregistry.data.Domain</class>
+        <class>eu.scasefp7.assetregistry.data.SubDomain</class>
         <class>eu.scasefp7.assetregistry.data.Artefact</class>
         <class>eu.scasefp7.assetregistry.data.ArtefactPayload</class>
         <class>eu.scasefp7.assetregistry.data.Project</class>
