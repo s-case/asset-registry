@@ -31,6 +31,9 @@ public class Project extends BaseEntity
     @Column(name="PROJECTNAME", nullable=false)
     private String name;
 
+    @Column(name="PRIVACYTYPE")
+    private PrivacyType privacyType;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Domain domain;
 
@@ -48,6 +51,14 @@ public class Project extends BaseEntity
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public PrivacyType getPrivacyType() {
+        return privacyType;
+    }
+
+    public void setPrivacyType(PrivacyType privacyType) {
+        this.privacyType = privacyType;
     }
 
     public Domain getDomain() {
