@@ -3,7 +3,7 @@ package eu.scasefp7.assetregistry.data;
 /**
  * Enumeration of payload types
  */
-public enum PlayloadType {
+public enum PayloadType {
     BINARY,
     TEXTUAL
 }

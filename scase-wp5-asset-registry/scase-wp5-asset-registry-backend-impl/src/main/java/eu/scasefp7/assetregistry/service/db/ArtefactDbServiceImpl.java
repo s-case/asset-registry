@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.service.db;
 
 import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.ArtefactPayload;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -28,6 +29,7 @@ public class ArtefactDbServiceImpl extends BaseCrudDbServiceImpl<Artefact> imple
         Artefact loaded = find(entity.getId());
         validateVersion(loaded, entity);
         loaded.setDependencies(entity.getDependencies());
+        loaded.setMetadata(entity.getMetadata());
         loaded.setDescription(entity.getDescription());
         loaded.setGroupId(entity.getGroupId());
         loaded.setName(entity.getName());

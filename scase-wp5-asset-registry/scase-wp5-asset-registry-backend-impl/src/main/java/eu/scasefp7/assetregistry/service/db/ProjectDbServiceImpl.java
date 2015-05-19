@@ -4,10 +4,12 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import eu.scasefp7.assetregistry.data.Project;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * service class for project.
@@ -24,6 +26,15 @@ public class ProjectDbServiceImpl extends BaseCrudDbServiceImpl<Project> impleme
     @Override
     Class<Project> getEntityClass() {
         return Project.class;
+    }
+
+    public Project find(String name){
+        TypedQuery<Project> query = entityManager.createQuery("SELECT p FROM Project p WHERE p.name = :name",Project.class).setParameter(name,name);
+        List<Project> result = query.getResultList();
+        if(result.isEmpty()){
+            return null;
+        }
+        return result.get(0);
     }
 
     @Override

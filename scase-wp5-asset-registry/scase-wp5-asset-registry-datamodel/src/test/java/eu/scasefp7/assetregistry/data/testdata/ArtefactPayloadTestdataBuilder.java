@@ -2,7 +2,8 @@ package eu.scasefp7.assetregistry.data.testdata;
 
 import de.akquinet.jbosscc.needle.db.testdata.AbstractTestdataBuilder;
 import eu.scasefp7.assetregistry.data.ArtefactPayload;
-import eu.scasefp7.assetregistry.data.PlayloadType;
+import eu.scasefp7.assetregistry.data.PayloadFormat;
+import eu.scasefp7.assetregistry.data.PayloadType;
 
 
 /**
@@ -13,9 +14,10 @@ public class ArtefactPayloadTestdataBuilder extends AbstractTestdataBuilder<Arte
     @Override
     public ArtefactPayload build() {
         final ArtefactPayload artefactPlayload = new ArtefactPayload();
-        artefactPlayload.setType(PlayloadType.BINARY);
+        artefactPlayload.setType(PayloadType.BINARY);
+        artefactPlayload.setFormat(PayloadFormat.IMAGE);
         artefactPlayload.setName("TestPayload Name");
-        artefactPlayload.setPlayload("TestPayload Content".getBytes());
+        artefactPlayload.setPayload("TestPayload Content".getBytes());
         return artefactPlayload;
     }
 }

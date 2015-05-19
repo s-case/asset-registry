@@ -7,6 +7,8 @@ import eu.scasefp7.assetregistry.data.Project;
  */
 public interface ProjectDbService extends BaseCrudDbService<Project> {
 
+    Project find(String name);
+
     @Override
     Project update(Project entity);
 }

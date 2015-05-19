@@ -18,29 +18,40 @@ public class ArtefactPayload extends BaseEntity {
     private static final long serialVersionUID = 542435835493989083L;
 
     @Column(name = "TYPE", nullable = false)
-    private PlayloadType type;
+    private PayloadType type;
+
+    @Column(name= "FORMAT", nullable = false)
+    private PayloadFormat format;
 
     @Column(name = "PAYLOADNAME",nullable = false)
     private String name;
 
     @Lob
     @Column(name = "PAYLOAD")
-    private byte[] playload;
+    private byte[] payload;
 
-    public byte[] getPlayload() {
-        return playload;
+    public byte[] getPayload() {
+        return payload;
     }
 
-    public void setPlayload(byte[] playload) {
-        this.playload = playload;
+    public void setPayload(byte[] playload) {
+        this.payload = playload;
     }
 
-    public PlayloadType getType() {
+    public PayloadType getType() {
         return type;
     }
 
-    public void setType(PlayloadType type) {
+    public void setType(PayloadType type) {
         this.type = type;
+    }
+
+    public PayloadFormat getFormat() {
+        return format;
+    }
+
+    public void setFormat(PayloadFormat format) {
+        this.format = format;
     }
 
     public String getName() {

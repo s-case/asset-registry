@@ -29,7 +29,8 @@ public abstract class AbstractEsServiceImpl<E extends BaseEntity> implements Abs
     }
 
     protected QueryBuilder queryStringQuery( final String query ) {
-        QueryBuilder qb = QueryBuilders.queryString(query);
+        QueryBuilder qb = QueryBuilders.queryStringQuery(query);
+
         return qb;
     }
 

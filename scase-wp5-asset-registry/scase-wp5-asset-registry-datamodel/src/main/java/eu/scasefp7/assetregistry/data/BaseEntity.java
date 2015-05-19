@@ -30,6 +30,12 @@ implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "CREATEDBY")
+    private String createdBy;
+
+    @Column(name = "UPDATEDBY")
+    private String updatedBy;
+
     @Column(name = "CREATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -55,6 +61,22 @@ implements Serializable
     public Long getVersion()
     {
         return this.version;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public Date getCreatedAt() {

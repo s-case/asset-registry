@@ -69,7 +69,7 @@ public class ProjectResource extends Application{
      */
     @POST
     public Response create( Project project ) throws URISyntaxException {
-        final Project created = this.projectService.create( project );
+        final Project created = this.projectService.create(project);
 
         return redirect( "project/" + created.getId() );
     }
@@ -85,7 +85,7 @@ public class ProjectResource extends Application{
     @Path("{id}")
     public Response update( @PathParam("id") long id, Project project ) throws URISyntaxException {
         project.setId( id );
-        final Project updated = this.projectService.update( project );
+        final Project updated = this.projectService.update(project);
         return redirect( "project/", updated );
     }
 
@@ -97,6 +97,12 @@ public class ProjectResource extends Application{
     @Path("{id}")
     public void delete( @PathParam("id") long id ) {
         this.projectService.delete(id);
+    }
+
+    @DELETE
+    @Path("{name}")
+    public void delete(@PathParam("name") String name) {
+        this.projectService.delete(name);
     }
 
 }

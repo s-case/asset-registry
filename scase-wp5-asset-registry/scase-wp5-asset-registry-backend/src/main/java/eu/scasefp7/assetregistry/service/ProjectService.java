@@ -18,5 +18,7 @@ public interface ProjectService {
 
     void delete(long id);
 
+    void delete(String name);
+
     void delete(Project project);
 }

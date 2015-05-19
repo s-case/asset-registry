@@ -2,6 +2,7 @@ package eu.scasefp7.assetregistry.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -48,6 +49,10 @@ public class Artefact extends BaseEntity {
     @ElementCollection()
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<String> tags;
+
+    @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Map<String,String> metadata;
 
     @OneToMany(cascade = javax.persistence.CascadeType.ALL)
     @Column(name = "PLAYLOAD")
@@ -110,6 +115,14 @@ public class Artefact extends BaseEntity {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public Map<String, String> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, String> metadata) {
+        this.metadata = metadata;
     }
 
     public List<ArtefactPayload> getPayload() {

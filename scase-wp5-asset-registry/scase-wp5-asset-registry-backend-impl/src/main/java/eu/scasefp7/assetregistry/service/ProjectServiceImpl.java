@@ -1,16 +1,16 @@
 package eu.scasefp7.assetregistry.service;
 
-import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
+import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 import eu.scasefp7.assetregistry.service.es.ProjectEsService;
+import eu.scasefp7.assetregistry.service.exception.NameNotFoundException;
 import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
 import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-
 import java.util.List;
 
 /**
@@ -27,50 +27,60 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectEsService esService;
 
     @Override
-    public Project find(long id){
+    public Project find(long id) {
         Project project = dbService.find(id);
         return project;
     }
 
     @Override
-    public List<Project> find(String query){
+    public List<Project> find(String query) {
         List<Project> projects = esService.find(query);
         return projects;
     }
 
     @Override
-    public Project create(Project project){
+    public Project create(Project project) {
 
         try {
             project = dbService.create(project);
             esService.index(project);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Project.class,project.getId(),thrown);
+            throw new NotCreatedException(Project.class, project.getId(), thrown);
         }
 
         return project;
     }
 
     @Override
-    public Project update(Project project){
-        try{
+    public Project update(Project project) {
+        try {
             project = dbService.update(project);
             esService.update(project);
-        }catch(Throwable thrown){
-            throw new NotUpdatedException(Project.class,project.getId(),thrown);
+        } catch (Throwable thrown) {
+            throw new NotUpdatedException(Project.class, project.getId(), thrown);
         }
         return project;
     }
 
     @Override
-    public void delete(long id){
-        esService.delete(id, ElasticSearchConnectorService.INDEX_PROJECTS,ElasticSearchConnectorService.TYPE_PROJECT);
+    public void delete(long id) {
+        esService.delete(id, ElasticSearchConnectorService.INDEX_PROJECTS, ElasticSearchConnectorService.TYPE_PROJECT);
         dbService.delete(id);
     }
 
     @Override
-    public void delete(Project project){
-        esService.delete(project, ElasticSearchConnectorService.INDEX_PROJECTS,ElasticSearchConnectorService.TYPE_PROJECT);
+    public void delete(String name) {
+        Project project = dbService.find(name);
+        if (null != project) {
+            this.delete(project.getId());
+        } else {
+            throw new NameNotFoundException(Project.class, name);
+        }
+    }
+
+    @Override
+    public void delete(Project project) {
+        esService.delete(project, ElasticSearchConnectorService.INDEX_PROJECTS, ElasticSearchConnectorService.TYPE_PROJECT);
         dbService.delete(project);
     }
 }

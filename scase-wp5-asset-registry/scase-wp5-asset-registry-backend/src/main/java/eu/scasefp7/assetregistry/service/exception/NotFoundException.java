@@ -23,7 +23,7 @@ public class NotFoundException extends ScaseException {
      * @param id primary key
      */
     public NotFoundException( Class<? extends BaseEntity> clazz, long id ) {
-        super( clazz.getSimpleName() + " mit der ID " + id + " wurde nicht gefunden.");
+        super( clazz.getSimpleName() + " with ID " + id + " was not found.");
         this.clazz = clazz;
         this.id = id;
     }
