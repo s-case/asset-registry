@@ -7,6 +7,7 @@ import eu.scasefp7.assetregistry.service.es.ProjectEsService;
 import eu.scasefp7.assetregistry.service.exception.NameNotFoundException;
 import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
 import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
+import eu.scasefp7.assetregistry.service.index.ProjectIndex;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -64,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(long id) {
-        esService.delete(id, ElasticSearchConnectorService.INDEX_PROJECTS, ElasticSearchConnectorService.TYPE_PROJECT);
+        esService.delete(id, ProjectIndex.INDEX_NAME, ElasticSearchConnectorService.TYPE_PROJECT);
         dbService.delete(id);
     }
 
@@ -80,7 +81,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(Project project) {
-        esService.delete(project, ElasticSearchConnectorService.INDEX_PROJECTS, ElasticSearchConnectorService.TYPE_PROJECT);
+        esService.delete(project, ProjectIndex.INDEX_NAME, ElasticSearchConnectorService.TYPE_PROJECT);
         dbService.delete(project);
     }
 }

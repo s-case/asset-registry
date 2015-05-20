@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 
+import eu.scasefp7.assetregistry.service.index.ProjectIndex;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -34,7 +35,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     private ObjectMapper mapper;
 
     public List<Project> find(final String query){
-        SearchResponse response = getSearchResponse(ElasticSearchConnectorService.INDEX_PROJECTS, ElasticSearchConnectorService.TYPE_PROJECT, query);
+        SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, ElasticSearchConnectorService.TYPE_PROJECT, query);
 
         final List<Project> result = new ArrayList<Project>();
         for ( SearchHit hit : response.getHits().hits() ) {
@@ -50,13 +51,13 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     }
     public IndexResponse index(final Project project) throws JsonProcessingException {
         String json = mapper.writeValueAsString(project);
-        IndexResponse response = connectorService.getClient().prepareIndex(ElasticSearchConnectorService.INDEX_PROJECTS, ElasticSearchConnectorService.TYPE_PROJECT, project.getId().toString()).setSource(json).execute().actionGet();
+        IndexResponse response = connectorService.getClient().prepareIndex(ProjectIndex.INDEX_NAME, ElasticSearchConnectorService.TYPE_PROJECT, project.getId().toString()).setSource(json).execute().actionGet();
         return response;
     }
 
     public UpdateResponse update(final Project project) throws JsonProcessingException {
         String json = mapper.writeValueAsString(project);
-        UpdateResponse response = connectorService.getClient().prepareUpdate(ElasticSearchConnectorService.INDEX_PROJECTS,ElasticSearchConnectorService.TYPE_PROJECT,project.getId().toString()).setDoc(json).execute().actionGet();
+        UpdateResponse response = connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,ElasticSearchConnectorService.TYPE_PROJECT,project.getId().toString()).setDoc(json).execute().actionGet();
         return response;
     }
 }

@@ -42,7 +42,7 @@ public class ProjectDbServiceImpl extends BaseCrudDbServiceImpl<Project> impleme
         Project loaded = find(entity.getId());
         validateVersion(loaded, entity);
         loaded.setName(entity.getName());
-        loaded.setPrivacyType(entity.getPrivacyType());
+        loaded.setPrivacyLevel(entity.getPrivacyLevel());
         loaded.setDomain(entity.getDomain());
         loaded.setSubDomain(entity.getSubDomain());
         loaded.setUpdatedAt(new Date());

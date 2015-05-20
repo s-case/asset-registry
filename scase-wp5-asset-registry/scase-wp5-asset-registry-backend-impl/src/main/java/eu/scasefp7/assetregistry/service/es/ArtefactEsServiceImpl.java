@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 
+import eu.scasefp7.assetregistry.service.index.ArtefactIndex;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -34,7 +35,7 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     ObjectMapper mapper;
 
     public List<Artefact> find(final String query){
-        SearchResponse response = getSearchResponse(ElasticSearchConnectorService.INDEX_ARTEFACTS, ElasticSearchConnectorService.TYPE_ARTEFACT, query);
+        SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, ElasticSearchConnectorService.TYPE_ARTEFACT, query);
 
         final List<Artefact> result = new ArrayList<Artefact>();
         for ( SearchHit hit : response.getHits().hits() ) {
@@ -51,13 +52,13 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
 
     public IndexResponse index(final Artefact artefact) throws JsonProcessingException {
         String json = mapper.writeValueAsString(artefact);
-        IndexResponse response = connectorService.getClient().prepareIndex(ElasticSearchConnectorService.INDEX_ARTEFACTS, ElasticSearchConnectorService.TYPE_ARTEFACT, artefact.getId().toString()).setSource(json).execute().actionGet();
+        IndexResponse response = connectorService.getClient().prepareIndex(ArtefactIndex.INDEX_NAME, ElasticSearchConnectorService.TYPE_ARTEFACT, artefact.getId().toString()).setSource(json).execute().actionGet();
         return response;
     }
 
     public UpdateResponse update(final Artefact artefact) throws JsonProcessingException {
         String json = mapper.writeValueAsString(artefact);
-        UpdateResponse response = connectorService.getClient().prepareUpdate(ElasticSearchConnectorService.INDEX_ARTEFACTS,ElasticSearchConnectorService.TYPE_ARTEFACT,artefact.getId().toString()).setDoc(json).execute().actionGet();
+        UpdateResponse response = connectorService.getClient().prepareUpdate(ArtefactIndex.INDEX_NAME,ElasticSearchConnectorService.TYPE_ARTEFACT,artefact.getId().toString()).setDoc(json).execute().actionGet();
              return response;
     }
 }

@@ -1,12 +1,9 @@
 package eu.scasefp7.assetregistry.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -31,8 +28,8 @@ public class Project extends BaseEntity
     @Column(name="PROJECTNAME", nullable=false)
     private String name;
 
-    @Column(name="PRIVACYTYPE")
-    private PrivacyType privacyType;
+    @Column(name="PRIVACYLEVEL")
+    private PrivacyLevel privacyLevel;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Domain domain;
@@ -53,12 +50,12 @@ public class Project extends BaseEntity
         this.name = name;
     }
 
-    public PrivacyType getPrivacyType() {
-        return privacyType;
+    public PrivacyLevel getPrivacyLevel() {
+        return privacyLevel;
     }
 
-    public void setPrivacyType(PrivacyType privacyType) {
-        this.privacyType = privacyType;
+    public void setPrivacyLevel(PrivacyLevel privacyLevel) {
+        this.privacyLevel = privacyLevel;
     }
 
     public Domain getDomain() {
