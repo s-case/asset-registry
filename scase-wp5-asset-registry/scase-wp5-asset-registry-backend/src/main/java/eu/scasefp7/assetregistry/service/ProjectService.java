@@ -10,6 +10,8 @@ import java.util.List;
 public interface ProjectService {
     Project find(long id);
 
+    Project findByName(String name);
+
     List<Project> find(String query);
 
     Project create(Project project);

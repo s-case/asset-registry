@@ -33,6 +33,11 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
+    public Project findByName(String name){
+        Project project = dbService.find(name);
+        return project;
+    }
+
     @Override
     public List<Project> find(String query) {
         List<Project> projects = esService.find(query);

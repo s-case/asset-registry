@@ -6,6 +6,7 @@ import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,9 +15,9 @@ import java.util.List;
 public interface AbstractEsService<E extends BaseEntity> {
     List<E> find(String query);
 
-    IndexResponse index(E entity) throws JsonProcessingException;
+    IndexResponse index(E entity) throws IOException;
 
-    UpdateResponse update(E entity) throws JsonProcessingException;
+    UpdateResponse update(E entity) throws IOException;
 
     DeleteResponse delete(long id, String index, String type);
 

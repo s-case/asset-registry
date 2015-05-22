@@ -2,8 +2,10 @@ package eu.scasefp7.assetregistry.rest;
 
 
 import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.service.ArtefactService;
 
+import eu.scasefp7.assetregistry.service.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +40,9 @@ public class ArtefactResource extends Application{
     @EJB
     private ArtefactService artefactService;
 
+    @EJB
+    private ProjectService projectService;
+
 
     /**
      * Find an artefact in the repository by ID
@@ -46,8 +51,24 @@ public class ArtefactResource extends Application{
      */
     @GET
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Artefact get( @PathParam("id") long id ) {
         return this.artefactService.find( id );
+    }
+
+    /**
+     * Find an artefact in the repository by ID
+     * @param id
+     * @return boolean bool
+     */
+    @GET
+    @Path("exists/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean exists( @PathParam("id") long id ) {
+        if(null!=this.artefactService.find(id)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -56,6 +77,7 @@ public class ArtefactResource extends Application{
      * @return List<Artefact> artefacts
      */
     @GET
+    @Path("search")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Artefact> searchArtefacts(@QueryParam("q") final String query) {
         LOG.info("search '{}'", query);
@@ -70,10 +92,17 @@ public class ArtefactResource extends Application{
      * @throws URISyntaxException
      */
     @POST
-    public Response create( Artefact artefact ) throws URISyntaxException {
-        final Artefact created = this.artefactService.create( artefact );
+    public Response create(@QueryParam("projectId") long projectId, Artefact artefact ) throws URISyntaxException {
+        final Project project = this.projectService.find(projectId);
+        if(null== project) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Project with ID" + projectId + " could not be found inside of the Artefact Repository").build();
 
-        return redirect( "artefact/" + created.getId() );
+        }
+            final Artefact created = this.artefactService.create( artefact );
+            project.getArtefacts().add(created);
+            projectService.update(project);
+
+            return redirect("artefact/" + created.getId());
     }
 
     /**

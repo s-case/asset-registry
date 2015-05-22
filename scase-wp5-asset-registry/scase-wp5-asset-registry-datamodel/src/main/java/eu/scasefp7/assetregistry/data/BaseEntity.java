@@ -1,8 +1,5 @@
 package eu.scasefp7.assetregistry.data;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,16 +9,18 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
+import java.io.Serializable;
+import java.util.Date;
 
 
 /**
  * base entity.
- * @author Robert Magnus
  *
+ * @author Robert Magnus
  */
 @MappedSuperclass
 public abstract class BaseEntity
-implements Serializable
+        implements Serializable
 
 {
     private static final long serialVersionUID = 4775486465844722741L;
@@ -48,18 +47,15 @@ implements Serializable
     @Version
     private Long version;
 
-    public Long getId()
-    {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getVersion()
-    {
+    public Long getVersion() {
         return this.version;
     }
 

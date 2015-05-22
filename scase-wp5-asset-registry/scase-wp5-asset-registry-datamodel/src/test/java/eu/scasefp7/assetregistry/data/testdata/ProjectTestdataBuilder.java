@@ -1,7 +1,6 @@
 package eu.scasefp7.assetregistry.data.testdata;
 
 import de.akquinet.jbosscc.needle.db.testdata.AbstractTestdataBuilder;
-
 import eu.scasefp7.assetregistry.data.PrivacyLevel;
 import eu.scasefp7.assetregistry.data.Project;
 
@@ -13,7 +12,7 @@ import java.util.Arrays;
  */
 public class ProjectTestdataBuilder extends AbstractTestdataBuilder<Project> {
 
-    public ProjectTestdataBuilder(final EntityManager entityManager){
+    public ProjectTestdataBuilder(final EntityManager entityManager) {
         super(entityManager);
     }
 

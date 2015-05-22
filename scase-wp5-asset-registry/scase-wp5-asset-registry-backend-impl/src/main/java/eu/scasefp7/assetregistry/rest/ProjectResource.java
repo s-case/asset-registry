@@ -49,6 +49,16 @@ public class ProjectResource extends Application{
     }
 
     /**
+     * Find a project in the repository by its name
+     * @param name - the name of the project
+     * @return Project project
+     */
+    @GET
+    @Path("{name}")
+    public Project get(@PathParam("name") String name){
+        return this.projectService.findByName(name);
+    }
+    /**
      *
      * @param query
      * @return List<Projects> projects

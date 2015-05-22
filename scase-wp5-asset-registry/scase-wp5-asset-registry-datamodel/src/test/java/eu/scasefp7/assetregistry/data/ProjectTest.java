@@ -19,9 +19,9 @@ public class ProjectTest {
     private EntityManager entityManager = databaseRule.getEntityManager();
 
     @Test
-    public void testPersist() throws Exception{
+    public void testPersist() throws Exception {
         Project project = new ProjectTestdataBuilder(entityManager).buildAndSave();
-        Project projectFromDb = entityManager.find(Project.class,project.getId());
+        Project projectFromDb = entityManager.find(Project.class, project.getId());
         Assert.assertEquals(project.getId(), projectFromDb.getId());
     }
 }
