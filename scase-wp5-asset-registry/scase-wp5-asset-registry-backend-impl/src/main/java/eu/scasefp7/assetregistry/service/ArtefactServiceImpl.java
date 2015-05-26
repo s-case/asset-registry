@@ -1,12 +1,12 @@
 package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
+import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
 import eu.scasefp7.assetregistry.service.es.ArtefactEsService;
 import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
 import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
-import eu.scasefp7.assetregistry.service.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.ArtefactIndex;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -65,13 +65,13 @@ public class ArtefactServiceImpl implements ArtefactService {
 
     @Override
     public void delete(long id){
-        esService.delete(id, ArtefactIndex.INDEX_NAME,ElasticSearchConnectorService.TYPE_ARTEFACT);
+        esService.delete(id, ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT);
         dbService.delete(id);
     }
 
     @Override
     public void delete(Artefact artefact){
-        esService.delete(artefact, ArtefactIndex.INDEX_NAME,ElasticSearchConnectorService.TYPE_ARTEFACT);
+        esService.delete(artefact, ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT);
         dbService.delete(artefact);
     }
 }

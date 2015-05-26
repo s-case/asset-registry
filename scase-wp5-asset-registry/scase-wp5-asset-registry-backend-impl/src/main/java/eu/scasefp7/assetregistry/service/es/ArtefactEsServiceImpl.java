@@ -3,7 +3,8 @@ package eu.scasefp7.assetregistry.service.es;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.service.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -34,7 +35,7 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     ObjectMapper mapper;
 
     public List<Artefact> find(final String query) {
-        SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, ElasticSearchConnectorService
+        SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType
                 .TYPE_ARTEFACT, query);
 
         final List<Artefact> result = new ArrayList<Artefact>();
@@ -53,7 +54,7 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     public IndexResponse index(final Artefact artefact) throws IOException {
 
         IndexResponse response = connectorService.getClient().prepareIndex(ArtefactIndex.INDEX_NAME,
-                ElasticSearchConnectorService.TYPE_ARTEFACT, artefact.getId().toString()).setSource(builder(artefact)).execute().actionGet();
+                IndexType.TYPE_ARTEFACT, artefact.getId().toString()).setSource(builder(artefact)).execute().actionGet();
 
         return response;
     }
@@ -61,7 +62,7 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     public UpdateResponse update(final Artefact artefact) throws IOException {
 
         UpdateResponse response = connectorService.getClient().prepareUpdate(ArtefactIndex.INDEX_NAME,
-                ElasticSearchConnectorService.TYPE_ARTEFACT, artefact.getId().toString()).setDoc(builder(artefact)).get();
+                IndexType.TYPE_ARTEFACT, artefact.getId().toString()).setDoc(builder(artefact)).get();
 
         return response;
     }

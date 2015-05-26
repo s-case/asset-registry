@@ -1,7 +1,7 @@
-package eu.scasefp7.assetregistry.service.index;
+package eu.scasefp7.assetregistry.index;
 
 /**
- * Created by missler
+ * Common field names of an index created in the AR
  */
 public class BaseIndex {
 
@@ -12,5 +12,4 @@ public class BaseIndex {
     public static final String CREATED_AT_FIELD = "CREATED_AT";
     public static final String UPDATED_AT_FIELD = "UPDATED_AT";
     public static final String VERSION_FIELD = "VERSION";
-
 }

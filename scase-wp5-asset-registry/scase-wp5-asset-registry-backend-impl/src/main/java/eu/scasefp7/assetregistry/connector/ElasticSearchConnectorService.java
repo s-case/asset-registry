@@ -25,12 +25,6 @@ public class ElasticSearchConnectorService {
     // instance of a json mapper
     private ObjectMapper mapper;
 
-
-
-    public static final String TYPE_ARTEFACT = "Artefact";
-    public static final String TYPE_PROJECT = "Project";
-    public static final String SEARCH_TYPE = "searchtype";
-
     @SuppressWarnings("resource")
     @PostConstruct
     public void init(){

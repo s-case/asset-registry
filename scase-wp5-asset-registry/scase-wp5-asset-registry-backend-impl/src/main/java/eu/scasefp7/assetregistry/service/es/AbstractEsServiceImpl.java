@@ -3,8 +3,10 @@ package eu.scasefp7.assetregistry.service.es;
 import eu.scasefp7.assetregistry.data.BaseEntity;
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 
+import org.apache.lucene.queryparser.xml.FilterBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 

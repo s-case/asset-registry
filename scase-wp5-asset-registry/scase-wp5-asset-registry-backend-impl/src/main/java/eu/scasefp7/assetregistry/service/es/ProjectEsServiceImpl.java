@@ -1,11 +1,11 @@
 package eu.scasefp7.assetregistry.service.es;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.PrivacyLevel;
 import eu.scasefp7.assetregistry.data.Project;
-import eu.scasefp7.assetregistry.service.index.ProjectIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.index.ProjectIndex;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -36,7 +36,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     private ObjectMapper mapper;
 
     public List<Project> find(final String query) {
-        SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, ElasticSearchConnectorService
+        SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, IndexType
                 .TYPE_PROJECT, query);
 
         final List<Project> result = new ArrayList<Project>();
@@ -60,7 +60,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
         // .actionGet();
 
         IndexResponse response = connectorService.getClient().prepareIndex(ProjectIndex.INDEX_NAME,
-                ElasticSearchConnectorService.TYPE_PROJECT, project.getId().toString()).setSource(builder(project)).execute()
+                IndexType.TYPE_PROJECT, project.getId().toString()).setSource(builder(project)).execute()
                 .actionGet();
 
         return response;
@@ -70,7 +70,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     public UpdateResponse update(final Project project) throws IOException {
 
         UpdateResponse response = connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
-                ElasticSearchConnectorService.TYPE_PROJECT, project.getId().toString()).setDoc(builder(project)).get();
+                IndexType.TYPE_PROJECT, project.getId().toString()).setDoc(builder(project)).get();
         return response;
     }
 
@@ -78,8 +78,8 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     public UpdateResponse updatePrivacyLevel(final long id, final PrivacyLevel privacyLevel) throws IOException {
 
         UpdateResponse response = connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
-                ElasticSearchConnectorService.TYPE_PROJECT, new Long(id).toString()).setDoc(jsonBuilder().startObject
-                ().field(ProjectIndex.PRIVACYLEVEL_FIELD, privacyLevel).endObject()).get();
+                IndexType.TYPE_PROJECT, new Long(id).toString()).setDoc(jsonBuilder().startObject
+                ().field(ProjectIndex.PRIVACY_LEVEL_FIELD, privacyLevel).endObject()).get();
 
         return response;
     }
@@ -94,7 +94,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
 
         XContentBuilder builder = jsonBuilder().startObject()
                 .field(ProjectIndex.NAME_FIELD, project.getName())
-                .field(ProjectIndex.PRIVACYLEVEL_FIELD, project.getPrivacyLevel())
+                .field(ProjectIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel())
                 .field(ProjectIndex.DOMAIN_FIELD, project.getDomain().getName())
                 .field(ProjectIndex.SUBDOMAIN_FIELD, project.getSubDomain().getName())
                 .field(ProjectIndex.CREATED_BY_FIELD, project.getCreatedBy())
@@ -111,7 +111,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     private Map<String, Object> generateObjectMap(Project project) {
         Map<String, Object> objectMap = new HashMap<String, Object>();
         objectMap.put(ProjectIndex.NAME_FIELD, project.getName());
-        objectMap.put(ProjectIndex.PRIVACYLEVEL_FIELD, project.getPrivacyLevel());
+        objectMap.put(ProjectIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel());
         objectMap.put(ProjectIndex.DOMAIN_FIELD, project.getDomain().getName());
         objectMap.put(ProjectIndex.SUBDOMAIN_FIELD, project.getSubDomain().getName());
         objectMap.put(ProjectIndex.CREATED_BY_FIELD, project.getCreatedBy());
