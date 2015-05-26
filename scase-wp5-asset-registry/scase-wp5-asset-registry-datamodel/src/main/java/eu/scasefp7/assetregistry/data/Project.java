@@ -29,11 +29,6 @@ public class Project extends BaseEntity {
     @Column(name = "PRIVACYLEVEL")
     private PrivacyLevel privacyLevel;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Domain domain;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private SubDomain subDomain;
 
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = true)
@@ -56,22 +51,6 @@ public class Project extends BaseEntity {
         this.privacyLevel = privacyLevel;
     }
 
-    public Domain getDomain() {
-        return domain;
-    }
-
-    public void setDomain(Domain domain) {
-        this.domain = domain;
-    }
-
-    public SubDomain getSubDomain() {
-        return subDomain;
-    }
-
-    public void setSubDomain(SubDomain subDomain) {
-        this.subDomain = subDomain;
-    }
-
     public List<Artefact> getArtefacts() {
         return artefacts;
     }
@@ -90,8 +69,6 @@ public class Project extends BaseEntity {
 
         if (name != null ? !name.equals(project.name) : project.name != null) return false;
         if (privacyLevel != project.privacyLevel) return false;
-        if (domain != null ? !domain.equals(project.domain) : project.domain != null) return false;
-        if (subDomain != null ? !subDomain.equals(project.subDomain) : project.subDomain != null) return false;
         return !(artefacts != null ? !artefacts.equals(project.artefacts) : project.artefacts != null);
 
     }
@@ -101,8 +78,6 @@ public class Project extends BaseEntity {
         int result = super.hashCode();
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (privacyLevel != null ? privacyLevel.hashCode() : 0);
-        result = 31 * result + (domain != null ? domain.hashCode() : 0);
-        result = 31 * result + (subDomain != null ? subDomain.hashCode() : 0);
         result = 31 * result + (artefacts != null ? artefacts.hashCode() : 0);
         return result;
     }

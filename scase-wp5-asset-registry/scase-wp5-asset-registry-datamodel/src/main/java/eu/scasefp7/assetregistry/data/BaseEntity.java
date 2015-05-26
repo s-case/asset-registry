@@ -1,16 +1,20 @@
 package eu.scasefp7.assetregistry.data;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -42,6 +46,12 @@ public abstract class BaseEntity
     @Column(name = "UPDATED_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Domain domain;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private SubDomain subDomain;
 
     @XmlElement
     @Version
@@ -91,6 +101,22 @@ public abstract class BaseEntity
         this.updatedAt = updatedAt;
     }
 
+    public Domain getDomain() {
+        return domain;
+    }
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
+    }
+
+    public SubDomain getSubDomain() {
+        return subDomain;
+    }
+
+    public void setSubDomain(SubDomain subDomain) {
+        this.subDomain = subDomain;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,19 +124,26 @@ public abstract class BaseEntity
 
         BaseEntity that = (BaseEntity) o;
 
-        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (createdBy != null ? !createdBy.equals(that.createdBy) : that.createdBy != null) return false;
+        if (updatedBy != null ? !updatedBy.equals(that.updatedBy) : that.updatedBy != null) return false;
+        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
-        if (version != null ? !version.equals(that.version) : that.version != null) return false;
+        if (domain != null ? !domain.equals(that.domain) : that.domain != null) return false;
+        if (subDomain != null ? !subDomain.equals(that.subDomain) : that.subDomain != null) return false;
+        return !(version != null ? !version.equals(that.version) : that.version != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
+        result = 31 * result + (updatedBy != null ? updatedBy.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
+        result = 31 * result + (domain != null ? domain.hashCode() : 0);
+        result = 31 * result + (subDomain != null ? subDomain.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         return result;
     }
