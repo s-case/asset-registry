@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class Artefact extends BaseEntity {
 
     @ElementCollection()
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Long> dependencies;
+    private List<Long> dependencies = new ArrayList<Long>();
 
     @Column(name = "TYPE")
     private ArtefactType type;
@@ -44,16 +45,16 @@ public class Artefact extends BaseEntity {
 
     @ElementCollection()
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<String> tags;
+    private List<String> tags = new ArrayList<String>();
 
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Map<String, String> metadata;
+    private Map<String, String> metadata = new HashMap<>();
 
     @OneToMany(cascade = javax.persistence.CascadeType.ALL)
-    @Column(name = "PLAYLOAD")
+    @Column(name = "PAYLOAD")
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<ArtefactPayload> payload;
+    private List<ArtefactPayload> payload = new ArrayList<ArtefactPayload>();
 
     public String getUri() {
 
@@ -82,6 +83,8 @@ public class Artefact extends BaseEntity {
     }
 
     public List<Long> getDependencies() {
+
+
         return dependencies;
     }
 
