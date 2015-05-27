@@ -20,12 +20,16 @@ public class AbstractServiceBase
 {
 
     @Rule
+    public ElasticsearchTestNode testNode = new ElasticsearchTestNode();
+
+    @Rule
     public final DatabaseRule databaseRule = new DatabaseRule();
 
     @Rule
     public final NeedleRule needleRule = new NeedleRule(this.databaseRule);
 
     protected EasyMockProvider mockProvider = this.needleRule.getMockProvider();
+    protected EmbeddedElasticsearchServer embeddedElasticsearchServer;
 
     @Rule
     public final TestRule txWatcher = new TestWatcher() {
@@ -43,6 +47,8 @@ public class AbstractServiceBase
     @Before
     public void setup()
     {
+        this.embeddedElasticsearchServer = new EmbeddedElasticsearchServer();
+
         this.mockProvider.resetAllToNice();
 
         startTransaction();
@@ -52,6 +58,8 @@ public class AbstractServiceBase
     public void after()
     {
         rollbackTransaction();
+
+        this.embeddedElasticsearchServer.shutdown();
     }
 
     protected void startTransaction()

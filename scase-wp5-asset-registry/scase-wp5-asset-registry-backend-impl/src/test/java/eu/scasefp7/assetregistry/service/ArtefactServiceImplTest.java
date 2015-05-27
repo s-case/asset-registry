@@ -2,9 +2,6 @@ package eu.scasefp7.assetregistry.service;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import de.akquinet.jbosscc.needle.annotation.InjectIntoMany;
@@ -16,30 +13,12 @@ public class ArtefactServiceImplTest
 extends AbstractServiceBase
 {
 
-    @Rule
-    public ElasticsearchTestNode testNode = new ElasticsearchTestNode();
-
     @ObjectUnderTest
     private ArtefactServiceImpl artefactServiceImpl;
 
     @ObjectUnderTest
     @InjectIntoMany
     private ArtefactDbServiceImpl dbService;
-
-
-    private EmbeddedElasticsearchServer embeddedElasticsearchServer;
-
-    @Before
-    public void startEmbeddedElasticsearchServer()
-    {
-        this.embeddedElasticsearchServer = new EmbeddedElasticsearchServer();
-    }
-
-    @After
-    public void shutdownEmbeddedElasticsearchServer()
-    {
-        this.embeddedElasticsearchServer.shutdown();
-    }
 
     @Test
     public void testRun()
@@ -52,6 +31,7 @@ extends AbstractServiceBase
         Artefact find = this.artefactServiceImpl.find(create.getId());
 
         assertThat(find).isNotNull();
+        assertThat(find.getName()).isEqualTo("name");
     }
 
 }
