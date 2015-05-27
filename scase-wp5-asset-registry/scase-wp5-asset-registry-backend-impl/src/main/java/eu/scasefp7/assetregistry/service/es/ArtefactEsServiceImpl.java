@@ -5,6 +5,7 @@ import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.index.ArtefactIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -13,6 +14,7 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -31,6 +33,9 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
 
     private final static Logger LOG = LoggerFactory.getLogger(ArtefactEsServiceImpl.class);
 
+    @EJB
+    private ArtefactDbService dbService;
+
     @Inject
     ObjectMapper mapper;
 
@@ -41,9 +46,14 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
         final List<Artefact> result = new ArrayList<Artefact>();
         for (SearchHit hit : response.getHits().hits()) {
             try {
-                final Artefact artefact = mapper.readValue(hit.sourceAsString(), Artefact.class);
-                result.add(artefact);
-                LOG.info("found {} because of {}", artefact, hit.getExplanation());
+                final Artefact esArtefact = mapper.readValue(hit.sourceAsString(), Artefact.class);
+                LOG.info("found {} because of {}", esArtefact, hit.getExplanation());
+                final Artefact artefact = dbService.find(esArtefact.getId());
+                if(null!=artefact) {
+                    result.add(artefact);
+                }else{
+                    LOG.warn("Artefact with id " + esArtefact.getId() + "could not be loaded");
+                }
             } catch (IOException e) {
                 LOG.error("reading object failed", e);
             }

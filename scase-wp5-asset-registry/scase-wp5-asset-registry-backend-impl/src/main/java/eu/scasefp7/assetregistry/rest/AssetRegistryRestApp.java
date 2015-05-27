@@ -24,4 +24,8 @@ public class AssetRegistryRestApp extends Application {
     public static final String PART_ARTEFACT = "/artefact/";
     public static final String ARTEFACT = ROOT + BASE + PART_VERSION;
 
+    public static final String PART_DOMAIN = "/domain/";
+
+    public static final String PART_SUBDOMAIN = "/subdomain/";
+
 }
