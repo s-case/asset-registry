@@ -1,11 +1,15 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
-import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
-import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.index.ArtefactIndex;
-import eu.scasefp7.assetregistry.index.IndexType;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -18,15 +22,12 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
 
 /**
  * Service class for Artefact related ElasticSearch operations
@@ -37,9 +38,13 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
 
     private final static Logger LOG = LoggerFactory.getLogger(ArtefactEsServiceImpl.class);
 
+    @EJB
+    private ArtefactDbService dbService;
+
     @Inject
     ObjectMapper mapper;
 
+    @Override
     public List<Artefact> find(final String query) {
         SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType
                 .TYPE_ARTEFACT, query);
@@ -47,9 +52,14 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
         final List<Artefact> result = new ArrayList<Artefact>();
         for (SearchHit hit : response.getHits().hits()) {
             try {
-                final Artefact artefact = mapper.readValue(hit.sourceAsString(), Artefact.class);
-                result.add(artefact);
-                LOG.info("found {} because of {}", artefact, hit.getExplanation());
+                final Artefact esArtefact = this.mapper.readValue(hit.sourceAsString(), Artefact.class);
+                LOG.info("found {} because of {}", esArtefact, hit.getExplanation());
+                final Artefact artefact = this.dbService.find(esArtefact.getId());
+                if(null!=artefact) {
+                    result.add(artefact);
+                }else{
+                    LOG.warn("Artefact with id " + esArtefact.getId() + "could not be loaded");
+                }
             } catch (IOException e) {
                 LOG.error("reading object failed", e);
             }
@@ -57,9 +67,10 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
         return result;
     }
 
+    @Override
     public IndexResponse index(final Artefact artefact) throws IOException {
 
-        Client client = connectorService.getClient();
+        Client client = this.connectorService.getClient();
         String string = artefact.getId().toString();
         IndexRequestBuilder prepareIndex = client.prepareIndex(ArtefactIndex.INDEX_NAME,
                 IndexType.TYPE_ARTEFACT, string);
@@ -71,9 +82,10 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
         return response;
     }
 
+    @Override
     public UpdateResponse update(final Artefact artefact) throws IOException {
 
-        UpdateResponse response = connectorService.getClient().prepareUpdate(ArtefactIndex.INDEX_NAME,
+        UpdateResponse response = this.connectorService.getClient().prepareUpdate(ArtefactIndex.INDEX_NAME,
                 IndexType.TYPE_ARTEFACT, artefact.getId().toString()).setDoc(builder(artefact)).get();
 
         return response;

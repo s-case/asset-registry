@@ -6,6 +6,7 @@ import eu.scasefp7.assetregistry.data.PrivacyLevel;
 import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.index.ProjectIndex;
+import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -14,6 +15,7 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -32,6 +34,9 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
 
     private final static Logger LOG = LoggerFactory.getLogger(ProjectEsServiceImpl.class);
 
+    @EJB
+    private ProjectDbService dbService;
+
     @Inject
     private ObjectMapper mapper;
 
@@ -42,9 +47,15 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
         final List<Project> result = new ArrayList<Project>();
         for (SearchHit hit : response.getHits().hits()) {
             try {
-                final Project project = mapper.readValue(hit.sourceAsString(), Project.class);
-                result.add(project);
-                LOG.info("found {} because of {}", project, hit.getExplanation());
+                final Project esProject = mapper.readValue(hit.sourceAsString(), Project.class);
+                LOG.info("found {} because of {}", esProject, hit.getExplanation());
+                final Project project = dbService.find(esProject.getId());
+                if(null!=project) {
+                    result.add(project);
+                }else{
+                    LOG.warn("Project with id " + esProject.getId() + "could not be loaded");
+                }
+
             } catch (IOException e) {
                 LOG.error("reading object failed", e);
             }
