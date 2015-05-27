@@ -1,13 +1,13 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.scasefp7.assetregistry.data.BaseEntity;
+import java.io.IOException;
+import java.util.List;
+
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 
-import java.io.IOException;
-import java.util.List;
+import eu.scasefp7.assetregistry.data.BaseEntity;
 
 /**
  * Created by missler on 09/04/15.

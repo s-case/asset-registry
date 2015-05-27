@@ -9,9 +9,12 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
+import de.akquinet.jbosscc.needle.annotation.InjectIntoMany;
+import de.akquinet.jbosscc.needle.annotation.ObjectUnderTest;
 import de.akquinet.jbosscc.needle.junit.DatabaseRule;
 import de.akquinet.jbosscc.needle.junit.NeedleRule;
 import de.akquinet.jbosscc.needle.mock.EasyMockProvider;
+import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 
 /**
  * @author Alphonse Bendt
@@ -31,6 +34,10 @@ public class AbstractServiceBase
     protected EasyMockProvider mockProvider = this.needleRule.getMockProvider();
     protected EmbeddedElasticsearchServer embeddedElasticsearchServer;
 
+    @ObjectUnderTest
+    @InjectIntoMany
+    private ElasticSearchConnectorService connectorService;
+
     @Rule
     public final TestRule txWatcher = new TestWatcher() {
         @Override
@@ -48,6 +55,7 @@ public class AbstractServiceBase
     public void setup()
     {
         this.embeddedElasticsearchServer = new EmbeddedElasticsearchServer();
+        this.connectorService.init();
 
         this.mockProvider.resetAllToNice();
 

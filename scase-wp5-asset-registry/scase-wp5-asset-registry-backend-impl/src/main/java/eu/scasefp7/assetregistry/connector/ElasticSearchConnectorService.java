@@ -1,6 +1,10 @@
 package eu.scasefp7.assetregistry.connector;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.enterprise.inject.Produces;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -8,11 +12,7 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.enterprise.inject.Produces;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Singleton
 @Startup
@@ -31,27 +31,29 @@ public class ElasticSearchConnectorService {
 
         LOG.info( "Starting ElasticSearch Connector" );
 
-        final String esServerNode = System.getProperty("es.node");
+        String esServerNode = System.getProperty("es.node");
 
-        client = new TransportClient()
-                .addTransportAddress(new InetSocketTransportAddress(esServerNode, 9300));
+        String hostname = (esServerNode == null) ? "localhost" : esServerNode;
+
+        this.client = new TransportClient()
+                .addTransportAddress(new InetSocketTransportAddress(hostname, 9300));
     }
 
     @Produces
     public Client getClient() {
 
-        return client;
+        return this.client;
     }
 
     @Produces
     public ObjectMapper getMapper(){
 
-        return mapper;
+        return this.mapper;
     }
 
     @PreDestroy
     public void destroy(){
 
-        client.close();
+        this.client.close();
     }
 }

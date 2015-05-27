@@ -1,13 +1,18 @@
 package eu.scasefp7.assetregistry.service.es;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.index.ArtefactIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
+
+import org.elasticsearch.action.ListenableActionFuture;
+import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
@@ -16,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +59,14 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
 
     public IndexResponse index(final Artefact artefact) throws IOException {
 
-        IndexResponse response = connectorService.getClient().prepareIndex(ArtefactIndex.INDEX_NAME,
-                IndexType.TYPE_ARTEFACT, artefact.getId().toString()).setSource(builder(artefact)).execute().actionGet();
+        Client client = connectorService.getClient();
+        String string = artefact.getId().toString();
+        IndexRequestBuilder prepareIndex = client.prepareIndex(ArtefactIndex.INDEX_NAME,
+                IndexType.TYPE_ARTEFACT, string);
+        XContentBuilder builder = builder(artefact);
+        IndexRequestBuilder setSource = prepareIndex.setSource(builder);
+        ListenableActionFuture<IndexResponse> execute = setSource.execute();
+        IndexResponse response = execute.actionGet();
 
         return response;
     }
