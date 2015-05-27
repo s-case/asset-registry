@@ -1,25 +1,27 @@
 package eu.scasefp7.assetregistry.service;
 
-import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.index.IndexType;
-import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
-import eu.scasefp7.assetregistry.service.es.ArtefactEsService;
-import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
-import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
-import eu.scasefp7.assetregistry.index.ArtefactIndex;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import java.util.List;
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
+import eu.scasefp7.assetregistry.service.es.ArtefactEsService;
+import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
+import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
 
 /**
  * Created by missler on 16/03/15.
  */
 @Stateless
 @Local(ArtefactService.class)
-public class ArtefactServiceImpl implements ArtefactService {
+public class ArtefactServiceImpl
+        implements ArtefactService
+{
 
     @EJB
     private ArtefactDbService dbService;
@@ -28,50 +30,62 @@ public class ArtefactServiceImpl implements ArtefactService {
     private ArtefactEsService esService;
 
     @Override
-    public Artefact find(long id){
-        Artefact artefact = dbService.find(id);
+    public Artefact find(long id)
+    {
+        Artefact artefact = this.dbService.find(id);
         return artefact;
     }
 
     @Override
-    public List<Artefact> find(String query){
-        List<Artefact> artefacts = esService.find(query);
+    public List<Artefact> find(String query)
+    {
+        List<Artefact> artefacts = this.esService.find(query);
         return artefacts;
     }
 
     @Override
-    public Artefact create(Artefact artefact){
+    public Artefact create(final Artefact artefact)
+    {
+
+        Artefact create;
+        try {
+            create = this.dbService.create(artefact);
+        } catch (Throwable thrown) {
+            throw new NotCreatedException(Artefact.class, 0, thrown);
+        }
 
         try {
-            artefact = dbService.create(artefact);
-            esService.index(artefact);
+            this.esService.index(create);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Artefact.class,artefact.getId(),thrown);
+            throw new NotCreatedException(Artefact.class, artefact.getId(), thrown);
         }
 
+        return create;
+    }
+
+    @Override
+    public Artefact update(Artefact artefact)
+    {
+        try {
+            artefact = this.dbService.update(artefact);
+            this.esService.update(artefact);
+        } catch (Throwable thrown) {
+            throw new NotUpdatedException(Artefact.class, artefact.getId(), thrown);
+        }
         return artefact;
     }
 
     @Override
-    public Artefact update(Artefact artefact){
-        try{
-            artefact = dbService.update(artefact);
-            esService.update(artefact);
-        }catch(Throwable thrown){
-            throw new NotUpdatedException(Artefact.class,artefact.getId(),thrown);
-        }
-        return artefact;
+    public void delete(long id)
+    {
+        this.esService.delete(id, ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT);
+        this.dbService.delete(id);
     }
 
     @Override
-    public void delete(long id){
-        esService.delete(id, ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT);
-        dbService.delete(id);
-    }
-
-    @Override
-    public void delete(Artefact artefact){
-        esService.delete(artefact, ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT);
-        dbService.delete(artefact);
+    public void delete(Artefact artefact)
+    {
+        this.esService.delete(artefact, ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT);
+        this.dbService.delete(artefact);
     }
 }
