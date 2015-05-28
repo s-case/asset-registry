@@ -30,7 +30,7 @@ import static eu.scasefp7.assetregistry.rest.ResourceTools.redirect;
 @Produces( "application/json;charset=UTF-8" )
 @Consumes("application/json")
 @Stateless
-public class ProjectResource extends Application{
+public class ProjectResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProjectResource.class);
 

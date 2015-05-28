@@ -34,7 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Project findByName(String name){
-        Project project = dbService.find(name);
+        Project project = dbService.findByName(name);
         return project;
     }
 
@@ -76,7 +76,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(String name) {
-        Project project = dbService.find(name);
+        Project project = dbService.findByName(name);
         if (null != project) {
             this.delete(project.getId());
         } else {
