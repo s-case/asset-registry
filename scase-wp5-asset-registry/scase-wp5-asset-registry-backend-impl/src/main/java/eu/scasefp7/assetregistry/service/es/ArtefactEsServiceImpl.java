@@ -51,17 +51,11 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
 
         final List<Artefact> result = new ArrayList<Artefact>();
         for (SearchHit hit : response.getHits().hits()) {
-            try {
-                final Artefact esArtefact = this.mapper.readValue(hit.sourceAsString(), Artefact.class);
-                LOG.info("found {} because of {}", esArtefact, hit.getExplanation());
-                final Artefact artefact = this.dbService.find(esArtefact.getId());
-                if(null!=artefact) {
-                    result.add(artefact);
-                }else{
-                    LOG.warn("Artefact with id " + esArtefact.getId() + "could not be loaded");
-                }
-            } catch (IOException e) {
-                LOG.error("reading object failed", e);
+            final Artefact artefact = this.dbService.find(Long.valueOf(hit.getId()));
+            if (null != artefact) {
+                result.add(artefact);
+            } else {
+                LOG.warn("Artefact with id " + hit.getId() + "could not be loaded");
             }
         }
         return result;

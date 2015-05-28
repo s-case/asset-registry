@@ -1,5 +1,6 @@
 package eu.scasefp7.assetregistry.service;
 
+import javax.inject.Inject;
 import javax.persistence.EntityTransaction;
 
 import org.junit.After;
@@ -9,8 +10,6 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import de.akquinet.jbosscc.needle.annotation.InjectIntoMany;
-import de.akquinet.jbosscc.needle.annotation.ObjectUnderTest;
 import de.akquinet.jbosscc.needle.junit.DatabaseRule;
 import de.akquinet.jbosscc.needle.junit.NeedleRule;
 import de.akquinet.jbosscc.needle.mock.EasyMockProvider;
@@ -22,8 +21,8 @@ import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 public class AbstractServiceBase
 {
 
-    @Rule
-    public ElasticsearchTestNode testNode = new ElasticsearchTestNode();
+//    @Rule
+//    public ElasticsearchTestNode testNode = new ElasticsearchTestNode();
 
     @Rule
     public final DatabaseRule databaseRule = new DatabaseRule();
@@ -34,9 +33,10 @@ public class AbstractServiceBase
     protected EasyMockProvider mockProvider = this.needleRule.getMockProvider();
     protected EmbeddedElasticsearchServer embeddedElasticsearchServer;
 
-    @ObjectUnderTest
-    @InjectIntoMany
-    private ElasticSearchConnectorService connectorService;
+//    @ObjectUnderTest
+//    @InjectIntoMany
+    @Inject
+    protected ElasticSearchConnectorService connectorService;
 
     @Rule
     public final TestRule txWatcher = new TestWatcher() {

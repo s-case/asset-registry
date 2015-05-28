@@ -21,7 +21,7 @@ public class NotCreatedException extends ScaseException {
      * @param id    primary key
      */
     public NotCreatedException(Class<? extends BaseEntity> clazz, long id, Throwable thrown) {
-        super(clazz.getSimpleName() + " with ID " + id + " could not be stored inside of the Asset Registry." + System.getProperty("line.separator") + thrown.getMessage());
+        super(clazz.getSimpleName() + " with ID " + id + " could not be stored inside of the Asset Registry.", thrown);
         this.clazz = clazz;
         this.id = id;
     }

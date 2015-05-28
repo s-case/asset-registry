@@ -10,7 +10,8 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.node.Node;
 
-public class EmbeddedElasticsearchServer {
+public class EmbeddedElasticsearchServer
+{
 
     private static final String DEFAULT_DATA_DIRECTORY = "target/elasticsearch-data";
 
@@ -25,25 +26,26 @@ public class EmbeddedElasticsearchServer {
         this.dataDirectory = dataDirectory;
 
         ImmutableSettings.Builder elasticsearchSettings = ImmutableSettings.settingsBuilder()
-                .put("http.enabled", "false")
+                .put("http.enabled", "true")
+                .put("http.host", "localhost")
                 .put("path.data", dataDirectory);
 
-        this.node = nodeBuilder()
-                .local(true)
-                .settings(elasticsearchSettings.build())
-                .node();
+        this.node = nodeBuilder().local(true).settings(elasticsearchSettings.build()).node();
     }
 
-    public Client getClient() {
+    public Client getClient()
+    {
         return this.node.client();
     }
 
-    public void shutdown() {
+    public void shutdown()
+    {
         this.node.close();
         deleteDataDirectory();
     }
 
-    private void deleteDataDirectory() {
+    private void deleteDataDirectory()
+    {
         try {
             FileUtils.deleteDirectory(new File(this.dataDirectory));
         } catch (IOException e) {
