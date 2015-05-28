@@ -5,10 +5,10 @@ package eu.scasefp7.assetregistry.index;
  */
 public class ProjectIndex extends BaseIndex {
 
-    public static final String INDEX_NAME = "PROJECT_INDEX";
+    public static final String INDEX_NAME = "project_index";
 
-    public static final String PRIVACY_LEVEL_FIELD = "PRIVACY_LEVEL";
-    public static final String DOMAIN_FIELD = "DOMAIN";
-    public static final String SUBDOMAIN_FIELD = "SUBDOMAIN";
-    public static final String ARTEFACTS_FIELD = "ARTEFACTS";
+    public static final String PRIVACY_LEVEL_FIELD = "privacy_level";
+    public static final String DOMAIN_FIELD = "domain";
+    public static final String SUBDOMAIN_FIELD = "subdomain";
+    public static final String ARTEFACTS_FIELD = "artefacts";
 }

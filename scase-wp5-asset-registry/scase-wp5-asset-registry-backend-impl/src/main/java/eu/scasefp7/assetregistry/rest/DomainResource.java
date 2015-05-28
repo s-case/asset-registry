@@ -18,7 +18,7 @@ import java.util.List;
 @Produces( "application/json;charset=UTF-8" )
 @Consumes("application/json")
 @Stateless
-public class DomainResource extends Application {
+public class DomainResource {
 
     @EJB
     private DomainDbService service;

@@ -33,7 +33,7 @@ public class Project extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = true)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Artefact> artefacts = new ArrayList<Artefact>();
+    private List<Artefact> artefacts;
 
     public String getName() {
         return name;
@@ -52,6 +52,11 @@ public class Project extends BaseEntity {
     }
 
     public List<Artefact> getArtefacts() {
+
+        if(null==artefacts){
+            artefacts = new ArrayList<Artefact>();
+        }
+
         return artefacts;
     }
 

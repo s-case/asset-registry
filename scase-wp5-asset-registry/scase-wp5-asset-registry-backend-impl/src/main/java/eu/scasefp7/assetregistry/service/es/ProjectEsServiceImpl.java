@@ -96,18 +96,21 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     }
 
     private XContentBuilder builder(Project project) throws IOException {
+        Long[] artefactIds = null;
 
-        Long[] artefactIds = new Long[project.getArtefacts().size()];
+        if(null!=project.getArtefacts()) {
+            artefactIds = new Long[project.getArtefacts().size()];
             List<Artefact> artefacts = project.getArtefacts();
             for (int i = 0; i < artefacts.size(); i++) {
                 artefactIds[i] = artefacts.get(i).getId();
             }
+        }
 
         XContentBuilder builder = jsonBuilder().startObject()
                 .field(ProjectIndex.NAME_FIELD, project.getName())
                 .field(ProjectIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel())
-                .field(ProjectIndex.DOMAIN_FIELD, project.getDomain().getName())
-                .field(ProjectIndex.SUBDOMAIN_FIELD, project.getSubDomain().getName())
+                .field(ProjectIndex.DOMAIN_FIELD, (null!=project.getDomain() ? project.getDomain().getName() : null))
+                .field(ProjectIndex.SUBDOMAIN_FIELD, ( null!= project.getSubDomain() ?project.getSubDomain().getName(): null))
                 .field(ProjectIndex.CREATED_BY_FIELD, project.getCreatedBy())
                 .field(ProjectIndex.UPDATED_BY_FIELD, project.getUpdatedBy())
                 .field(ProjectIndex.CREATED_AT_FIELD, project.getCreatedAt())

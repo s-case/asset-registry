@@ -28,8 +28,9 @@ public class ProjectDbServiceImpl extends BaseCrudDbServiceImpl<Project> impleme
         return Project.class;
     }
 
-    public Project find(String name){
-        TypedQuery<Project> query = entityManager.createQuery("SELECT p FROM Project p WHERE p.name = :name",Project.class).setParameter(name,name);
+    @Override
+    public Project findByName(String name){
+        TypedQuery<Project> query = entityManager.createQuery("SELECT p FROM Project p WHERE p.name = :name",Project.class).setParameter("name",name);
         List<Project> result = query.getResultList();
         if(result.isEmpty()){
             return null;

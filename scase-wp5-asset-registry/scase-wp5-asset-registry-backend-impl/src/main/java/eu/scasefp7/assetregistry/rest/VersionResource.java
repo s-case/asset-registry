@@ -12,9 +12,7 @@ import javax.ws.rs.Path;
  *
  */
 @Path( AssetRegistryRestApp.PART_VERSION)
-public final class VersionResource {
-
-    private VersionResource() {}
+public class VersionResource {
 
     @Inject
     VersionServiceImpl versionService;
