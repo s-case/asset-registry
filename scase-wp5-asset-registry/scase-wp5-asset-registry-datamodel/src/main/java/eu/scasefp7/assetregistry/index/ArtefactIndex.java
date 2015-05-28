@@ -5,13 +5,13 @@ package eu.scasefp7.assetregistry.index;
  */
 public class ArtefactIndex extends BaseIndex {
 
-    public static final String INDEX_NAME = "ARTEFACT_INDEX";
+    public static final String INDEX_NAME = "artefact_index";
 
-    public static final String URI_FIELD = "URI";
-    public static final String GROUPID_FIELD = "GROUPID";
-    public static final String DEPENDENCIES_FIELD = "DEPENDENCIES";
-    public static final String ARTEFACT_TYPE_FIELD = "ARTEFACT_TYPE";
-    public static final String DESCRIPTION_FIELD = "DESCRIPTION";
-    public static final String TAGS_FIELD = "TAGS";
-    public static final String METADATA_FIELD = "METADATA";
+    public static final String URI_FIELD = "uri";
+    public static final String GROUPID_FIELD = "groupid";
+    public static final String DEPENDENCIES_FIELD = "dependencies";
+    public static final String ARTEFACT_TYPE_FIELD = "artefact_type";
+    public static final String DESCRIPTION_FIELD = "description";
+    public static final String TAGS_FIELD = "tags";
+    public static final String METADATA_FIELD = "metadata";
 }

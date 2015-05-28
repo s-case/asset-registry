@@ -5,6 +5,6 @@ package eu.scasefp7.assetregistry.index;
  */
 public class IndexType {
 
-    public static final String TYPE_ARTEFACT = "Artefact";
-    public static final String TYPE_PROJECT = "Project";
+    public static final String TYPE_ARTEFACT = "artefact";
+    public static final String TYPE_PROJECT = "project";
 }

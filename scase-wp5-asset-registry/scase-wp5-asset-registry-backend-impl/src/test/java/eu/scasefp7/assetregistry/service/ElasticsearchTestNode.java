@@ -27,7 +27,7 @@ public class ElasticsearchTestNode extends ExternalResource {
 
         ImmutableSettings.Builder elasticsearchSettings = ImmutableSettings.settingsBuilder()
                 .put("http.enabled", "true")
-                .put("http.port", "9300")
+                .put("http.host", "localhost")
                 .put("path.data", this.dataDirectory.toString());
 
         this.node = NodeBuilder.nodeBuilder()

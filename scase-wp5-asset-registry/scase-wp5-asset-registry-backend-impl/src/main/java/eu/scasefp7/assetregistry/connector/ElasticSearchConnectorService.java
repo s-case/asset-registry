@@ -8,6 +8,8 @@ import javax.enterprise.inject.Produces;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +37,10 @@ public class ElasticSearchConnectorService {
 
         String hostname = (esServerNode == null) ? "localhost" : esServerNode;
 
-        this.client = new TransportClient()
+        Settings settings = ImmutableSettings.settingsBuilder()
+                .build();
+
+        this.client = new TransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress(hostname, 9300));
     }
 
