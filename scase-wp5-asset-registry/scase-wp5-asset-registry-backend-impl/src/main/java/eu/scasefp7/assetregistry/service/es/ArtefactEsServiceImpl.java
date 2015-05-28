@@ -11,6 +11,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -41,19 +42,18 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     @EJB
     private ArtefactDbService dbService;
 
-    @Inject
-    ObjectMapper mapper;
-
-    @Override
-    public List<Artefact> find(final String query) {
+    public List<ArtefactDTO> find(final String query) {
         SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType
                 .TYPE_ARTEFACT, query);
 
-        final List<Artefact> result = new ArrayList<Artefact>();
+        final List<ArtefactDTO> result = new ArrayList<ArtefactDTO>();
         for (SearchHit hit : response.getHits().hits()) {
             final Artefact artefact = this.dbService.find(Long.valueOf(hit.getId()));
             if (null != artefact) {
-                result.add(artefact);
+                ArtefactDTO dto = new ArtefactDTO();
+                dto.setArtefact(artefact);
+                dto.setScore(hit.getScore());
+                result.add(dto);
             } else {
                 LOG.warn("Artefact with id " + hit.getId() + "could not be loaded");
             }

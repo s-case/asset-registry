@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.PrivacyLevel;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.index.ProjectIndex;
 import eu.scasefp7.assetregistry.service.db.ProjectDbService;
@@ -37,29 +38,26 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     @EJB
     private ProjectDbService dbService;
 
-    @Inject
-    private ObjectMapper mapper;
-
-    public List<Project> find(final String query) {
+    public List<ProjectDTO> find(final String query) {
         SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, IndexType
                 .TYPE_PROJECT, query);
 
-        final List<Project> result = new ArrayList<Project>();
+        final List<ProjectDTO> result = new ArrayList<ProjectDTO>();
         for (SearchHit hit : response.getHits().hits()) {
-            try {
-                final Project esProject = mapper.readValue(hit.sourceAsString(), Project.class);
-                LOG.info("found {} because of {}", esProject, hit.getExplanation());
-                final Project project = dbService.find(esProject.getId());
-                if(null!=project) {
-                    result.add(project);
-                }else{
-                    LOG.warn("Project with id " + esProject.getId() + "could not be loaded");
-                }
 
-            } catch (IOException e) {
-                LOG.error("reading object failed", e);
-            }
-        }
+                String projectId = hit.getId();
+                LOG.info("found {} because of {}", projectId, hit.getExplanation());
+
+                final Project project = dbService.find(new Long(projectId));
+                if(null!=project) {
+                    ProjectDTO dto = new ProjectDTO();
+                    dto.setProject(project);
+                    dto.setScore(hit.getScore());
+                    result.add(dto);
+                }else{
+                    LOG.warn("Project with id " + projectId + "could not be loaded");
+                }
+       }
         return result;
     }
 

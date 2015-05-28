@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 import eu.scasefp7.assetregistry.service.es.ProjectEsService;
@@ -39,8 +40,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> find(String query) {
-        List<Project> projects = esService.find(query);
+    public List<ProjectDTO> find(String query) {
+        List<ProjectDTO> projects = esService.find(query);
         return projects;
     }
 

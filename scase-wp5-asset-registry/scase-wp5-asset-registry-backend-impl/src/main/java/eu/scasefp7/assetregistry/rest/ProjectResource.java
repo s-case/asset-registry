@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.rest;
 
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.service.ProjectService;
 
 import org.slf4j.Logger;
@@ -65,9 +66,9 @@ public class ProjectResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Project> searchProjects(@QueryParam("q") final String query) {
+    public List<ProjectDTO> searchProjects(@QueryParam("q") final String query) {
         LOG.info("search '{}'", query);
-        final List<Project> projects = projectService.find(query);
+        final List<ProjectDTO> projects = projectService.find(query);
         return projects;
     }
 

@@ -13,7 +13,6 @@ import eu.scasefp7.assetregistry.data.BaseEntity;
  * Created by missler on 09/04/15.
  */
 public interface AbstractEsService<E extends BaseEntity> {
-    List<E> find(String query);
 
     IndexResponse index(E entity) throws IOException;
 

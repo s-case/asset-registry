@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.ProjectDTO;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface ProjectService {
 
     Project findByName(String name);
 
-    List<Project> find(String query);
+    List<ProjectDTO> find(String query);
 
     Project create(Project project);
 

@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public interface ArtefactService {
     Artefact find(long id);
 
-    List<Artefact> find(String query);
+    List<ArtefactDTO> find(String query);
 
     Artefact create(Artefact artefact);
 

@@ -3,6 +3,7 @@ package eu.scasefp7.assetregistry.rest;
 
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.service.ArtefactService;
 
 import eu.scasefp7.assetregistry.service.ProjectService;
@@ -78,9 +79,9 @@ public class ArtefactResource {
     @GET
     @Path("search")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Artefact> searchArtefacts(@QueryParam("q") final String query) {
+    public List<ArtefactDTO> searchArtefacts(@QueryParam("q") final String query) {
         LOG.info("search '{}'", query);
-        final List<Artefact> artefacts = artefactService.find(query);
+        final List<ArtefactDTO> artefacts = artefactService.find(query);
         return artefacts;
     }
 

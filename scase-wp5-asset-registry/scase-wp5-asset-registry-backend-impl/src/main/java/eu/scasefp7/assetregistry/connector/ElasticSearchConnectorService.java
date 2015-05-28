@@ -25,7 +25,7 @@ public class ElasticSearchConnectorService {
     private Client client;
 
     // instance of a json mapper
-    private ObjectMapper mapper;
+   // private ObjectMapper mapper;
 
     @SuppressWarnings("resource")
     @PostConstruct
@@ -34,11 +34,12 @@ public class ElasticSearchConnectorService {
         LOG.info( "Starting ElasticSearch Connector" );
 
         String esServerNode = System.getProperty("es.node");
+        String esServerClusterName = System.getProperty("es.clustername");
 
         String hostname = (esServerNode == null) ? "localhost" : esServerNode;
-
+        String clustername = (esServerClusterName == null) ? "elasticsearch" : esServerClusterName;
         Settings settings = ImmutableSettings.settingsBuilder()
-                .build();
+                .put("cluster.name", clustername).build();
 
         this.client = new TransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress(hostname, 9300));
@@ -50,11 +51,13 @@ public class ElasticSearchConnectorService {
         return this.client;
     }
 
+    /**
     @Produces
     public ObjectMapper getMapper(){
 
         return this.mapper;
     }
+    **/
 
     @PreDestroy
     public void destroy(){

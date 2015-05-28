@@ -4,6 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
+import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import org.easymock.EasyMock;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -86,10 +87,10 @@ public class ArtefactServiceImplTest
 //                setExplain(true).execute()
 //                .actionGet();
 
-         List<Artefact> find = this.artefactServiceImpl.find(qb.toString());
+         List<ArtefactDTO> find = this.artefactServiceImpl.find(qb.toString());
 
          assertThat(find).hasSize(1);
-         assertThat(find.get(0).getName()).isEqualTo("dog");
+         assertThat(find.get(0).getArtefact().getName()).isEqualTo("dog");
 
         this.mockProvider.verifyAll();
     }

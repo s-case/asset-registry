@@ -7,6 +7,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.index.ArtefactIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
@@ -37,9 +38,9 @@ public class ArtefactServiceImpl
     }
 
     @Override
-    public List<Artefact> find(String query)
+    public List<ArtefactDTO> find(String query)
     {
-        List<Artefact> artefacts = this.esService.find(query);
+        List<ArtefactDTO> artefacts = this.esService.find(query);
         return artefacts;
     }
 
