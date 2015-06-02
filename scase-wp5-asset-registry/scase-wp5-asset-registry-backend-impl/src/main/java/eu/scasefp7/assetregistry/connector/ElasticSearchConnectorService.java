@@ -24,9 +24,6 @@ public class ElasticSearchConnectorService {
 
     private Client client;
 
-    // instance of a json mapper
-   // private ObjectMapper mapper;
-
     @SuppressWarnings("resource")
     @PostConstruct
     public void init(){
@@ -50,14 +47,6 @@ public class ElasticSearchConnectorService {
 
         return this.client;
     }
-
-    /**
-    @Produces
-    public ObjectMapper getMapper(){
-
-        return this.mapper;
-    }
-    **/
 
     @PreDestroy
     public void destroy(){

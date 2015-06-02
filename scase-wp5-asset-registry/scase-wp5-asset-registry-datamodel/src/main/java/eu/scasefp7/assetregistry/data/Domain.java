@@ -32,6 +32,12 @@ public class Domain implements Serializable {
     @Version
     private Long version;
 
+    @Column(name = "NAME")
+    private String name;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "domain")
+    private List<SubDomain> subdomains;
+
     public Long getVersion() {
         return version;
     }
@@ -47,12 +53,6 @@ public class Domain implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    @Column(name = "NAME")
-    private String name;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<SubDomain> subdomains;
 
     public String getName() {
         return name;

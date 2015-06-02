@@ -32,7 +32,9 @@ public class DomainResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Domain find( @PathParam("id") long id ) {
-        return this.service.findDomain(id);
+
+        Domain domain = service.findDomain(id);
+        return domain;
     }
 
     /**
