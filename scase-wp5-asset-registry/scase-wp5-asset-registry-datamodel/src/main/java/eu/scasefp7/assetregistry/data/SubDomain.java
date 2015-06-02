@@ -1,11 +1,14 @@
 package eu.scasefp7.assetregistry.data;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -29,26 +32,12 @@ public class SubDomain implements Serializable {
     @Version
     private Long version;
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Column(name = "NAME")
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name ="domainId")
+    @JsonBackReference
     private Domain domain;
 
     public String getName() {
@@ -65,6 +54,22 @@ public class SubDomain implements Serializable {
 
     public void setDomain(Domain domain) {
         this.domain = domain;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
