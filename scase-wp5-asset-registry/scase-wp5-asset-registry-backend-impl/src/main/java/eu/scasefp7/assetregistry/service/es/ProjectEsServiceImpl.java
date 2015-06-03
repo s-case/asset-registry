@@ -108,7 +108,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
                 .field(ProjectIndex.NAME_FIELD, project.getName())
                 .field(ProjectIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel())
                 .field(ProjectIndex.DOMAIN_FIELD, (null!=project.getDomain() ? project.getDomain().getName() : null))
-                .field(ProjectIndex.SUBDOMAIN_FIELD, ( null!= project.getSubDomain() ?project.getSubDomain().getName(): null))
+                .field(ProjectIndex.SUBDOMAIN_FIELD, ( null!= project.getSubDomain() ? project.getSubDomain().getName(): null))
                 .field(ProjectIndex.CREATED_BY_FIELD, project.getCreatedBy())
                 .field(ProjectIndex.UPDATED_BY_FIELD, project.getUpdatedBy())
                 .field(ProjectIndex.CREATED_AT_FIELD, project.getCreatedAt())

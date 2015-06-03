@@ -53,6 +53,9 @@ public abstract class BaseEntity
     @ManyToOne(fetch = FetchType.EAGER)
     private SubDomain subDomain;
 
+    @Column(name = "PRIVACYLEVEL")
+    private PrivacyLevel privacyLevel;
+
     @XmlElement
     @Version
     private Long version;
@@ -117,6 +120,14 @@ public abstract class BaseEntity
         this.subDomain = subDomain;
     }
 
+    public PrivacyLevel getPrivacyLevel() {
+        return privacyLevel;
+    }
+
+    public void setPrivacyLevel(PrivacyLevel privacyLevel) {
+        this.privacyLevel = privacyLevel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,6 +142,7 @@ public abstract class BaseEntity
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (domain != null ? !domain.equals(that.domain) : that.domain != null) return false;
         if (subDomain != null ? !subDomain.equals(that.subDomain) : that.subDomain != null) return false;
+        if (privacyLevel != that.privacyLevel) return false;
         return !(version != null ? !version.equals(that.version) : that.version != null);
 
     }
@@ -144,6 +156,7 @@ public abstract class BaseEntity
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (domain != null ? domain.hashCode() : 0);
         result = 31 * result + (subDomain != null ? subDomain.hashCode() : 0);
+        result = 31 * result + (privacyLevel != null ? privacyLevel.hashCode() : 0);
         result = 31 * result + (version != null ? version.hashCode() : 0);
         return result;
     }

@@ -9,6 +9,8 @@ import eu.scasefp7.assetregistry.service.exception.NameNotFoundException;
 import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
 import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
 import eu.scasefp7.assetregistry.index.ProjectIndex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -21,6 +23,8 @@ import java.util.List;
 @Stateless
 @Local(ProjectService.class)
 public class ProjectServiceImpl implements ProjectService {
+
+    private final static Logger LOG = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     @EJB
     private ProjectDbService dbService;
@@ -77,7 +81,15 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(String name) {
-        Project project = dbService.findByName(name);
+        Project project = null;
+        try {
+            long id = Long.parseLong(name);
+            project = dbService.find(id);
+        } catch(NumberFormatException e){
+            LOG.warn("Value " + name +" could not be parsed into a number. Trying to find the project by name.");
+            project = dbService.findByName(name);
+        }
+
         if (null != project) {
             this.delete(project.getId());
         } else {

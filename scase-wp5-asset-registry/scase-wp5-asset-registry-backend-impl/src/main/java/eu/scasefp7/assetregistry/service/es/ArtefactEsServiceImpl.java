@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
+import eu.scasefp7.assetregistry.index.ProjectIndex;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -89,11 +90,13 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
 
         XContentBuilder builder = jsonBuilder().startObject()
                 .field(ArtefactIndex.NAME_FIELD, artefact.getName())
+                .field(ArtefactIndex.PRIVACY_LEVEL_FIELD, artefact.getPrivacyLevel())
                 .field(ArtefactIndex.CREATED_BY_FIELD, artefact.getCreatedBy())
                 .field(ArtefactIndex.UPDATED_BY_FIELD, artefact.getUpdatedBy())
                 .field(ArtefactIndex.CREATED_AT_FIELD, artefact.getCreatedBy())
                 .field(ArtefactIndex.UPDATED_AT_FIELD, artefact.getUpdatedAt())
                 .field(ArtefactIndex.VERSION_FIELD, artefact.getVersion())
+                .field(ArtefactIndex.PROJECT_NAME, artefact.getProjectName())
                 .field(ArtefactIndex.URI_FIELD, artefact.getUri())
                 .field(ArtefactIndex.GROUPID_FIELD, artefact.getGroupId())
                 .array(ArtefactIndex.DEPENDENCIES_FIELD, artefact.getDependencies().toArray(new Long[artefact
@@ -102,6 +105,8 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 .field(ArtefactIndex.DESCRIPTION_FIELD, artefact.getDescription())
                 .array(ArtefactIndex.TAGS_FIELD, artefact.getTags().toArray(new String[artefact.getTags().size()]))
                 .field(ArtefactIndex.METADATA_FIELD, artefact.getMetadata())
+                .field(ArtefactIndex.DOMAIN_FIELD,(null!=artefact.getDomain() ? artefact.getDomain().getName() : null))
+                .field(ArtefactIndex.SUBDOMAIN_FIELD,(null!=artefact.getSubDomain() ? artefact.getSubDomain().getName() : null))
                 .endObject();
 
         return builder;

@@ -26,10 +26,6 @@ public class Project extends BaseEntity {
     @Column(name = "PROJECTNAME", nullable = false)
     private String name;
 
-    @Column(name = "PRIVACYLEVEL")
-    private PrivacyLevel privacyLevel;
-
-
     @OneToMany(cascade = CascadeType.ALL)
     @Column(nullable = true)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -41,14 +37,6 @@ public class Project extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public PrivacyLevel getPrivacyLevel() {
-        return privacyLevel;
-    }
-
-    public void setPrivacyLevel(PrivacyLevel privacyLevel) {
-        this.privacyLevel = privacyLevel;
     }
 
     public List<Artefact> getArtefacts() {
@@ -73,7 +61,6 @@ public class Project extends BaseEntity {
         Project project = (Project) o;
 
         if (name != null ? !name.equals(project.name) : project.name != null) return false;
-        if (privacyLevel != project.privacyLevel) return false;
         return !(artefacts != null ? !artefacts.equals(project.artefacts) : project.artefacts != null);
 
     }
@@ -82,7 +69,6 @@ public class Project extends BaseEntity {
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (privacyLevel != null ? privacyLevel.hashCode() : 0);
         result = 31 * result + (artefacts != null ? artefacts.hashCode() : 0);
         return result;
     }

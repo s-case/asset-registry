@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -92,10 +93,11 @@ public class ArtefactResource {
      * @throws URISyntaxException
      */
     @POST
-    public Response create(@QueryParam("projectId") long projectId, Artefact artefact ) throws URISyntaxException {
-        final Project project = this.projectService.find(projectId);
+    public Response create(Artefact artefact) throws URISyntaxException {
+
+        final Project project = this.projectService.findByName(artefact.getProjectName());
         if(null== project) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Project with ID" + projectId + " could not be found inside of the Artefact Repository").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Project with ID" + artefact.getProjectName() + " could not be found inside of the Artefact Repository").build();
 
         }
             final Artefact created = this.artefactService.create( artefact );

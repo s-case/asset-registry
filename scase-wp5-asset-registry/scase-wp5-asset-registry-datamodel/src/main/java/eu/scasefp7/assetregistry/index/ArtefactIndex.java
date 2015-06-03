@@ -7,6 +7,7 @@ public class ArtefactIndex extends BaseIndex {
 
     public static final String INDEX_NAME = "artefact_index";
 
+    public static final String PROJECT_NAME = "projectname";
     public static final String URI_FIELD = "uri";
     public static final String GROUPID_FIELD = "groupid";
     public static final String DEPENDENCIES_FIELD = "dependencies";

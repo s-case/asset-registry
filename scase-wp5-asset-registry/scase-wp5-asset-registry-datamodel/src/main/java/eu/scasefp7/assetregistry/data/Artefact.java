@@ -8,6 +8,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,9 @@ import java.util.Map;
 public class Artefact extends BaseEntity {
 
     private static final long serialVersionUID = -8329957242653476838L;
+
+    @Column(name = "PROJECTNAME")
+    private String projectName;
 
     @Column(name = "URI")
     private String uri;
@@ -55,6 +59,14 @@ public class Artefact extends BaseEntity {
     @Column(name = "PAYLOAD")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<ArtefactPayload> payload = new ArrayList<ArtefactPayload>();
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 
     public String getUri() {
 
@@ -147,6 +159,8 @@ public class Artefact extends BaseEntity {
 
         Artefact artefact = (Artefact) o;
 
+        if (projectName != null ? !projectName.equals(artefact.projectName) : artefact.projectName != null)
+            return false;
         if (uri != null ? !uri.equals(artefact.uri) : artefact.uri != null) return false;
         if (groupId != null ? !groupId.equals(artefact.groupId) : artefact.groupId != null) return false;
         if (name != null ? !name.equals(artefact.name) : artefact.name != null) return false;
@@ -164,6 +178,7 @@ public class Artefact extends BaseEntity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
+        result = 31 * result + (projectName != null ? projectName.hashCode() : 0);
         result = 31 * result + (uri != null ? uri.hashCode() : 0);
         result = 31 * result + (groupId != null ? groupId.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);

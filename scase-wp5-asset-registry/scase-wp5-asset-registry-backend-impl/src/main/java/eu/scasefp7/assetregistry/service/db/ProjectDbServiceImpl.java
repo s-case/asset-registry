@@ -48,8 +48,8 @@ public class ProjectDbServiceImpl extends BaseCrudDbServiceImpl<Project> impleme
         loaded.setSubDomain(entity.getSubDomain());
         loaded.setUpdatedAt(new Date());
         loaded.setArtefacts(entity.getArtefacts());
-
-        return loaded;
+        Project updated = entityManager.merge(loaded);
+        return updated;
     }
 
     @Override
