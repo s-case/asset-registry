@@ -1,8 +1,12 @@
 package eu.scasefp7.assetregistry.service;
 
+import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.JsonArtefact;
+import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.service.db.DomainDbService;
 import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 import eu.scasefp7.assetregistry.service.es.ProjectEsService;
 import eu.scasefp7.assetregistry.service.exception.NameNotFoundException;
@@ -28,6 +32,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @EJB
     private ProjectDbService dbService;
+
+    @EJB
+    private DomainDbService domainDbService;
+
+    @EJB
+    private ArtefactService artefactService;
 
     @EJB
     private ProjectEsService esService;
@@ -101,5 +111,67 @@ public class ProjectServiceImpl implements ProjectService {
     public void delete(Project project) {
         esService.delete(project, ProjectIndex.INDEX_NAME, IndexType.TYPE_PROJECT);
         dbService.delete(project);
+    }
+
+    @Override
+    public Project convertJsonToEntity(JsonProject jsonProject){
+        Project project = new Project();
+
+        project.setId(jsonProject.getId());
+        project.setCreatedAt(jsonProject.getCreatedAt());
+        project.setCreatedBy(jsonProject.getCreatedBy());
+        project.setUpdatedAt(jsonProject.getUpdatedAt());
+        project.setUpdatedBy(jsonProject.getUpdatedBy());
+        project.setVersion(jsonProject.getVersion());
+
+        if(null!=jsonProject.getDomain()) {
+            domainDbService.findDomainByName(jsonProject.getDomain());
+        }
+        if(null!=jsonProject.getSubDomain()) {
+            domainDbService.findSubDomainByName(jsonProject.getSubDomain());
+        }
+
+        project.setName(jsonProject.getName());
+        project.setPrivacyLevel(jsonProject.getPrivacyLevel());
+
+        if(null!=jsonProject.getArtefacts()){
+            List<JsonArtefact> jsonArtefacts = jsonProject.getArtefacts();
+            for (JsonArtefact jsonArtefact : jsonArtefacts) {
+               Artefact artefact = artefactService.convertJsonToEntity(jsonArtefact);
+                project.getArtefacts().add(artefact);
+            }
+        }
+        return project;
+    }
+
+    @Override
+    public JsonProject convertEntityToJson(Project project){
+        JsonProject jsonProject = new JsonProject();
+        jsonProject.setId(project.getId());
+        jsonProject.setCreatedAt(project.getCreatedAt());
+        jsonProject.setCreatedBy(project.getCreatedBy());
+        jsonProject.setUpdatedAt(project.getUpdatedAt());
+        jsonProject.setUpdatedBy(project.getUpdatedBy());
+        jsonProject.setVersion(project.getVersion());
+
+        if(null!=project.getDomain()) {
+            jsonProject.setDomain(project.getDomain().getName());
+        }
+        if(null!=project.getSubDomain()) {
+            jsonProject.setSubDomain(project.getSubDomain().getName());
+        }
+
+        jsonProject.setName(project.getName());
+        jsonProject.setPrivacyLevel(project.getPrivacyLevel());
+
+        if(null!=project.getArtefacts()){
+            List<Artefact> artefacts = project.getArtefacts();
+            for (Artefact artefact : artefacts) {
+                JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefact);
+                jsonProject.getArtefacts().add(jsonArtefact);
+            }
+        }
+        return jsonProject;
+
     }
 }
