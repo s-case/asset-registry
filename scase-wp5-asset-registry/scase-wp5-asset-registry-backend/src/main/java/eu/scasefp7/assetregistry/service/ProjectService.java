@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
 
 import java.util.List;
@@ -24,4 +25,7 @@ public interface ProjectService {
     void delete(String name);
 
     void delete(Project project);
+
+    Project convertJsonToEntity(JsonProject jsonProject);
+    JsonProject convertEntityToJson(Project project);
 }

@@ -2,6 +2,7 @@ package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
+import eu.scasefp7.assetregistry.dto.JsonArtefact;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface ArtefactService {
     void delete(long id);
 
     void delete(Artefact artefact);
+
+    Artefact convertJsonToEntity(JsonArtefact jsonArtefact);
+    JsonArtefact convertEntityToJson(Artefact artefact);
 }

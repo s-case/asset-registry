@@ -13,7 +13,11 @@ public interface DomainDbService {
 
     Domain findDomain(long domainId);
 
+    Domain findDomainByName(String name);
+
     SubDomain findSubDomain(long subdomainId);
+
+    SubDomain findSubDomainByName(String name);
 
     List<Domain> findAllDomains();
 
