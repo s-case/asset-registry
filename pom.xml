@@ -8,7 +8,7 @@
         <version>1.0.8</version>
     </parent>
 
-    <version>1.0.1</version>
+    <version>1.0.1-SNAPSHOT</version>
     <artifactId>scase-wp5</artifactId>
     <packaging>pom</packaging>
     <name>SCASE - WP5</name>
@@ -50,7 +50,6 @@
             <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
             <developerConnection>scm:git:git@github.com:s-case/asset-registry.git</developerConnection>
             <url>https://github.com/s-case/asset-registry.git</url>
-        <tag>scase-wp5-1.0.1</tag>
-  </scm>
+      </scm>
 
     </project>
