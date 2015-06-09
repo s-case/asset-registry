@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>eu.scasefp7</groupId>
+        <artifactId>scase-parent</artifactId>
+        <version>1.0.6</version>
+    </parent>
+
+    <version>1.0.0-SNAPSHOT</version>
+    <artifactId>scase-wp5</artifactId>
+    <packaging>pom</packaging>
+    <name>SCASE - WP5</name>
+
+    <modules>
+        <module>scase-wp5-asset-registry</module>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>OSSRH snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+
+        <!--
+        <repository>
+            <id>OSSRH relases</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </repository>
+        -->
+    </repositories>
+
+
+    <scm>
+        <tag>scase-wp5-1.0.0</tag>
+    </scm>
+</project>
