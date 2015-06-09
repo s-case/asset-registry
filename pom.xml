@@ -5,7 +5,7 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-parent</artifactId>
-        <version>1.0.7</version>
+        <version>1.0.8</version>
     </parent>
 
     <version>1.0.1-SNAPSHOT</version>
@@ -18,9 +18,10 @@
     </modules>
 
     <properties>
-        <s-case.parent.version>1.0.7</s-case.parent.version>
+        <s-case.parent.version>1.0.8</s-case.parent.version>
     </properties>
 
+<!--
     <repositories>
         <repository>
             <id>OSSRH snapshots</id>
@@ -30,10 +31,10 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
-
+-->
         <!--
         <repository>
-            <id>OSSRH relases</id>
+            <id>OSSRH releases</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
             <releases>
                 <enabled>true</enabled>
@@ -41,12 +42,14 @@
             </releases>
         </repository>
         -->
+<!--
     </repositories>
+-->
 
-    <scm>
-        <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
-        <developerConnection>scm:git:git@github.com:s-case/asset-registry.git</developerConnection>
-        <url>https://github.com/s-case/asset-registry.git</url>
-  </scm>
+     <scm>
+            <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
+            <developerConnection>scm:git:git@github.com:s-case/asset-registry.git</developerConnection>
+            <url>https://github.com/s-case/asset-registry.git</url>
+      </scm>
 
-</project>
+    </project>
