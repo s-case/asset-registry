@@ -5,6 +5,7 @@
     <artifactId>scase-wp5-asset-registry-backend</artifactId>
     <name>SCASE - WP5 - AssetRegistry Backend</name>
     <packaging>jar</packaging>
+    <version>1.0.1-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.scasefp7</groupId>
@@ -88,6 +89,7 @@
         	<artifactId>scase-wp5-asset-registry-datamodel</artifactId>
         	<version>1.0.1-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
 </project>
