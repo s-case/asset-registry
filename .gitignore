@@ -3,3 +3,5 @@
 .classpath
 target
 scase.out
+*.iml
+.idea
