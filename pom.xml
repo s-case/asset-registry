@@ -6,7 +6,7 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-parent</artifactId>
-        <version>1.0.7</version>
+        <version>1.0.6</version>
     </parent>
 
     <version>1.0.1-SNAPSHOT</version>
