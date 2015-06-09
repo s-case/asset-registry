@@ -7,12 +7,12 @@
     <description>The Asset Registry is responsible for storing
     requirements and software artefacts</description>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <modules>
