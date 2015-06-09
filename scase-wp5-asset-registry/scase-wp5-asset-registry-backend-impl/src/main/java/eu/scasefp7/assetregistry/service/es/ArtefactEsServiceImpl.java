@@ -9,10 +9,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
-import eu.scasefp7.assetregistry.index.ProjectIndex;
+import eu.scasefp7.assetregistry.dto.JsonArtefact;
+import eu.scasefp7.assetregistry.service.ArtefactService;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -23,8 +23,6 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.index.ArtefactIndex;
@@ -43,6 +41,9 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     @EJB
     private ArtefactDbService dbService;
 
+    @EJB
+    private ArtefactService artefactService;
+
     public List<ArtefactDTO> find(final String query) {
         SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType
                 .TYPE_ARTEFACT, query);
@@ -52,7 +53,8 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
             final Artefact artefact = this.dbService.find(Long.valueOf(hit.getId()));
             if (null != artefact) {
                 ArtefactDTO dto = new ArtefactDTO();
-                dto.setArtefact(artefact);
+                JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefact);
+                dto.setArtefact(jsonArtefact);
                 dto.setScore(hit.getScore());
                 result.add(dto);
             } else {

@@ -13,14 +13,14 @@ public class ProjectDTO implements Serializable{
 
     private static final long serialVersionUID = -9138018656434867472L;
 
-    private Project project;
+    private JsonProject project;
     private float score;
 
-    public Project getProject() {
+    public JsonProject getProject() {
         return project;
     }
 
-    public void setProject(Project project) {
+    public void setProject(JsonProject project) {
         this.project = project;
     }
 

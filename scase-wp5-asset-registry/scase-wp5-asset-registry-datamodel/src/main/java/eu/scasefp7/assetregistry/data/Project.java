@@ -23,7 +23,7 @@ import java.util.List;
 public class Project extends BaseEntity {
     private static final long serialVersionUID = -6840914948412009544L;
 
-    @Column(name = "PROJECTNAME", nullable = false)
+    @Column(name = "PROJECTNAME", nullable = false, unique = true)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL)

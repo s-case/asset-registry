@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.rest;
 
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.service.ProjectService;
 
@@ -45,8 +46,10 @@ public class ProjectResource {
      */
     @GET
     @Path("{id}")
-    public Project get( @PathParam("id") long id ) {
-        return this.projectService.find( id );
+    public JsonProject get( @PathParam("id") long id ) {
+        final Project projectEntity = this.projectService.find( id );
+        final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
+        return jsonProject;
     }
 
     /**
@@ -56,8 +59,10 @@ public class ProjectResource {
      */
     @GET
     @Path("{name}")
-    public Project get(@PathParam("name") String name){
-        return this.projectService.findByName(name);
+    public JsonProject get(@PathParam("name") String name){
+        final Project projectEntity = this.projectService.findByName(name);
+        final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
+        return jsonProject;
     }
     /**
      *
@@ -79,9 +84,9 @@ public class ProjectResource {
      * @throws URISyntaxException
      */
     @POST
-    public Response create( Project project ) throws URISyntaxException {
-        final Project created = this.projectService.create(project);
-
+    public Response create( JsonProject project ) throws URISyntaxException {
+        final Project projectEntity = projectService.convertJsonToEntity(project);
+        final Project created = this.projectService.create(projectEntity);
         return redirect( "project/" + created.getId() );
     }
 
@@ -94,9 +99,10 @@ public class ProjectResource {
      */
     @PUT
     @Path("{id}")
-    public Response update( @PathParam("id") long id, Project project ) throws URISyntaxException {
+    public Response update( @PathParam("id") long id, JsonProject project ) throws URISyntaxException {
         project.setId( id );
-        final Project updated = this.projectService.update(project);
+        final Project projectEntity = projectService.convertJsonToEntity(project);
+        final Project updated = this.projectService.update(projectEntity);
         return redirect( "project/", updated );
     }
 

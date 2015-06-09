@@ -4,6 +4,7 @@ package eu.scasefp7.assetregistry.rest;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
+import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.service.ArtefactService;
 
 import eu.scasefp7.assetregistry.service.ProjectService;
@@ -14,7 +15,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -53,8 +53,10 @@ public class ArtefactResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Artefact get( @PathParam("id") long id ) {
-        return this.artefactService.find( id );
+    public JsonArtefact get( @PathParam("id") long id ) {
+        final Artefact artefactEntity = this.artefactService.find( id );
+        final JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefactEntity);
+        return jsonArtefact;
     }
 
     /**
@@ -93,14 +95,15 @@ public class ArtefactResource {
      * @throws URISyntaxException
      */
     @POST
-    public Response create(Artefact artefact) throws URISyntaxException {
+    public Response create(JsonArtefact artefact) throws URISyntaxException {
 
         final Project project = this.projectService.findByName(artefact.getProjectName());
         if(null== project) {
             return Response.status(Response.Status.NOT_FOUND).entity("Project with ID" + artefact.getProjectName() + " could not be found inside of the Artefact Repository").build();
 
         }
-            final Artefact created = this.artefactService.create( artefact );
+            final Artefact artefactEntity = artefactService.convertJsonToEntity(artefact);
+            final Artefact created = this.artefactService.create( artefactEntity );
             project.getArtefacts().add(created);
             projectService.update(project);
 
@@ -116,9 +119,10 @@ public class ArtefactResource {
      */
     @PUT
     @Path("{id}")
-    public Response update( @PathParam("id") long id, Artefact artefact ) throws URISyntaxException {
+    public Response update( @PathParam("id") long id, JsonArtefact artefact ) throws URISyntaxException {
         artefact.setId( id );
-        final Artefact updated = this.artefactService.update( artefact );
+        final Artefact artefactEntity = artefactService.convertJsonToEntity(artefact);
+        final Artefact updated = this.artefactService.update( artefactEntity );
         return redirect( "artefact/", updated );
     }
 

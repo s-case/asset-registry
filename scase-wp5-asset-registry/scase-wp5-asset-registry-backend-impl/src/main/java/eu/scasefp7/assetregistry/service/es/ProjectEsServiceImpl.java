@@ -1,12 +1,13 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.PrivacyLevel;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.index.ProjectIndex;
+import eu.scasefp7.assetregistry.service.ProjectService;
 import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
@@ -19,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +38,9 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     @EJB
     private ProjectDbService dbService;
 
+    @EJB
+    private ProjectService projectService;
+
     public List<ProjectDTO> find(final String query) {
         SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, IndexType
                 .TYPE_PROJECT, query);
@@ -50,8 +53,9 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
 
                 final Project project = dbService.find(new Long(projectId));
                 if(null!=project) {
+                    final JsonProject jsonProject = projectService.convertEntityToJson(project);
                     ProjectDTO dto = new ProjectDTO();
-                    dto.setProject(project);
+                    dto.setProject(jsonProject);
                     dto.setScore(hit.getScore());
                     result.add(dto);
                 }else{

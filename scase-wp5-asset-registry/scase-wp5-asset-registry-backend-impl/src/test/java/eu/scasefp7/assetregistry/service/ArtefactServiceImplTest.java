@@ -21,6 +21,7 @@ public class ArtefactServiceImplTest
 {
 
     @ObjectUnderTest
+    @InjectIntoMany
     private ArtefactServiceImpl artefactServiceImpl;
 
     @ObjectUnderTest

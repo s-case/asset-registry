@@ -2,6 +2,7 @@ package eu.scasefp7.assetregistry.dto;
 
 import eu.scasefp7.assetregistry.data.Artefact;
 
+import javax.json.Json;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -13,14 +14,14 @@ public class ArtefactDTO implements Serializable {
 
     private static final long serialVersionUID = 1718431934579412614L;
 
-    private Artefact artefact;
+    private JsonArtefact artefact;
     private float score;
 
-    public Artefact getArtefact() {
+    public JsonArtefact getArtefact() {
         return artefact;
     }
 
-    public void setArtefact(Artefact artefact) {
+    public void setArtefact(JsonArtefact artefact) {
         this.artefact = artefact;
     }
 
