@@ -20,7 +20,7 @@
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-base</artifactId>
-            <version>1.0.6</version>
+            <version>${s-case.parent.version}</version>
         </dependency>
 
         <dependency>
