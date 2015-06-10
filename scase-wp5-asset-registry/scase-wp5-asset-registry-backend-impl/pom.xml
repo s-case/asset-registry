@@ -5,12 +5,12 @@
     <artifactId>scase-wp5-asset-registry-backend-impl</artifactId>
     <name>SCASE - WP5 - AssetRegistry Backend Implementation</name>
     <packaging>ejb</packaging>
-    <version>1.0.2</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5-asset-registry</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -134,13 +134,13 @@
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-wp5-asset-registry-backend</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
