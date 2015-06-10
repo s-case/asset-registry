@@ -5,7 +5,7 @@
     <artifactId>scase-wp5</artifactId>
     <name>SCASE - WP5</name>
     <packaging>pom</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.scasefp7</groupId>
@@ -25,7 +25,7 @@
         <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
         <developerConnection>scm:git:git@github.com:s-case/asset-registry.git</developerConnection>
         <url>https://github.com/s-case/asset-registry.git</url>
-        <tag>scase-wp5-1.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
