@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>scase-wp5</artifactId>
@@ -25,32 +26,7 @@
         <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
         <developerConnection>scm:git:git@github.com:s-case/asset-registry.git</developerConnection>
         <url>https://github.com/s-case/asset-registry.git</url>
-      <tag>HEAD</tag>
-  </scm>
-
-    <!--
-        <repositories>
-            <repository>
-                <id>OSSRH snapshots</id>
-                <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                <snapshots>
-                    <enabled>true</enabled>
-                    <updatePolicy>always</updatePolicy>
-                </snapshots>
-            </repository>
-    -->
-    <!--
-    <repository>
-        <id>OSSRH releases</id>
-        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        <releases>
-            <enabled>true</enabled>
-            <updatePolicy>never</updatePolicy>
-        </releases>
-    </repository>
-    -->
-    <!--
-        </repositories>
-    -->
+        <tag>HEAD</tag>
+    </scm>
 
 </project>
