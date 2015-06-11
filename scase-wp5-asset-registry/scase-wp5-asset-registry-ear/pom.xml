@@ -46,4 +46,5 @@
             <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
         </dependency>
     </dependencies>
+
 </project>

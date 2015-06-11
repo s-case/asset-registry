@@ -10,12 +10,17 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-parent</artifactId>
-        <version>1.0.15</version>
+        <version>1.0.16</version>
     </parent>
 
-    <modules>
-        <module>scase-wp5-asset-registry</module>
-    </modules>
+    <developers>
+        <developer>
+            <name>Ivo Missler</name>
+            <email>ivo.missler@akquinet.de</email>
+            <organization>akquinet tech@spree GmbH</organization>
+            <organizationUrl>http://www.akquinet.de</organizationUrl>
+        </developer>
+    </developers>
 
     <scm>
         <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
@@ -23,4 +28,9 @@
         <url>https://github.com/s-case/asset-registry.git</url>
         <tag>HEAD</tag>
     </scm>
+
+    <modules>
+        <module>scase-wp5-asset-registry</module>
+    </modules>
+
 </project>
