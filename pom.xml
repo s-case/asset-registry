@@ -11,16 +11,12 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-parent</artifactId>
-        <version>1.0.8</version>
+        <version>1.0.15</version>
     </parent>
 
     <modules>
         <module>scase-wp5-asset-registry</module>
     </modules>
-
-    <properties>
-        <s-case.parent.version>1.0.8</s-case.parent.version>
-    </properties>
 
     <scm>
         <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
@@ -28,5 +24,4 @@
         <url>https://github.com/s-case/asset-registry.git</url>
         <tag>HEAD</tag>
     </scm>
-
 </project>
