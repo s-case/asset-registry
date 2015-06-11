@@ -5,7 +5,7 @@
     <artifactId>scase-wp5</artifactId>
     <name>SCASE - WP5</name>
     <packaging>pom</packaging>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.scasefp7</groupId>
