@@ -12,6 +12,18 @@
         <version>1.0.3-SNAPSHOT</version>
     </parent>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <excludeFilterFile>${project.build.outputDirectory}/findbugs/exclude.xml</excludeFilterFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -43,7 +55,6 @@
             <artifactId>hsqldb</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>de.akquinet.jbosscc</groupId>
             <artifactId>jbosscc-needle</artifactId>
@@ -51,15 +62,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <configuration>
-                    <excludeFilterFile>${project.build.outputDirectory}/findbugs/exclude.xml</excludeFilterFile>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

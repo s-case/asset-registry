@@ -62,7 +62,6 @@
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>de.akquinet.jbosscc</groupId>
             <artifactId>jbosscc-needle</artifactId>
@@ -78,4 +77,5 @@
             <artifactId>scase-wp5-asset-registry-backend</artifactId>
         </dependency>
     </dependencies>
+
 </project>
