@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>scase-wp5</artifactId>
+    <name>SCASE - WP5</name>
+    <packaging>pom</packaging>
+    <version>1.0.4-SNAPSHOT</version>
+
+    <parent>
+        <groupId>eu.scasefp7</groupId>
+        <artifactId>scase-parent</artifactId>
+        <version>1.0.17</version>
+    </parent>
+
+    <developers>
+        <developer>
+            <name>Ivo Missler</name>
+            <email>ivo.missler@akquinet.de</email>
+            <organization>akquinet tech@spree GmbH</organization>
+            <organizationUrl>http://www.akquinet.de</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
+        <developerConnection>scm:git:git@github.com:s-case/asset-registry.git</developerConnection>
+        <url>https://github.com/s-case/asset-registry.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <modules>
+        <module>scase-wp5-asset-registry</module>
+    </modules>
+
+</project>
