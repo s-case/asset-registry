@@ -47,7 +47,7 @@ public class ArtefactResource {
 
     /**
      * Find an artefact in the repository by ID
-     * @param id
+     * @param id Artefact ID
      * @return Artefact artefact
      */
     @GET
@@ -61,8 +61,8 @@ public class ArtefactResource {
 
     /**
      * Find an artefact in the repository by ID
-     * @param id
-     * @return boolean bool
+     * @param id Artefact ID
+     * @return boolean true if artefact has been false, otherwise false
      */
     @GET
     @Path("exists/{id}")
@@ -76,7 +76,7 @@ public class ArtefactResource {
 
     /**
      *Find a list of artefacts by search query
-     * @param query
+     * @param query Elastic Search query string
      * @return List<Artefact> artefacts
      */
     @GET
@@ -90,8 +90,8 @@ public class ArtefactResource {
 
     /**
      * Create and store a new artefact in the repository
-     * @param artefact
-     * @return
+     * @param artefact An artefact to be stored inside of the Asset Repo
+     * @return HTTP Response code
      * @throws URISyntaxException
      */
     @POST
@@ -112,9 +112,9 @@ public class ArtefactResource {
 
     /**
      * Update an artefact in the repository
-     * @param id
-     * @param artefact
-     * @return
+     * @param id Artefact ID
+     * @param artefact The artefact to be updated
+     * @return HTTP Response Code
      * @throws URISyntaxException
      */
     @PUT
@@ -128,7 +128,7 @@ public class ArtefactResource {
 
     /**
      * Delete an artefact from the repository
-     * @param id
+     * @param id Artefact ID of the artefact that sould be deleted from the Asset Repo
      */
     @DELETE
     @Path("{id}")

@@ -25,7 +25,7 @@ public class DomainResource {
 
     /**
      * Find a {@link eu.scasefp7.assetregistry.data.Domain Domain} by ID inside of the Asset Repository
-     * @param id
+     * @param id Domain ID
      * @return {@link eu.scasefp7.assetregistry.data.Domain Domain}
      */
     @GET

@@ -19,7 +19,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -79,8 +78,8 @@ public class ProjectResource {
 
     /**
      * Create and store a new project in the repository
-     * @param project
-     * @return
+     * @param project The project to be stored inside of the Asset Repo
+     * @return {#link javax.ws.rs.core.Response Response}
      * @throws URISyntaxException
      */
     @POST
@@ -91,10 +90,10 @@ public class ProjectResource {
     }
 
     /**
-     * Update a project in the repository
-     * @param id
-     * @param project
-     * @return
+     * Update a project in the Asset Repo
+     * @param id Project ID
+     * @param project The project to be updated inside of the Asset Repo
+     * @return {#link javax.ws.rs.core.Response HTTP Response code}
      * @throws URISyntaxException
      */
     @PUT
@@ -107,8 +106,8 @@ public class ProjectResource {
     }
 
     /**
-     * Delete a project from the repository
-     * @param id
+     * Delete a project from the Asset Repo
+     * @param id ID of the project to be deleted
      */
     @DELETE
     @Path("{id}")
@@ -116,6 +115,10 @@ public class ProjectResource {
         this.projectService.delete(id);
     }
 
+    /**
+     * Delete a project from the Asset Repo
+     * @param name Name string of the project to be deleted
+     */
     @DELETE
     @Path("{name}")
     public void delete(@PathParam("name") String name) {
