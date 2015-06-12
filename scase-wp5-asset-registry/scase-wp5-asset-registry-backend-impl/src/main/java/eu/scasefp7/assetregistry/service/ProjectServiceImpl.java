@@ -61,12 +61,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project create(Project project) {
-
+        Project created = null;
         try {
-            project = dbService.create(project);
-            esService.index(project);
+            created = dbService.create(project);
+            esService.index(created);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Project.class, project.getId(), thrown);
+              throw new NotCreatedException(Project.class, project.getName(), getRootCause(thrown));
         }
 
         return project;
@@ -78,7 +78,7 @@ public class ProjectServiceImpl implements ProjectService {
             project = dbService.update(project);
             esService.update(project);
         } catch (Throwable thrown) {
-            throw new NotUpdatedException(Project.class, project.getId(), thrown);
+            throw new NotUpdatedException(Project.class, project.getId(), getRootCause(thrown));
         }
         return project;
     }
@@ -172,6 +172,12 @@ public class ProjectServiceImpl implements ProjectService {
             }
         }
         return jsonProject;
+    }
 
+    private Throwable getRootCause(Throwable thrown){
+        while(thrown.getCause()!=null){
+            thrown = thrown.getCause();
+        }
+        return thrown;
     }
 }

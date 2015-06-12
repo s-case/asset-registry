@@ -59,8 +59,22 @@ public class ProjectResource {
     @GET
     @Path("{name}")
     public JsonProject get(@PathParam("name") String name){
-        final Project projectEntity = this.projectService.findByName(name);
-        final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
+
+        Project projectEntity = null;
+        JsonProject jsonProject = null;
+
+        try {
+            long id = Long.parseLong(name);
+            projectEntity = this.projectService.find(id);
+        } catch (NumberFormatException nfe){
+            LOG.warn("Value " + name +" could not be parsed into a number. Trying to find the project by name.");
+            projectEntity = this.projectService.findByName(name);
+        }
+
+        if(null!=projectEntity) {
+            jsonProject = projectService.convertEntityToJson(projectEntity);
+        }
+
         return jsonProject;
     }
     /**
@@ -86,6 +100,9 @@ public class ProjectResource {
     public Response create( JsonProject project ) throws URISyntaxException {
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project created = this.projectService.create(projectEntity);
+
+
+
         return redirect( "project/" + created.getId() );
     }
 

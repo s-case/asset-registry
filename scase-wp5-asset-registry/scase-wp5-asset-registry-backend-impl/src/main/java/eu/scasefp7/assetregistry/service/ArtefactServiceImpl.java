@@ -61,13 +61,13 @@ public class ArtefactServiceImpl
         try {
             create = this.dbService.create(artefact);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Artefact.class, 0, thrown);
+            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(thrown));
         }
 
         try {
             this.esService.index(create);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Artefact.class, artefact.getId(), thrown);
+            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(thrown));
         }
 
         return create;
@@ -80,7 +80,7 @@ public class ArtefactServiceImpl
             artefact = this.dbService.update(artefact);
             this.esService.update(artefact);
         } catch (Throwable thrown) {
-            throw new NotUpdatedException(Artefact.class, artefact.getId(), thrown);
+            throw new NotUpdatedException(Artefact.class, artefact.getId(), getRootCause(thrown));
         }
         return artefact;
     }
@@ -197,5 +197,12 @@ public class ArtefactServiceImpl
 
         return payload;
 
+    }
+
+    private Throwable getRootCause(Throwable thrown){
+        while(thrown.getCause()!=null){
+            thrown = thrown.getCause();
+        }
+        return thrown;
     }
 }
