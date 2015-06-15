@@ -5,7 +5,7 @@
     <artifactId>scase-wp5</artifactId>
     <name>SCASE - WP5</name>
     <packaging>pom</packaging>
-    <version>1.0.6</version>
+    <version>1.0.7-SNAPSHOT</version>
 
     <parent>
         <groupId>eu.scasefp7</groupId>
@@ -26,8 +26,19 @@
         <connection>scm:git:git@github.com:s-case/asset-registry.git</connection>
         <developerConnection>scm:git:git@github.com:s-case/asset-registry.git</developerConnection>
         <url>https://github.com/s-case/asset-registry.git</url>
-        <tag>scase-wp5-1.0.6</tag>
+        <tag>HEAD</tag>
     </scm>
+
+    <repositories>
+        <repository>
+            <id>OSSRH snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <modules>
         <module>scase-wp5-asset-registry</module>
