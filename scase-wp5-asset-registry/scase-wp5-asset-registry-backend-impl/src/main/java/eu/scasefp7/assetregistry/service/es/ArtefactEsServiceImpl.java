@@ -1,6 +1,7 @@
 package eu.scasefp7.assetregistry.service.es;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,24 +47,21 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     @EJB
     private ArtefactService artefactService;
 
+    @Override
     public List<ArtefactDTO> find(final String query) {
         SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType
                 .TYPE_ARTEFACT, query);
 
-        final List<ArtefactDTO> result = new ArrayList<ArtefactDTO>();
-        for (SearchHit hit : response.getHits().hits()) {
-            final Artefact artefact = this.dbService.find(Long.valueOf(hit.getId()));
-            if (null != artefact) {
-                ArtefactDTO dto = new ArtefactDTO();
-                JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefact);
-                dto.setArtefact(jsonArtefact);
-                dto.setScore(hit.getScore());
-                result.add(dto);
-            } else {
-                LOG.warn("Artefact with id " + hit.getId() + "could not be loaded");
-            }
-        }
-        return result;
+        return getArtefactDTOs(response);
+    }
+
+    @Override
+    public List<ArtefactDTO> findByDomainAndSubdomain(String domain, String subdomain){
+        QueryBuilder querybuilder = QueryBuilders.boolQuery().must(QueryBuilders.matchQuery(ArtefactIndex.DOMAIN_FIELD, domain)).must(QueryBuilders.matchQuery(ArtefactIndex.SUBDOMAIN_FIELD,subdomain));
+
+        SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType
+                .TYPE_ARTEFACT, querybuilder);
+        return getArtefactDTOs(response);
     }
 
     @Override
@@ -86,6 +86,23 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 IndexType.TYPE_ARTEFACT, artefact.getId().toString()).setDoc(builder(artefact)).get();
 
         return response;
+    }
+
+    private List<ArtefactDTO> getArtefactDTOs(SearchResponse response) {
+        final List<ArtefactDTO> result = new ArrayList<ArtefactDTO>();
+        for (SearchHit hit : response.getHits().hits()) {
+            final Artefact artefact = this.dbService.find(Long.valueOf(hit.getId()));
+            if (null != artefact) {
+                ArtefactDTO dto = new ArtefactDTO();
+                JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefact);
+                dto.setArtefact(jsonArtefact);
+                dto.setScore(hit.getScore());
+                result.add(dto);
+            } else {
+                LOG.warn("Artefact with id " + hit.getId() + "could not be loaded");
+            }
+        }
+        return result;
     }
 
     private XContentBuilder builder(Artefact artefact) throws IOException {

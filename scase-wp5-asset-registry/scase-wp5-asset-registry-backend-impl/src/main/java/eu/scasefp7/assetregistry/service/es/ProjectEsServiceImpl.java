@@ -3,8 +3,10 @@ package eu.scasefp7.assetregistry.service.es;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.PrivacyLevel;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
+import eu.scasefp7.assetregistry.index.ArtefactIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.index.ProjectIndex;
 import eu.scasefp7.assetregistry.service.ProjectService;
@@ -13,6 +15,8 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,32 +49,20 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
         SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, IndexType
                 .TYPE_PROJECT, query);
 
-        final List<ProjectDTO> result = new ArrayList<ProjectDTO>();
-        for (SearchHit hit : response.getHits().hits()) {
+        return getProjectDTOs(response);
+    }
 
-                String projectId = hit.getId();
-                LOG.info("found {} because of {}", projectId, hit.getExplanation());
+    @Override
+    public List<ProjectDTO> findByDomainAndSubdomain(String domain, String subdomain){
+        QueryBuilder querybuilder = QueryBuilders.boolQuery().must(QueryBuilders.matchQuery(ProjectIndex.DOMAIN_FIELD, domain)).must(QueryBuilders.matchQuery(ProjectIndex.SUBDOMAIN_FIELD,subdomain));
 
-                final Project project = dbService.find(new Long(projectId));
-                if(null!=project) {
-                    final JsonProject jsonProject = projectService.convertEntityToJson(project);
-                    ProjectDTO dto = new ProjectDTO();
-                    dto.setProject(jsonProject);
-                    dto.setScore(hit.getScore());
-                    result.add(dto);
-                }else{
-                    LOG.warn("Project with id " + projectId + "could not be loaded");
-                }
-       }
-        return result;
+        SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, IndexType
+                .TYPE_PROJECT, querybuilder);
+        return getProjectDTOs(response);
     }
 
     @Override
     public IndexResponse index(final Project project) throws IOException {
-        // String json = mapper.writeValueAsString(project);
-        // IndexResponse response = connectorService.getClient().prepareIndex(ProjectIndex.INDEX_NAME,
-        // ElasticSearchConnectorService.TYPE_PROJECT, project.getId().toString()).setSource(json).execute()
-        // .actionGet();
 
         IndexResponse response = connectorService.getClient().prepareIndex(ProjectIndex.INDEX_NAME,
                 IndexType.TYPE_PROJECT, project.getId().toString()).setSource(builder(project)).execute()
@@ -95,6 +87,27 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
                 ().field(ProjectIndex.PRIVACY_LEVEL_FIELD, privacyLevel).endObject()).get();
 
         return response;
+    }
+
+    private List<ProjectDTO> getProjectDTOs(SearchResponse response) {
+        final List<ProjectDTO> result = new ArrayList<ProjectDTO>();
+        for (SearchHit hit : response.getHits().hits()) {
+
+            String projectId = hit.getId();
+            LOG.info("found {} because of {}", projectId, hit.getExplanation());
+
+            final Project project = dbService.find(new Long(projectId));
+            if(null!=project) {
+                final JsonProject jsonProject = projectService.convertEntityToJson(project);
+                ProjectDTO dto = new ProjectDTO();
+                dto.setProject(jsonProject);
+                dto.setScore(hit.getScore());
+                result.add(dto);
+            }else{
+                LOG.warn("Project with id " + projectId + "could not be loaded");
+            }
+        }
+        return result;
     }
 
     private XContentBuilder builder(Project project) throws IOException {

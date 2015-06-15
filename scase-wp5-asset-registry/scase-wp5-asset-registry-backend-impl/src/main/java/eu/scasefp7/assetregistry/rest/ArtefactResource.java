@@ -8,6 +8,7 @@ import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.service.ArtefactService;
 
 import eu.scasefp7.assetregistry.service.ProjectService;
+import eu.scasefp7.assetregistry.service.db.DomainDbService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +45,8 @@ public class ArtefactResource {
     @EJB
     private ProjectService projectService;
 
+    @EJB
+    private DomainDbService domainService;
 
     /**
      * Find an artefact in the repository by ID
@@ -85,6 +88,13 @@ public class ArtefactResource {
     public List<ArtefactDTO> searchArtefacts(@QueryParam("q") final String query) {
         LOG.info("search '{}'", query);
         final List<ArtefactDTO> artefacts = artefactService.find(query);
+        return artefacts;
+    }
+
+
+    public List<ArtefactDTO> searchArtefacts(@QueryParam("domain") final String domain, @QueryParam("subdomain") final String subdomain){
+
+        final List<ArtefactDTO> artefacts = artefactService.findByDomainAndSubdomain(domain, subdomain);
         return artefacts;
     }
 

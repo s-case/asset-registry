@@ -14,6 +14,8 @@ public interface ArtefactService {
 
     List<ArtefactDTO> find(String query);
 
+    List<ArtefactDTO> findByDomainAndSubdomain(String domain, String subdomain);
+
     Artefact create(Artefact artefact);
 
     Artefact update(Artefact artefact);

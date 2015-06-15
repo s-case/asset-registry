@@ -8,7 +8,9 @@ import javax.ejb.Stateless;
 
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.ArtefactPayload;
+import eu.scasefp7.assetregistry.data.Domain;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.SubDomain;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.dto.JsonArtefactPayload;
@@ -50,6 +52,12 @@ public class ArtefactServiceImpl
     public List<ArtefactDTO> find(String query)
     {
         List<ArtefactDTO> artefacts = this.esService.find(query);
+        return artefacts;
+    }
+
+    @Override
+    public List<ArtefactDTO> findByDomainAndSubdomain(String domain, String subdomain){
+        List<ArtefactDTO> artefacts = this.esService.findByDomainAndSubdomain(domain, subdomain);
         return artefacts;
     }
 
@@ -111,10 +119,12 @@ public class ArtefactServiceImpl
         artefact.setVersion(jsonArtefact.getVersion());
 
         if(null!=jsonArtefact.getDomain()) {
-            domainDbService.findDomainByName(jsonArtefact.getDomain());
+            Domain domain = domainDbService.findDomainByName(jsonArtefact.getDomain());
+            artefact.setDomain(domain);
         }
         if(null!=jsonArtefact.getSubDomain()) {
-            domainDbService.findSubDomainByName(jsonArtefact.getSubDomain());
+            SubDomain subdomain = domainDbService.findSubDomainByName(jsonArtefact.getSubDomain());
+            artefact.setSubDomain(subdomain);
         }
 
         artefact.setName(jsonArtefact.getName());

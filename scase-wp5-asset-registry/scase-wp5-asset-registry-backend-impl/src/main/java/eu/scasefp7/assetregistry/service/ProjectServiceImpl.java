@@ -1,7 +1,9 @@
 package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.Domain;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.SubDomain;
 import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
@@ -56,6 +58,12 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> find(String query) {
         List<ProjectDTO> projects = esService.find(query);
+        return projects;
+    }
+
+    @Override
+    public List<ProjectDTO> findByDomainAndSubdomain(String domain, String subdomain){
+        List<ProjectDTO> projects = this.esService.findByDomainAndSubdomain(domain, subdomain);
         return projects;
     }
 
@@ -125,10 +133,12 @@ public class ProjectServiceImpl implements ProjectService {
         project.setVersion(jsonProject.getVersion());
 
         if(null!=jsonProject.getDomain()) {
-            domainDbService.findDomainByName(jsonProject.getDomain());
+          Domain domain =  domainDbService.findDomainByName(jsonProject.getDomain());
+            project.setDomain(domain);
         }
         if(null!=jsonProject.getSubDomain()) {
-            domainDbService.findSubDomainByName(jsonProject.getSubDomain());
+            SubDomain subdomain = domainDbService.findSubDomainByName(jsonProject.getSubDomain());
+            project.setSubDomain(subdomain);
         }
 
         project.setName(jsonProject.getName());

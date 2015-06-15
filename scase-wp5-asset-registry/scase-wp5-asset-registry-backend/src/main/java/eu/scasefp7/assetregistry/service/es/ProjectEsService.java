@@ -17,5 +17,8 @@ import java.util.concurrent.ExecutionException;
 public interface ProjectEsService extends AbstractEsService<Project>{
 
     List<ProjectDTO> find(String query);
+
+    List<ProjectDTO> findByDomainAndSubdomain(String domain, String subdomain);
+
     UpdateResponse updatePrivacyLevel(final long id, final PrivacyLevel privacyLevel) throws IOException;
 }
