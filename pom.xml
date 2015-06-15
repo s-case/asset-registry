@@ -28,6 +28,17 @@
         <url>https://github.com/s-case/asset-registry.git</url>
     </scm>
 
+    <repositories>
+        <repository>
+            <id>OSSRH snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <modules>
         <module>scase-wp5-asset-registry</module>
     </modules>
