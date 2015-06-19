@@ -62,8 +62,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDTO> findByDomainAndSubdomain(String domain, String subdomain){
-        List<ProjectDTO> projects = this.esService.findByDomainAndSubdomain(domain, subdomain);
+    public List<ProjectDTO> find(String query, String domain, String subdomain){
+        List<ProjectDTO> projects = this.esService.find(query, domain, subdomain);
         return projects;
     }
 

@@ -44,7 +44,7 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{id}")
+    @Path("{id}/id")
     public JsonProject get( @PathParam("id") long id ) {
         final Project projectEntity = this.projectService.find( id );
         final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
@@ -57,7 +57,7 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{name}")
+    @Path("{name}/name")
     public JsonProject get(@PathParam("name") String name){
 
         Project projectEntity = null;
@@ -84,9 +84,26 @@ public class ProjectResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("directsearch")
     public List<ProjectDTO> searchProjects(@QueryParam("q") final String query) {
         LOG.info("search '{}'", query);
         final List<ProjectDTO> projects = projectService.find(query);
+        return projects;
+    }
+
+
+    /**
+     *
+     * @param domain
+     * @param subdomain
+     * @return List<ProjectsDTO> projects
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("search")
+    public List<ProjectDTO> searchProjects(@QueryParam("query") final String query, @QueryParam("domain") final String domain, @QueryParam("subdomain") final String subdomain)
+    {
+        final List<ProjectDTO> projects = projectService.find(query, domain, subdomain);
         return projects;
     }
 

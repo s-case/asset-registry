@@ -9,12 +9,10 @@ import javax.ejb.Stateless;
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.ArtefactPayload;
 import eu.scasefp7.assetregistry.data.Domain;
-import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.data.SubDomain;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.dto.JsonArtefactPayload;
-import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.index.ArtefactIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
@@ -56,8 +54,8 @@ public class ArtefactServiceImpl
     }
 
     @Override
-    public List<ArtefactDTO> findByDomainAndSubdomain(String domain, String subdomain){
-        List<ArtefactDTO> artefacts = this.esService.findByDomainAndSubdomain(domain, subdomain);
+    public List<ArtefactDTO> find(String query, String domain, String subdomain, String type){
+        List<ArtefactDTO> artefacts = this.esService.find(query, domain, subdomain, type);
         return artefacts;
     }
 
