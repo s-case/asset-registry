@@ -44,7 +44,7 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{id}")
+    @Path("{id}/id")
     public JsonProject get( @PathParam("id") long id ) {
         final Project projectEntity = this.projectService.find( id );
         final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
@@ -57,10 +57,24 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{name}")
+    @Path("{name}/name")
     public JsonProject get(@PathParam("name") String name){
-        final Project projectEntity = this.projectService.findByName(name);
-        final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
+
+        Project projectEntity = null;
+        JsonProject jsonProject = null;
+
+        try {
+            long id = Long.parseLong(name);
+            projectEntity = this.projectService.find(id);
+        } catch (NumberFormatException nfe){
+            LOG.warn("Value " + name +" could not be parsed into a number. Trying to find the project by name.");
+            projectEntity = this.projectService.findByName(name);
+        }
+
+        if(null!=projectEntity) {
+            jsonProject = projectService.convertEntityToJson(projectEntity);
+        }
+
         return jsonProject;
     }
     /**
@@ -70,9 +84,26 @@ public class ProjectResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("directsearch")
     public List<ProjectDTO> searchProjects(@QueryParam("q") final String query) {
         LOG.info("search '{}'", query);
         final List<ProjectDTO> projects = projectService.find(query);
+        return projects;
+    }
+
+
+    /**
+     *
+     * @param domain
+     * @param subdomain
+     * @return List<ProjectsDTO> projects
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("search")
+    public List<ProjectDTO> searchProjects(@QueryParam("query") final String query, @QueryParam("domain") final String domain, @QueryParam("subdomain") final String subdomain)
+    {
+        final List<ProjectDTO> projects = projectService.find(query, domain, subdomain);
         return projects;
     }
 
@@ -86,6 +117,9 @@ public class ProjectResource {
     public Response create( JsonProject project ) throws URISyntaxException {
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project created = this.projectService.create(projectEntity);
+
+
+
         return redirect( "project/" + created.getId() );
     }
 

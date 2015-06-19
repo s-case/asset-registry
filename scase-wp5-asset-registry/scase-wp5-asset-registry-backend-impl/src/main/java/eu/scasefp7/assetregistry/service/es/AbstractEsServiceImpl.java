@@ -8,6 +8,7 @@ import org.elasticsearch.client.Client;
 
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.data.BaseEntity;
+import org.elasticsearch.index.query.QueryBuilder;
 
 /**
  * Created by missler on 16/03/15.
@@ -33,6 +34,17 @@ public abstract class AbstractEsServiceImpl<E extends BaseEntity> implements Abs
         return client.prepareSearch(index)
                 .setTypes(type)
                 .setQuery(query)
+                .setFrom( 0 ).setSize( 500 ).setExplain( true )
+                .execute()
+                .actionGet();
+    }
+
+    protected SearchResponse getSearchResponse(String index, String type, QueryBuilder querybuilder) {
+
+        Client client = this.connectorService.getClient();
+        return client.prepareSearch(index)
+                .setTypes(type)
+                .setQuery(querybuilder)
                 .setFrom( 0 ).setSize( 500 ).setExplain( true )
                 .execute()
                 .actionGet();

@@ -1,18 +1,12 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-
+import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.dto.JsonArtefact;
+import eu.scasefp7.assetregistry.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.service.ArtefactService;
+import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -20,14 +14,26 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.index.query.BoolFilterBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.index.ArtefactIndex;
-import eu.scasefp7.assetregistry.index.IndexType;
-import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
  * Service class for Artefact related ElasticSearch operations
@@ -44,24 +50,66 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     @EJB
     private ArtefactService artefactService;
 
+    @Override
     public List<ArtefactDTO> find(final String query) {
         SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType
                 .TYPE_ARTEFACT, query);
 
-        final List<ArtefactDTO> result = new ArrayList<ArtefactDTO>();
-        for (SearchHit hit : response.getHits().hits()) {
-            final Artefact artefact = this.dbService.find(Long.valueOf(hit.getId()));
-            if (null != artefact) {
-                ArtefactDTO dto = new ArtefactDTO();
-                JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefact);
-                dto.setArtefact(jsonArtefact);
-                dto.setScore(hit.getScore());
-                result.add(dto);
-            } else {
-                LOG.warn("Artefact with id " + hit.getId() + "could not be loaded");
+        return getArtefactDTOs(response);
+    }
+
+    @Override
+    public List<ArtefactDTO> find(String query, String domain, String subdomain, String artefacttype) {
+
+        QueryBuilder qb;
+
+        if (null != query) {
+
+            qb = QueryBuilders.matchQuery("_all", query);
+
+            if (query.contains("+") || query.contains(" ")) {
+                query = query.replace("+", " ");
+                qb = multiMatchQuery(query, "_all");
+            }
+
+            if (null != domain || null != subdomain || null != artefacttype) {
+
+                QueryBuilder matchClause = qb;
+
+                BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
+
+                if (null != domain) {
+                    boolFilter.must(queryFilter(matchQuery(ArtefactIndex
+                            .DOMAIN_FIELD, domain)));
+                }
+                if (null != subdomain) {
+                    boolFilter.must(queryFilter(matchQuery(ArtefactIndex
+                            .SUBDOMAIN_FIELD, subdomain)));
+                }
+                if (null != artefacttype) {
+                    boolFilter.must(queryFilter(matchQuery(ArtefactIndex
+                            .ARTEFACT_TYPE_FIELD, artefacttype)));
+                }
+                qb = QueryBuilders.filteredQuery(matchClause,
+                        boolFilter);
+            }
+        } else {
+            qb = QueryBuilders.boolQuery();
+            if (null != domain) {
+                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex
+                        .DOMAIN_FIELD, domain));
+            }
+            if (null != subdomain) {
+                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex.SUBDOMAIN_FIELD, subdomain));
+            }
+            if (null != artefacttype) {
+                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex.ARTEFACT_TYPE_FIELD, artefacttype));
             }
         }
-        return result;
+
+        SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT, qb);
+
+        return getArtefactDTOs(response);
     }
 
     @Override
@@ -88,6 +136,29 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
         return response;
     }
 
+    private List<ArtefactDTO> getArtefactDTOs(SearchResponse response) {
+        final List<ArtefactDTO> result = new ArrayList<ArtefactDTO>();
+        for (SearchHit hit : response.getHits().hits()) {
+            String documentId = hit.getId();
+            try{
+                Long artefactId = Long.valueOf(documentId);
+                final Artefact artefact = this.dbService.find(artefactId);
+                if (null != artefact) {
+                    ArtefactDTO dto = new ArtefactDTO();
+                    JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefact);
+                    dto.setArtefact(jsonArtefact);
+                    dto.setScore(hit.getScore());
+                    result.add(dto);
+                } else {
+                    LOG.warn("Artefact with id " + documentId + "could not be loaded");
+                }
+            }catch(NumberFormatException ex){
+                LOG.error("Elastic document ID "  + documentId + " could not be converted into a number. ",ex);
+            }
+        }
+        return result;
+    }
+
     private XContentBuilder builder(Artefact artefact) throws IOException {
 
         XContentBuilder builder = jsonBuilder().startObject()
@@ -107,8 +178,10 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 .field(ArtefactIndex.DESCRIPTION_FIELD, artefact.getDescription())
                 .array(ArtefactIndex.TAGS_FIELD, artefact.getTags().toArray(new String[artefact.getTags().size()]))
                 .field(ArtefactIndex.METADATA_FIELD, artefact.getMetadata())
-                .field(ArtefactIndex.DOMAIN_FIELD,(null!=artefact.getDomain() ? artefact.getDomain().getName() : null))
-                .field(ArtefactIndex.SUBDOMAIN_FIELD,(null!=artefact.getSubDomain() ? artefact.getSubDomain().getName() : null))
+                .field(ArtefactIndex.DOMAIN_FIELD, (null != artefact.getDomain() ? artefact.getDomain().getName() :
+                        null))
+                .field(ArtefactIndex.SUBDOMAIN_FIELD, (null != artefact.getSubDomain() ? artefact.getSubDomain()
+                        .getName() : null))
                 .endObject();
 
         return builder;

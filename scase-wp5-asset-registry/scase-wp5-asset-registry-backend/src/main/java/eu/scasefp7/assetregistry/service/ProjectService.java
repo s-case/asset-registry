@@ -16,6 +16,8 @@ public interface ProjectService {
 
     List<ProjectDTO> find(String query);
 
+    List<ProjectDTO> find(String query, String domain, String subdomain);
+
     Project create(Project project);
 
     Project update(Project project);
