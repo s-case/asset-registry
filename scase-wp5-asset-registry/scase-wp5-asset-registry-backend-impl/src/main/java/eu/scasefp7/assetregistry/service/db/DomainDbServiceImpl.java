@@ -1,7 +1,6 @@
 package eu.scasefp7.assetregistry.service.db;
 
 import eu.scasefp7.assetregistry.data.Domain;
-import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.data.SubDomain;
 import eu.scasefp7.assetregistry.service.exception.NameNotFoundException;
 

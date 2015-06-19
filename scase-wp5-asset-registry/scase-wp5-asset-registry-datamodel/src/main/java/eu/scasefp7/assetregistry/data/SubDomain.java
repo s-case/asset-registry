@@ -1,6 +1,6 @@
 package eu.scasefp7.assetregistry.data;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * Entity representation of a subdomain as specified by Google Verticals
@@ -25,6 +26,11 @@ import java.io.Serializable;
 public class SubDomain
         implements Serializable
 {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7894913140324726507L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +50,7 @@ public class SubDomain
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     public void setName(String name)
@@ -54,7 +60,7 @@ public class SubDomain
 
     public Domain getDomain()
     {
-        return domain;
+        return this.domain;
     }
 
     public void setDomain(Domain domain)
@@ -64,7 +70,7 @@ public class SubDomain
 
     public Long getVersion()
     {
-        return version;
+        return this.version;
     }
 
     public void setVersion(Long version)
@@ -74,7 +80,7 @@ public class SubDomain
 
     public Long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id)
@@ -94,26 +100,26 @@ public class SubDomain
 
         SubDomain subDomain = (SubDomain) o;
 
-        if (id != null ? !id.equals(subDomain.id) : subDomain.id != null) {
+        if (this.id != null ? !this.id.equals(subDomain.id) : subDomain.id != null) {
             return false;
         }
-        if (version != null ? !version.equals(subDomain.version) : subDomain.version != null) {
+        if (this.version != null ? !this.version.equals(subDomain.version) : subDomain.version != null) {
             return false;
         }
-        if (name != null ? !name.equals(subDomain.name) : subDomain.name != null) {
+        if (this.name != null ? !this.name.equals(subDomain.name) : subDomain.name != null) {
             return false;
         }
-        return !(domain != null ? !domain.equals(subDomain.domain) : subDomain.domain != null);
+        return !(this.domain != null ? !this.domain.equals(subDomain.domain) : subDomain.domain != null);
 
     }
 
     @Override
     public int hashCode()
     {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (domain != null ? domain.hashCode() : 0);
+        int result = this.id != null ? this.id.hashCode() : 0;
+        result = 31 * result + (this.version != null ? this.version.hashCode() : 0);
+        result = 31 * result + (this.name != null ? this.name.hashCode() : 0);
+        result = 31 * result + (this.domain != null ? this.domain.hashCode() : 0);
         return result;
     }
 }

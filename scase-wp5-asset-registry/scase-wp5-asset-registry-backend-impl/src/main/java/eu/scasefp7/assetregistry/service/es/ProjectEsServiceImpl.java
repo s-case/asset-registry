@@ -5,10 +5,12 @@ import eu.scasefp7.assetregistry.data.PrivacyLevel;
 import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
+import eu.scasefp7.assetregistry.index.BaseIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.index.ProjectIndex;
 import eu.scasefp7.assetregistry.service.ProjectService;
 import eu.scasefp7.assetregistry.service.db.ProjectDbService;
+
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +52,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     @EJB
     private ProjectService projectService;
 
+    @Override
     public List<ProjectDTO> find(final String query) {
         SearchResponse response = getSearchResponse(ProjectIndex.INDEX_NAME, IndexType
                 .TYPE_PROJECT, query);
@@ -77,11 +81,11 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
                 BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
 
                 if (null != domain) {
-                    boolFilter.must(queryFilter(matchQuery(ProjectIndex
+                    boolFilter.must(queryFilter(matchQuery(BaseIndex
                             .DOMAIN_FIELD, domain)));
                 }
                 if (null != subdomain) {
-                    boolFilter.must(queryFilter(matchQuery(ProjectIndex
+                    boolFilter.must(queryFilter(matchQuery(BaseIndex
                             .SUBDOMAIN_FIELD, subdomain)));
                 }
                 qb = QueryBuilders.filteredQuery(matchClause,
@@ -90,11 +94,11 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
         } else {
             qb = QueryBuilders.boolQuery();
             if (null != domain) {
-                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ProjectIndex
+                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex
                         .DOMAIN_FIELD, domain));
             }
             if (null != subdomain) {
-                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ProjectIndex.SUBDOMAIN_FIELD, subdomain));
+                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex.SUBDOMAIN_FIELD, subdomain));
             }
         }
 
@@ -127,7 +131,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
 
         UpdateResponse response = connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
                 IndexType.TYPE_PROJECT, Long.toString(id)).setDoc(jsonBuilder().startObject
-                ().field(ProjectIndex.PRIVACY_LEVEL_FIELD, privacyLevel).endObject()).get();
+                ().field(BaseIndex.PRIVACY_LEVEL_FIELD, privacyLevel).endObject()).get();
 
         return response;
     }
@@ -171,16 +175,16 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
         }
 
         XContentBuilder builder = jsonBuilder().startObject()
-                .field(ProjectIndex.NAME_FIELD, project.getName())
-                .field(ProjectIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel())
-                .field(ProjectIndex.DOMAIN_FIELD, (null != project.getDomain() ? project.getDomain().getName() : null))
-                .field(ProjectIndex.SUBDOMAIN_FIELD, (null != project.getSubDomain() ? project.getSubDomain().getName
+                .field(BaseIndex.NAME_FIELD, project.getName())
+                .field(BaseIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel())
+                .field(BaseIndex.DOMAIN_FIELD, (null != project.getDomain() ? project.getDomain().getName() : null))
+                .field(BaseIndex.SUBDOMAIN_FIELD, (null != project.getSubDomain() ? project.getSubDomain().getName
                         () : null))
-                .field(ProjectIndex.CREATED_BY_FIELD, project.getCreatedBy())
-                .field(ProjectIndex.UPDATED_BY_FIELD, project.getUpdatedBy())
-                .field(ProjectIndex.CREATED_AT_FIELD, project.getCreatedAt())
-                .field(ProjectIndex.UPDATED_AT_FIELD, project.getUpdatedAt())
-                .field(ProjectIndex.VERSION_FIELD, project.getVersion())
+                .field(BaseIndex.CREATED_BY_FIELD, project.getCreatedBy())
+                .field(BaseIndex.UPDATED_BY_FIELD, project.getUpdatedBy())
+                .field(BaseIndex.CREATED_AT_FIELD, project.getCreatedAt())
+                .field(BaseIndex.UPDATED_AT_FIELD, project.getUpdatedAt())
+                .field(BaseIndex.VERSION_FIELD, project.getVersion())
                 .array(ProjectIndex.ARTEFACTS_FIELD, artefactIds).endObject();
 
         return builder;
