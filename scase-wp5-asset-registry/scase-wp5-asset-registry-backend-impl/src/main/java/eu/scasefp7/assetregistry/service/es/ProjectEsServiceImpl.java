@@ -128,8 +128,8 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     public UpdateResponse updatePrivacyLevel(final long id, final PrivacyLevel privacyLevel) throws IOException {
 
         UpdateResponse response = this.connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
-                IndexType.TYPE_PROJECT, Long.toString(id)).setDoc(jsonBuilder().startObject
-                ().field(BaseIndex.PRIVACY_LEVEL_FIELD, privacyLevel).endObject()).get();
+                IndexType.TYPE_PROJECT, Long.toString(id)).setDoc(jsonBuilder().startObject().field(BaseIndex
+                .PRIVACY_LEVEL_FIELD, privacyLevel).endObject()).get();
 
         return response;
     }
@@ -176,8 +176,8 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
                 .field(BaseIndex.NAME_FIELD, project.getName())
                 .field(BaseIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel())
                 .field(BaseIndex.DOMAIN_FIELD, (null != project.getDomain() ? project.getDomain().getName() : null))
-                .field(BaseIndex.SUBDOMAIN_FIELD, (null != project.getSubDomain() ? project.getSubDomain().getName
-                        () : null))
+                .field(BaseIndex.SUBDOMAIN_FIELD, (null != project.getSubDomain() ? project.getSubDomain().getName()
+                        : null))
                 .field(BaseIndex.CREATED_BY_FIELD, project.getCreatedBy())
                 .field(BaseIndex.UPDATED_BY_FIELD, project.getUpdatedBy())
                 .field(BaseIndex.CREATED_AT_FIELD, project.getCreatedAt())

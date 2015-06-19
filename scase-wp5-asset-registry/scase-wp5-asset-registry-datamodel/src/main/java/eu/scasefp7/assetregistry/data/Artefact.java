@@ -16,7 +16,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 /**
- * Entity representation of an artefact
+ * Entity representation of an artefact.
  */
 @XmlRootElement
 @Entity

@@ -70,7 +70,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project create(final Project project) {
-        Project created = null;
+        Project created;
         try {
             created = dbService.create(project);
             esService.index(created);
@@ -101,7 +101,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(String name) {
-        Project project = null;
+        Project project;
         try {
             long id = Long.parseLong(name);
             project = dbService.find(id);
