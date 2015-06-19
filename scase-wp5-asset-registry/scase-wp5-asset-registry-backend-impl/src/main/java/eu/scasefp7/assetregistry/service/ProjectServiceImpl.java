@@ -50,6 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
+    @Override
     public Project findByName(String name){
         Project project = dbService.findByName(name);
         return project;

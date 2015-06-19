@@ -3,7 +3,8 @@ package eu.scasefp7.assetregistry.index;
 /**
  * Common field names of an index created in the AR
  */
-public class BaseIndex {
+public class BaseIndex
+{
 
     public static final String ID_FIELD = "id";
     public static final String NAME_FIELD = "name";

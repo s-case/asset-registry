@@ -17,7 +17,9 @@ import java.util.Arrays;
  */
 @Entity
 @Table(name = "ARTEFACTPAYLOAD")
-public class ArtefactPayload implements Serializable {
+public class ArtefactPayload
+        implements Serializable
+{
 
     private static final long serialVersionUID = 542435835493989083L;
 
@@ -42,72 +44,100 @@ public class ArtefactPayload implements Serializable {
     @Version
     private Long version;
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Long getVersion()
+    {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Long version)
+    {
         this.version = version;
     }
 
-    public byte[] getPayload() {
+    public byte[] getPayload()
+    {
         return payload;
     }
 
-    public void setPayload(byte[] playload) {
+    public void setPayload(byte[] playload)
+    {
         this.payload = playload;
     }
 
-    public PayloadType getType() {
+    public PayloadType getType()
+    {
         return type;
     }
 
-    public void setType(PayloadType type) {
+    public void setType(PayloadType type)
+    {
         this.type = type;
     }
 
-    public PayloadFormat getFormat() {
+    public PayloadFormat getFormat()
+    {
         return format;
     }
 
-    public void setFormat(PayloadFormat format) {
+    public void setFormat(PayloadFormat format)
+    {
         this.format = format;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ArtefactPayload payload1 = (ArtefactPayload) o;
 
-        if (id != null ? !id.equals(payload1.id) : payload1.id != null) return false;
-        if (type != payload1.type) return false;
-        if (format != payload1.format) return false;
-        if (name != null ? !name.equals(payload1.name) : payload1.name != null) return false;
-        if (!Arrays.equals(payload, payload1.payload)) return false;
+        if (id != null ? !id.equals(payload1.id) : payload1.id != null) {
+            return false;
+        }
+        if (type != payload1.type) {
+            return false;
+        }
+        if (format != payload1.format) {
+            return false;
+        }
+        if (name != null ? !name.equals(payload1.name) : payload1.name != null) {
+            return false;
+        }
+        if (!Arrays.equals(payload, payload1.payload)) {
+            return false;
+        }
         return !(version != null ? !version.equals(payload1.version) : payload1.version != null);
 
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (format != null ? format.hashCode() : 0);

@@ -4,9 +4,11 @@ import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.BaseIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.service.ArtefactService;
 import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
+
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -26,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,11 +82,11 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
 
                 if (null != domain) {
-                    boolFilter.must(queryFilter(matchQuery(ArtefactIndex
+                    boolFilter.must(queryFilter(matchQuery(BaseIndex
                             .DOMAIN_FIELD, domain)));
                 }
                 if (null != subdomain) {
-                    boolFilter.must(queryFilter(matchQuery(ArtefactIndex
+                    boolFilter.must(queryFilter(matchQuery(BaseIndex
                             .SUBDOMAIN_FIELD, subdomain)));
                 }
                 if (null != artefacttype) {
@@ -96,11 +99,11 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
         } else {
             qb = QueryBuilders.boolQuery();
             if (null != domain) {
-                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex
+                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex
                         .DOMAIN_FIELD, domain));
             }
             if (null != subdomain) {
-                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex.SUBDOMAIN_FIELD, subdomain));
+                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex.SUBDOMAIN_FIELD, subdomain));
             }
             if (null != artefacttype) {
                 ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex.ARTEFACT_TYPE_FIELD, artefacttype));
@@ -162,13 +165,13 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     private XContentBuilder builder(Artefact artefact) throws IOException {
 
         XContentBuilder builder = jsonBuilder().startObject()
-                .field(ArtefactIndex.NAME_FIELD, artefact.getName())
-                .field(ArtefactIndex.PRIVACY_LEVEL_FIELD, artefact.getPrivacyLevel())
-                .field(ArtefactIndex.CREATED_BY_FIELD, artefact.getCreatedBy())
-                .field(ArtefactIndex.UPDATED_BY_FIELD, artefact.getUpdatedBy())
-                .field(ArtefactIndex.CREATED_AT_FIELD, artefact.getCreatedBy())
-                .field(ArtefactIndex.UPDATED_AT_FIELD, artefact.getUpdatedAt())
-                .field(ArtefactIndex.VERSION_FIELD, artefact.getVersion())
+                .field(BaseIndex.NAME_FIELD, artefact.getName())
+                .field(BaseIndex.PRIVACY_LEVEL_FIELD, artefact.getPrivacyLevel())
+                .field(BaseIndex.CREATED_BY_FIELD, artefact.getCreatedBy())
+                .field(BaseIndex.UPDATED_BY_FIELD, artefact.getUpdatedBy())
+                .field(BaseIndex.CREATED_AT_FIELD, artefact.getCreatedBy())
+                .field(BaseIndex.UPDATED_AT_FIELD, artefact.getUpdatedAt())
+                .field(BaseIndex.VERSION_FIELD, artefact.getVersion())
                 .field(ArtefactIndex.PROJECT_NAME, artefact.getProjectName())
                 .field(ArtefactIndex.URI_FIELD, artefact.getUri())
                 .field(ArtefactIndex.GROUPID_FIELD, artefact.getGroupId())
@@ -178,9 +181,9 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 .field(ArtefactIndex.DESCRIPTION_FIELD, artefact.getDescription())
                 .array(ArtefactIndex.TAGS_FIELD, artefact.getTags().toArray(new String[artefact.getTags().size()]))
                 .field(ArtefactIndex.METADATA_FIELD, artefact.getMetadata())
-                .field(ArtefactIndex.DOMAIN_FIELD, (null != artefact.getDomain() ? artefact.getDomain().getName() :
+                .field(BaseIndex.DOMAIN_FIELD, (null != artefact.getDomain() ? artefact.getDomain().getName() :
                         null))
-                .field(ArtefactIndex.SUBDOMAIN_FIELD, (null != artefact.getSubDomain() ? artefact.getSubDomain()
+                .field(BaseIndex.SUBDOMAIN_FIELD, (null != artefact.getSubDomain() ? artefact.getSubDomain()
                         .getName() : null))
                 .endObject();
 
