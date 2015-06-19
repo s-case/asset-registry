@@ -20,7 +20,9 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Table(name = "DOMAIN")
-public class Domain implements Serializable {
+public class Domain
+        implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -38,54 +40,74 @@ public class Domain implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "domain")
     private List<SubDomain> subdomains;
 
-    public Long getVersion() {
+    public Long getVersion()
+    {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Long version)
+    {
         this.version = version;
     }
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public List<SubDomain> getSubdomains() {
+    public List<SubDomain> getSubdomains()
+    {
         return subdomains;
     }
 
-    public void setSubdomains(List<SubDomain> subdomains) {
+    public void setSubdomains(List<SubDomain> subdomains)
+    {
         this.subdomains = subdomains;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Domain domain = (Domain) o;
 
-        if (id != null ? !id.equals(domain.id) : domain.id != null) return false;
-        if (version != null ? !version.equals(domain.version) : domain.version != null) return false;
-        if (name != null ? !name.equals(domain.name) : domain.name != null) return false;
+        if (id != null ? !id.equals(domain.id) : domain.id != null) {
+            return false;
+        }
+        if (version != null ? !version.equals(domain.version) : domain.version != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(domain.name) : domain.name != null) {
+            return false;
+        }
         return !(subdomains != null ? !subdomains.equals(domain.subdomains) : domain.subdomains != null);
 
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);

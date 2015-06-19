@@ -13,7 +13,10 @@ import java.util.Map;
  * Created by missler on 03/06/15.
  */
 @XmlRootElement
-public class JsonArtefact extends JsonBase implements Serializable {
+public class JsonArtefact
+        extends JsonBase
+        implements Serializable
+{
 
     private static final long serialVersionUID = -1932564949168434818L;
 
@@ -37,109 +40,155 @@ public class JsonArtefact extends JsonBase implements Serializable {
 
     private List<JsonArtefactPayload> payload = new ArrayList<JsonArtefactPayload>();
 
-    public String getProjectName() {
+    public String getProjectName()
+    {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
+    public void setProjectName(String projectName)
+    {
         this.projectName = projectName;
     }
 
-    public String getUri() {
+    public String getUri()
+    {
         return uri;
     }
 
-    public void setUri(String uri) {
+    public void setUri(String uri)
+    {
         this.uri = uri;
     }
 
-    public String getGroupId() {
+    public String getGroupId()
+    {
         return groupId;
     }
 
-    public void setGroupId(String groupId) {
+    public void setGroupId(String groupId)
+    {
         this.groupId = groupId;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public List<Long> getDependencies() {
+    public List<Long> getDependencies()
+    {
         return dependencies;
     }
 
-    public void setDependencies(List<Long> dependencies) {
+    public void setDependencies(List<Long> dependencies)
+    {
         this.dependencies = dependencies;
     }
 
-    public ArtefactType getType() {
+    public ArtefactType getType()
+    {
         return type;
     }
 
-    public void setType(ArtefactType type) {
+    public void setType(ArtefactType type)
+    {
         this.type = type;
     }
 
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public List<String> getTags() {
+    public List<String> getTags()
+    {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<String> tags)
+    {
         this.tags = tags;
     }
 
-    public Map<String, String> getMetadata() {
+    public Map<String, String> getMetadata()
+    {
         return metadata;
     }
 
-    public void setMetadata(Map<String, String> metadata) {
+    public void setMetadata(Map<String, String> metadata)
+    {
         this.metadata = metadata;
     }
 
-    public List<JsonArtefactPayload> getPayload() {
+    public List<JsonArtefactPayload> getPayload()
+    {
         return payload;
     }
 
-    public void setPayload(List<JsonArtefactPayload> payload) {
+    public void setPayload(List<JsonArtefactPayload> payload)
+    {
         this.payload = payload;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         JsonArtefact that = (JsonArtefact) o;
 
-        if (projectName != null ? !projectName.equals(that.projectName) : that.projectName != null) return false;
-        if (uri != null ? !uri.equals(that.uri) : that.uri != null) return false;
-        if (groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (dependencies != null ? !dependencies.equals(that.dependencies) : that.dependencies != null) return false;
-        if (type != that.type) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
-        if (metadata != null ? !metadata.equals(that.metadata) : that.metadata != null) return false;
+        if (projectName != null ? !projectName.equals(that.projectName) : that.projectName != null) {
+            return false;
+        }
+        if (uri != null ? !uri.equals(that.uri) : that.uri != null) {
+            return false;
+        }
+        if (groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(that.name) : that.name != null) {
+            return false;
+        }
+        if (dependencies != null ? !dependencies.equals(that.dependencies) : that.dependencies != null) {
+            return false;
+        }
+        if (type != that.type) {
+            return false;
+        }
+        if (description != null ? !description.equals(that.description) : that.description != null) {
+            return false;
+        }
+        if (tags != null ? !tags.equals(that.tags) : that.tags != null) {
+            return false;
+        }
+        if (metadata != null ? !metadata.equals(that.metadata) : that.metadata != null) {
+            return false;
+        }
         return !(payload != null ? !payload.equals(that.payload) : that.payload != null);
 
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = super.hashCode();
         result = 31 * result + (projectName != null ? projectName.hashCode() : 0);
         result = 31 * result + (uri != null ? uri.hashCode() : 0);

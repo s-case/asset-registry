@@ -7,15 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
 
 /**
  * base entity.
@@ -60,99 +57,139 @@ public abstract class BaseEntity
     @Version
     private Long version;
 
-    public Long getId() {
+    public Long getId()
+    {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public Long getVersion() {
+    public Long getVersion()
+    {
         return this.version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Long version)
+    {
         this.version = version;
     }
 
-    public String getCreatedBy() {
+    public String getCreatedBy()
+    {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(String createdBy)
+    {
         this.createdBy = createdBy;
     }
 
-    public String getUpdatedBy() {
+    public String getUpdatedBy()
+    {
         return updatedBy;
     }
 
-    public void setUpdatedBy(String updatedBy) {
+    public void setUpdatedBy(String updatedBy)
+    {
         this.updatedBy = updatedBy;
     }
 
-    public Date getCreatedAt() {
+    public Date getCreatedAt()
+    {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Date createdAt)
+    {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Date getUpdatedAt()
+    {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Date updatedAt)
+    {
         this.updatedAt = updatedAt;
     }
 
-    public Domain getDomain() {
+    public Domain getDomain()
+    {
         return domain;
     }
 
-    public void setDomain(Domain domain) {
+    public void setDomain(Domain domain)
+    {
         this.domain = domain;
     }
 
-    public SubDomain getSubDomain() {
+    public SubDomain getSubDomain()
+    {
         return subDomain;
     }
 
-    public void setSubDomain(SubDomain subDomain) {
+    public void setSubDomain(SubDomain subDomain)
+    {
         this.subDomain = subDomain;
     }
 
-    public PrivacyLevel getPrivacyLevel() {
+    public PrivacyLevel getPrivacyLevel()
+    {
         return privacyLevel;
     }
 
-    public void setPrivacyLevel(PrivacyLevel privacyLevel) {
+    public void setPrivacyLevel(PrivacyLevel privacyLevel)
+    {
         this.privacyLevel = privacyLevel;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         BaseEntity that = (BaseEntity) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (createdBy != null ? !createdBy.equals(that.createdBy) : that.createdBy != null) return false;
-        if (updatedBy != null ? !updatedBy.equals(that.updatedBy) : that.updatedBy != null) return false;
-        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
-        if (domain != null ? !domain.equals(that.domain) : that.domain != null) return false;
-        if (subDomain != null ? !subDomain.equals(that.subDomain) : that.subDomain != null) return false;
-        if (privacyLevel != that.privacyLevel) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) {
+            return false;
+        }
+        if (createdBy != null ? !createdBy.equals(that.createdBy) : that.createdBy != null) {
+            return false;
+        }
+        if (updatedBy != null ? !updatedBy.equals(that.updatedBy) : that.updatedBy != null) {
+            return false;
+        }
+        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) {
+            return false;
+        }
+        if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) {
+            return false;
+        }
+        if (domain != null ? !domain.equals(that.domain) : that.domain != null) {
+            return false;
+        }
+        if (subDomain != null ? !subDomain.equals(that.subDomain) : that.subDomain != null) {
+            return false;
+        }
+        if (privacyLevel != that.privacyLevel) {
+            return false;
+        }
         return !(version != null ? !version.equals(that.version) : that.version != null);
 
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (updatedBy != null ? updatedBy.hashCode() : 0);

@@ -8,7 +8,9 @@ import java.util.Date;
 /**
  * Created by missler on 03/06/15.
  */
-public abstract class JsonBase implements Serializable{
+public abstract class JsonBase
+        implements Serializable
+{
 
     private Long id;
 
@@ -29,99 +31,139 @@ public abstract class JsonBase implements Serializable{
     @XmlElement
     private Long version;
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public String getCreatedBy() {
+    public String getCreatedBy()
+    {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(String createdBy)
+    {
         this.createdBy = createdBy;
     }
 
-    public String getUpdatedBy() {
+    public String getUpdatedBy()
+    {
         return updatedBy;
     }
 
-    public void setUpdatedBy(String updatedBy) {
+    public void setUpdatedBy(String updatedBy)
+    {
         this.updatedBy = updatedBy;
     }
 
-    public Date getCreatedAt() {
+    public Date getCreatedAt()
+    {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Date createdAt)
+    {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Date getUpdatedAt()
+    {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Date updatedAt)
+    {
         this.updatedAt = updatedAt;
     }
 
-    public String getDomain() {
+    public String getDomain()
+    {
         return domain;
     }
 
-    public void setDomain(String domain) {
+    public void setDomain(String domain)
+    {
         this.domain = domain;
     }
 
-    public String getSubDomain() {
+    public String getSubDomain()
+    {
         return subDomain;
     }
 
-    public void setSubDomain(String subDomain) {
+    public void setSubDomain(String subDomain)
+    {
         this.subDomain = subDomain;
     }
 
-    public PrivacyLevel getPrivacyLevel() {
+    public PrivacyLevel getPrivacyLevel()
+    {
         return privacyLevel;
     }
 
-    public void setPrivacyLevel(PrivacyLevel privacyLevel) {
+    public void setPrivacyLevel(PrivacyLevel privacyLevel)
+    {
         this.privacyLevel = privacyLevel;
     }
 
-    public Long getVersion() {
+    public Long getVersion()
+    {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Long version)
+    {
         this.version = version;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         JsonBase jsonBase = (JsonBase) o;
 
-        if (id != null ? !id.equals(jsonBase.id) : jsonBase.id != null) return false;
-        if (createdBy != null ? !createdBy.equals(jsonBase.createdBy) : jsonBase.createdBy != null) return false;
-        if (updatedBy != null ? !updatedBy.equals(jsonBase.updatedBy) : jsonBase.updatedBy != null) return false;
-        if (createdAt != null ? !createdAt.equals(jsonBase.createdAt) : jsonBase.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(jsonBase.updatedAt) : jsonBase.updatedAt != null) return false;
-        if (domain != null ? !domain.equals(jsonBase.domain) : jsonBase.domain != null) return false;
-        if (subDomain != null ? !subDomain.equals(jsonBase.subDomain) : jsonBase.subDomain != null) return false;
-        if (privacyLevel != jsonBase.privacyLevel) return false;
+        if (id != null ? !id.equals(jsonBase.id) : jsonBase.id != null) {
+            return false;
+        }
+        if (createdBy != null ? !createdBy.equals(jsonBase.createdBy) : jsonBase.createdBy != null) {
+            return false;
+        }
+        if (updatedBy != null ? !updatedBy.equals(jsonBase.updatedBy) : jsonBase.updatedBy != null) {
+            return false;
+        }
+        if (createdAt != null ? !createdAt.equals(jsonBase.createdAt) : jsonBase.createdAt != null) {
+            return false;
+        }
+        if (updatedAt != null ? !updatedAt.equals(jsonBase.updatedAt) : jsonBase.updatedAt != null) {
+            return false;
+        }
+        if (domain != null ? !domain.equals(jsonBase.domain) : jsonBase.domain != null) {
+            return false;
+        }
+        if (subDomain != null ? !subDomain.equals(jsonBase.subDomain) : jsonBase.subDomain != null) {
+            return false;
+        }
+        if (privacyLevel != jsonBase.privacyLevel) {
+            return false;
+        }
         return !(version != null ? !version.equals(jsonBase.version) : jsonBase.version != null);
 
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (updatedBy != null ? updatedBy.hashCode() : 0);

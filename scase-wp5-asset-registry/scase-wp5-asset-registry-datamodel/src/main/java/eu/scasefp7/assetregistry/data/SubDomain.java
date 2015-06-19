@@ -22,7 +22,9 @@ import java.io.Serializable;
 @XmlRootElement
 @Entity
 @Table(name = "SUBDOMAIN")
-public class SubDomain implements Serializable {
+public class SubDomain
+        implements Serializable
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,58 +38,78 @@ public class SubDomain implements Serializable {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="domainId")
+    @JoinColumn(name = "domainId")
     @JsonBackReference
     private Domain domain;
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public Domain getDomain() {
+    public Domain getDomain()
+    {
         return domain;
     }
 
-    public void setDomain(Domain domain) {
+    public void setDomain(Domain domain)
+    {
         this.domain = domain;
     }
 
-    public Long getVersion() {
+    public Long getVersion()
+    {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(Long version)
+    {
         this.version = version;
     }
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object o)
+    {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         SubDomain subDomain = (SubDomain) o;
 
-        if (id != null ? !id.equals(subDomain.id) : subDomain.id != null) return false;
-        if (version != null ? !version.equals(subDomain.version) : subDomain.version != null) return false;
-        if (name != null ? !name.equals(subDomain.name) : subDomain.name != null) return false;
+        if (id != null ? !id.equals(subDomain.id) : subDomain.id != null) {
+            return false;
+        }
+        if (version != null ? !version.equals(subDomain.version) : subDomain.version != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(subDomain.name) : subDomain.name != null) {
+            return false;
+        }
         return !(domain != null ? !domain.equals(subDomain.domain) : subDomain.domain != null);
 
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (version != null ? version.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
