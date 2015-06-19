@@ -14,13 +14,11 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @Singleton
 @Startup
 public class ElasticSearchConnectorService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(ElasticSearchConnectorService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ElasticSearchConnectorService.class);
 
     private Client client;
 

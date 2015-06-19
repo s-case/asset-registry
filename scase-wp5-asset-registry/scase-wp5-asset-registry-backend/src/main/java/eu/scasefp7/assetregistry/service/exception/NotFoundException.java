@@ -3,7 +3,6 @@ package eu.scasefp7.assetregistry.service.exception;
 import eu.scasefp7.assetregistry.data.BaseEntity;
 import eu.scasefp7.base.ScaseException;
 
-
 /**
  * exception for not found entities.
  * @author Robert Magnus

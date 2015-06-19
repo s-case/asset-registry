@@ -15,4 +15,7 @@ public class BaseIndex {
     public static final String CREATED_AT_FIELD = "created_at";
     public static final String UPDATED_AT_FIELD = "updated_at";
     public static final String VERSION_FIELD = "version";
+
+    protected BaseIndex(){
+    }
 }

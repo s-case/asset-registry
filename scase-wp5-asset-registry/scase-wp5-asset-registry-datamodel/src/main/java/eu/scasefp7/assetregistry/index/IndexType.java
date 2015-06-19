@@ -7,4 +7,7 @@ public class IndexType {
 
     public static final String TYPE_ARTEFACT = "artefact";
     public static final String TYPE_PROJECT = "project";
+
+    private IndexType(){
+    }
 }
