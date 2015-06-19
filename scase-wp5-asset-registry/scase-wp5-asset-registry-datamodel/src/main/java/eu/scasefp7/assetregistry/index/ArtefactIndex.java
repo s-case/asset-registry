@@ -2,7 +2,7 @@ package eu.scasefp7.assetregistry.index;
 
 /**
  * Field names of the artefact index created in the AR in addition to the fields
- * defined in the {@link eu.scasefp7.assetregistry.index.BaseIndex BaseIndex}
+ * defined in the {@link eu.scasefp7.assetregistry.index.BaseIndex BaseIndex}.
  */
 public class ArtefactIndex extends BaseIndex {
 

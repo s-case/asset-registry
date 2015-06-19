@@ -39,13 +39,13 @@ import eu.scasefp7.assetregistry.service.ArtefactService;
 import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
 
 /**
- * Service class for Artefact related ElasticSearch operations
+ * Service class for Artefact related ElasticSearch operations.
  */
 @Stateless
 @Local(ArtefactEsService.class)
 public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> implements ArtefactEsService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(ArtefactEsServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ArtefactEsServiceImpl.class);
 
     @EJB
     private ArtefactDbService dbService;
@@ -71,8 +71,8 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
             qb = QueryBuilders.matchQuery("_all", query);
 
             if (query.contains("+") || query.contains(" ")) {
-                query = query.replace("+", " ");
-                qb = multiMatchQuery(query, "_all");
+                String q = query.replace("+", " ");
+                qb = multiMatchQuery(q, "_all");
             }
 
             if (null != domain || null != subdomain || null != artefacttype) {

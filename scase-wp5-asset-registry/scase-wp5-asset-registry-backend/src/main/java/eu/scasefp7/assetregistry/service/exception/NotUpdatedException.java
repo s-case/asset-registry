@@ -4,7 +4,7 @@ import eu.scasefp7.assetregistry.data.BaseEntity;
 import eu.scasefp7.base.ScaseException;
 
 /**
- * Exception to be thrown if an asset could not be updated
+ * Exception to be thrown if an asset could not be updated.
  */
 public class NotUpdatedException extends ScaseException {
 

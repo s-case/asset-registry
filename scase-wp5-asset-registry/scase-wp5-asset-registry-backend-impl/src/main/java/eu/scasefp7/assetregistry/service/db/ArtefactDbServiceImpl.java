@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.Date;
 
 /**
- * Service to handle CRUD operations of artefacts
+ * Service to handle CRUD operations of artefacts.
  */
 @Stateless
 @Local(ArtefactDbService.class)

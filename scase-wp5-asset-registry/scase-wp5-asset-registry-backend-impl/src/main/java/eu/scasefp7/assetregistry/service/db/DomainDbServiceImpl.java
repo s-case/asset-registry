@@ -13,10 +13,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 /**
- * Service  to retrieve core data of domains and subdomains available in the Asset Registry
+ * Service  to retrieve core data of domains and subdomains available in the Asset Registry.
  */
 @Stateless
-public class DomainDbServiceImpl implements DomainDbService{
+public class DomainDbServiceImpl implements DomainDbService {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -24,30 +24,32 @@ public class DomainDbServiceImpl implements DomainDbService{
     @Override
     public Domain findDomain(long domainId) {
 
-      return em().find(Domain.class,domainId);
+        return em().find(Domain.class, domainId);
     }
 
     @Override
-    public Domain findDomainByName(String name){
-        TypedQuery<Domain> query = entityManager.createQuery("SELECT d FROM Domain d WHERE d.name = :name",Domain.class).setParameter("name",name);
+    public Domain findDomainByName(String name) {
+        TypedQuery<Domain> query = entityManager.createQuery("SELECT d FROM Domain d WHERE d.name = :name", Domain
+                .class).setParameter("name", name);
         List<Domain> result = query.getResultList();
-        if(result.isEmpty()){
-            throw new NameNotFoundException(Domain.class,name);
+        if (result.isEmpty()) {
+            throw new NameNotFoundException(Domain.class, name);
         }
         return result.get(0);
     }
 
     @Override
     public SubDomain findSubDomain(long subdomainId) {
-        return em().find(SubDomain.class,subdomainId);
+        return em().find(SubDomain.class, subdomainId);
     }
 
     @Override
-    public SubDomain findSubDomainByName(String name){
-        TypedQuery<SubDomain> query = entityManager.createQuery("SELECT s FROM SubDomain s WHERE s.name = :name",SubDomain.class).setParameter("name",name);
+    public SubDomain findSubDomainByName(String name) {
+        TypedQuery<SubDomain> query = entityManager.createQuery("SELECT s FROM SubDomain s WHERE s.name = :name",
+                SubDomain.class).setParameter("name", name);
         List<SubDomain> result = query.getResultList();
-        if(result.isEmpty()){
-            throw new NameNotFoundException(SubDomain.class,name);
+        if (result.isEmpty()) {
+            throw new NameNotFoundException(SubDomain.class, name);
         }
         return result.get(0);
     }

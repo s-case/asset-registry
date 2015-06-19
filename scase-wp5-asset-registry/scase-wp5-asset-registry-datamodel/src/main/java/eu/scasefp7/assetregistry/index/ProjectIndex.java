@@ -2,7 +2,7 @@ package eu.scasefp7.assetregistry.index;
 
 /**
  * Field names of the project index created in the AR in addition to the fields
- * defined in the {@link eu.scasefp7.assetregistry.index.BaseIndex BaseIndex}
+ * defined in the {@link eu.scasefp7.assetregistry.index.BaseIndex BaseIndex}.
  */
 public class ProjectIndex extends BaseIndex {
 

@@ -1,20 +1,19 @@
 package eu.scasefp7.assetregistry.service.db;
 
+import eu.scasefp7.assetregistry.data.Project;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import eu.scasefp7.assetregistry.data.Project;
-
 import java.util.Date;
 import java.util.List;
 
 /**
  * service class for project.
- * @author rmagnus
  *
+ * @author rmagnus
  */
 @Stateless
 @Local(ProjectDbService.class)
@@ -29,10 +28,11 @@ public class ProjectDbServiceImpl extends BaseCrudDbServiceImpl<Project> impleme
     }
 
     @Override
-    public Project findByName(String name){
-        TypedQuery<Project> query = entityManager.createQuery("SELECT p FROM Project p WHERE p.name = :name",Project.class).setParameter("name",name);
+    public Project findByName(String name) {
+        TypedQuery<Project> query = entityManager.createQuery("SELECT p FROM Project p WHERE p.name = :name", Project
+                .class).setParameter("name", name);
         List<Project> result = query.getResultList();
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
             return null;
         }
         return result.get(0);

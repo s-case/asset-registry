@@ -2,7 +2,7 @@ package eu.scasefp7.assetregistry.data;
 
 /**
  * Enumeration of the format a payload could be used in
- * {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPlayload}
+ * {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPlayload}.
  */
 public enum PayloadFormat
 {

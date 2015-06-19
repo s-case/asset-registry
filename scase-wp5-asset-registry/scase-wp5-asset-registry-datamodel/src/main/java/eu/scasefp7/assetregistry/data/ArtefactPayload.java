@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * Entity representation of an artefact payload
+ * Entity representation of an artefact payload.
  */
 @Entity
 @Table(name = "ARTEFACTPAYLOAD")

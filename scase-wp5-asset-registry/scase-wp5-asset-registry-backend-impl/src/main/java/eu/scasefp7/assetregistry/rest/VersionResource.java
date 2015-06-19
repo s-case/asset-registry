@@ -15,7 +15,7 @@ import javax.ws.rs.Path;
 public class VersionResource {
 
     @Inject
-    VersionServiceImpl versionService;
+    private VersionServiceImpl versionService;
 
 
     /**
@@ -27,7 +27,5 @@ public class VersionResource {
     {
         return this.versionService.getVersion();
     }
-
-
 
 }

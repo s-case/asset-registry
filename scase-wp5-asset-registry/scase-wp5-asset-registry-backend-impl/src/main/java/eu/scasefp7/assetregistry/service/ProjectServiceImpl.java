@@ -30,7 +30,7 @@ import java.util.List;
 @Local(ProjectService.class)
 public class ProjectServiceImpl implements ProjectService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(ProjectServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     @EJB
     private ProjectDbService dbService;
@@ -69,7 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project create(Project project) {
+    public Project create(final Project project) {
         Project created = null;
         try {
             created = dbService.create(project);
@@ -78,18 +78,19 @@ public class ProjectServiceImpl implements ProjectService {
               throw new NotCreatedException(Project.class, project.getName(), getRootCause(thrown));
         }
 
-        return project;
+        return created;
     }
 
     @Override
-    public Project update(Project project) {
+    public Project update(final Project project) {
+        Project updated;
         try {
-            project = dbService.update(project);
-            esService.update(project);
+            updated = dbService.update(project);
+            esService.update(updated);
         } catch (Throwable thrown) {
             throw new NotUpdatedException(Project.class, project.getId(), getRootCause(thrown));
         }
-        return project;
+        return updated;
     }
 
     @Override

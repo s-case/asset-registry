@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Entity representation of a domain as specified by Google Verticals
+ * Entity representation of a domain as specified by Google Verticals.
  */
 @XmlRootElement
 @Entity

@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
- * Entity representation of a subdomain as specified by Google Verticals
+ * Entity representation of a subdomain as specified by Google Verticals.
  */
 @XmlRootElement
 @Entity

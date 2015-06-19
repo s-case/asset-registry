@@ -1,7 +1,7 @@
 package eu.scasefp7.assetregistry.index;
 
 /**
- * Common field names of an index created in the AR
+ * Common field names of an index created in the AR.
  */
 public class BaseIndex
 {

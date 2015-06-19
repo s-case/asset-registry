@@ -4,7 +4,6 @@ import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.service.ProjectService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +20,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.net.URISyntaxException;
 import java.util.List;
 
 import static eu.scasefp7.assetregistry.rest.ResourceTools.redirect;
 
-@Path( AssetRegistryRestApp.PART_PROJECT)
-@Produces( "application/json;charset=UTF-8" )
+@Path(AssetRegistryRestApp.PART_PROJECT)
+@Produces("application/json;charset=UTF-8")
 @Consumes("application/json")
 @Stateless
 public class ProjectResource {
@@ -40,25 +38,27 @@ public class ProjectResource {
 
     /**
      * Find a project in the repository by ID
+     *
      * @param id
      * @return Project project
      */
     @GET
     @Path("{id}/id")
-    public JsonProject get( @PathParam("id") long id ) {
-        final Project projectEntity = this.projectService.find( id );
+    public JsonProject get(@PathParam("id") long id) {
+        final Project projectEntity = this.projectService.find(id);
         final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
         return jsonProject;
     }
 
     /**
      * Find a project in the repository by its name
+     *
      * @param name - the name of the project
      * @return Project project
      */
     @GET
     @Path("{name}/name")
-    public JsonProject get(@PathParam("name") String name){
+    public JsonProject get(@PathParam("name") String name) {
 
         Project projectEntity = null;
         JsonProject jsonProject = null;
@@ -66,19 +66,19 @@ public class ProjectResource {
         try {
             long id = Long.parseLong(name);
             projectEntity = this.projectService.find(id);
-        } catch (NumberFormatException nfe){
-            LOG.warn("Value " + name +" could not be parsed into a number. Trying to find the project by name.");
+        } catch (NumberFormatException nfe) {
+            LOG.warn("Value " + name + " could not be parsed into a number. Trying to find the project by name.");
             projectEntity = this.projectService.findByName(name);
         }
 
-        if(null!=projectEntity) {
+        if (null != projectEntity) {
             jsonProject = projectService.convertEntityToJson(projectEntity);
         }
 
         return jsonProject;
     }
+
     /**
-     *
      * @param query
      * @return List<Projects> projects
      */
@@ -93,7 +93,6 @@ public class ProjectResource {
 
 
     /**
-     *
      * @param domain
      * @param subdomain
      * @return List<ProjectsDTO> projects
@@ -101,56 +100,59 @@ public class ProjectResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("search")
-    public List<ProjectDTO> searchProjects(@QueryParam("query") final String query, @QueryParam("domain") final String domain, @QueryParam("subdomain") final String subdomain)
-    {
+    public List<ProjectDTO> searchProjects(@QueryParam("query") final String query, @QueryParam("domain") final
+    String domain, @QueryParam("subdomain") final String subdomain) {
         final List<ProjectDTO> projects = projectService.find(query, domain, subdomain);
         return projects;
     }
 
     /**
      * Create and store a new project in the repository
+     *
      * @param project The project to be stored inside of the Asset Repo
      * @return {#link javax.ws.rs.core.Response Response}
      * @throws URISyntaxException
      */
     @POST
-    public Response create( JsonProject project ) throws URISyntaxException {
+    public Response create(JsonProject project) throws URISyntaxException {
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project created = this.projectService.create(projectEntity);
 
 
-
-        return redirect( "project/" + created.getId() );
+        return redirect("project/" + created.getId());
     }
 
     /**
      * Update a project in the Asset Repo
-     * @param id Project ID
+     *
+     * @param id      Project ID
      * @param project The project to be updated inside of the Asset Repo
      * @return {#link javax.ws.rs.core.Response HTTP Response code}
      * @throws URISyntaxException
      */
     @PUT
     @Path("{id}")
-    public Response update( @PathParam("id") long id, JsonProject project ) throws URISyntaxException {
-        project.setId( id );
+    public Response update(@PathParam("id") long id, JsonProject project) throws URISyntaxException {
+        project.setId(id);
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project updated = this.projectService.update(projectEntity);
-        return redirect( "project/", updated );
+        return redirect("project/", updated);
     }
 
     /**
      * Delete a project from the Asset Repo
+     *
      * @param id ID of the project to be deleted
      */
     @DELETE
     @Path("{id}")
-    public void delete( @PathParam("id") long id ) {
+    public void delete(@PathParam("id") long id) {
         this.projectService.delete(id);
     }
 
     /**
      * Delete a project from the Asset Repo
+     *
      * @param name Name string of the project to be deleted
      */
     @DELETE

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
- * Data transfer object of an artefact and it's score provided by ElasticSearch
+ * Data transfer object of an artefact and it's score provided by ElasticSearch.
  */
 @XmlRootElement
 public class ArtefactDTO

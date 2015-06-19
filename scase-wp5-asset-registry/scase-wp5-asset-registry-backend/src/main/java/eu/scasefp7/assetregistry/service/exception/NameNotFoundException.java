@@ -3,7 +3,7 @@ package eu.scasefp7.assetregistry.service.exception;
 import eu.scasefp7.base.ScaseException;
 
 /**
- * Exception to be thrown if an asset for a given name could not be found
+ * Exception to be thrown if an asset for a given name could not be found.
  */
 public class NameNotFoundException extends ScaseException{
 

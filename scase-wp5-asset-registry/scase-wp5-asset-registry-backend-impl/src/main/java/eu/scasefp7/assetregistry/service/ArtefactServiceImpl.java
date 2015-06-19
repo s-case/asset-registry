@@ -80,15 +80,16 @@ public class ArtefactServiceImpl
     }
 
     @Override
-    public Artefact update(Artefact artefact)
+    public Artefact update(final Artefact artefact)
     {
+        Artefact updated;
         try {
-            artefact = this.dbService.update(artefact);
-            this.esService.update(artefact);
+            updated = this.dbService.update(artefact);
+            this.esService.update(updated);
         } catch (Throwable thrown) {
             throw new NotUpdatedException(Artefact.class, artefact.getId(), getRootCause(thrown));
         }
-        return artefact;
+        return updated;
     }
 
     @Override

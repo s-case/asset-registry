@@ -1,18 +1,15 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.PrivacyLevel;
+import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.JsonProject;
+import eu.scasefp7.assetregistry.dto.ProjectDTO;
+import eu.scasefp7.assetregistry.index.BaseIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.index.ProjectIndex;
+import eu.scasefp7.assetregistry.service.ProjectService;
+import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -26,25 +23,26 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.data.PrivacyLevel;
-import eu.scasefp7.assetregistry.data.Project;
-import eu.scasefp7.assetregistry.dto.JsonProject;
-import eu.scasefp7.assetregistry.dto.ProjectDTO;
-import eu.scasefp7.assetregistry.index.BaseIndex;
-import eu.scasefp7.assetregistry.index.IndexType;
-import eu.scasefp7.assetregistry.index.ProjectIndex;
-import eu.scasefp7.assetregistry.service.ProjectService;
-import eu.scasefp7.assetregistry.service.db.ProjectDbService;
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
 
 /**
- * Service class for Project related ElasticSearch operations
+ * Service class for Project related ElasticSearch operations.
  */
 @Stateless
 @Local(ProjectEsService.class)
 public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> implements ProjectEsService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(ProjectEsServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProjectEsServiceImpl.class);
 
     @EJB
     private ProjectDbService dbService;
@@ -70,8 +68,8 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
             qb = QueryBuilders.matchQuery("_all", query);
 
             if (query.contains("+") || query.contains(" ")) {
-                query = query.replace("+", " ");
-                qb = multiMatchQuery(query, "_all");
+                String q = query.replace("+", " ");
+                qb = multiMatchQuery(q, "_all");
             }
 
             if (null != domain || null != subdomain) {
@@ -185,7 +183,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
                 .field(BaseIndex.CREATED_AT_FIELD, project.getCreatedAt())
                 .field(BaseIndex.UPDATED_AT_FIELD, project.getUpdatedAt())
                 .field(BaseIndex.VERSION_FIELD, project.getVersion())
-                .array(ProjectIndex.ARTEFACTS_FIELD, (Object[])artefactIds).endObject();
+                .array(ProjectIndex.ARTEFACTS_FIELD, (Object[]) artefactIds).endObject();
 
         return builder;
     }
