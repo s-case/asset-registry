@@ -1,9 +1,11 @@
 package eu.scasefp7.assetregistry.dto;
 
-import eu.scasefp7.assetregistry.data.PrivacyLevel;
-import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.xml.bind.annotation.XmlElement;
+
+import eu.scasefp7.assetregistry.data.PrivacyLevel;
 
 /**
  * Created by missler on 03/06/15.
@@ -11,6 +13,11 @@ import java.util.Date;
 public abstract class JsonBase
         implements Serializable
 {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4769527198114115162L;
 
     private Long id;
 
@@ -33,7 +40,7 @@ public abstract class JsonBase
 
     public Long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id)
@@ -43,7 +50,7 @@ public abstract class JsonBase
 
     public String getCreatedBy()
     {
-        return createdBy;
+        return this.createdBy;
     }
 
     public void setCreatedBy(String createdBy)
@@ -53,7 +60,7 @@ public abstract class JsonBase
 
     public String getUpdatedBy()
     {
-        return updatedBy;
+        return this.updatedBy;
     }
 
     public void setUpdatedBy(String updatedBy)
@@ -63,7 +70,7 @@ public abstract class JsonBase
 
     public Date getCreatedAt()
     {
-        return createdAt;
+        return this.createdAt;
     }
 
     public void setCreatedAt(Date createdAt)
@@ -73,7 +80,7 @@ public abstract class JsonBase
 
     public Date getUpdatedAt()
     {
-        return updatedAt;
+        return this.updatedAt;
     }
 
     public void setUpdatedAt(Date updatedAt)
@@ -83,7 +90,7 @@ public abstract class JsonBase
 
     public String getDomain()
     {
-        return domain;
+        return this.domain;
     }
 
     public void setDomain(String domain)
@@ -93,7 +100,7 @@ public abstract class JsonBase
 
     public String getSubDomain()
     {
-        return subDomain;
+        return this.subDomain;
     }
 
     public void setSubDomain(String subDomain)
@@ -103,7 +110,7 @@ public abstract class JsonBase
 
     public PrivacyLevel getPrivacyLevel()
     {
-        return privacyLevel;
+        return this.privacyLevel;
     }
 
     public void setPrivacyLevel(PrivacyLevel privacyLevel)
@@ -113,7 +120,7 @@ public abstract class JsonBase
 
     public Long getVersion()
     {
-        return version;
+        return this.version;
     }
 
     public void setVersion(Long version)
@@ -133,46 +140,46 @@ public abstract class JsonBase
 
         JsonBase jsonBase = (JsonBase) o;
 
-        if (id != null ? !id.equals(jsonBase.id) : jsonBase.id != null) {
+        if (this.id != null ? !this.id.equals(jsonBase.id) : jsonBase.id != null) {
             return false;
         }
-        if (createdBy != null ? !createdBy.equals(jsonBase.createdBy) : jsonBase.createdBy != null) {
+        if (this.createdBy != null ? !this.createdBy.equals(jsonBase.createdBy) : jsonBase.createdBy != null) {
             return false;
         }
-        if (updatedBy != null ? !updatedBy.equals(jsonBase.updatedBy) : jsonBase.updatedBy != null) {
+        if (this.updatedBy != null ? !this.updatedBy.equals(jsonBase.updatedBy) : jsonBase.updatedBy != null) {
             return false;
         }
-        if (createdAt != null ? !createdAt.equals(jsonBase.createdAt) : jsonBase.createdAt != null) {
+        if (this.createdAt != null ? !this.createdAt.equals(jsonBase.createdAt) : jsonBase.createdAt != null) {
             return false;
         }
-        if (updatedAt != null ? !updatedAt.equals(jsonBase.updatedAt) : jsonBase.updatedAt != null) {
+        if (this.updatedAt != null ? !this.updatedAt.equals(jsonBase.updatedAt) : jsonBase.updatedAt != null) {
             return false;
         }
-        if (domain != null ? !domain.equals(jsonBase.domain) : jsonBase.domain != null) {
+        if (this.domain != null ? !this.domain.equals(jsonBase.domain) : jsonBase.domain != null) {
             return false;
         }
-        if (subDomain != null ? !subDomain.equals(jsonBase.subDomain) : jsonBase.subDomain != null) {
+        if (this.subDomain != null ? !this.subDomain.equals(jsonBase.subDomain) : jsonBase.subDomain != null) {
             return false;
         }
-        if (privacyLevel != jsonBase.privacyLevel) {
+        if (this.privacyLevel != jsonBase.privacyLevel) {
             return false;
         }
-        return !(version != null ? !version.equals(jsonBase.version) : jsonBase.version != null);
+        return !(this.version != null ? !this.version.equals(jsonBase.version) : jsonBase.version != null);
 
     }
 
     @Override
     public int hashCode()
     {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
-        result = 31 * result + (updatedBy != null ? updatedBy.hashCode() : 0);
-        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
-        result = 31 * result + (domain != null ? domain.hashCode() : 0);
-        result = 31 * result + (subDomain != null ? subDomain.hashCode() : 0);
-        result = 31 * result + (privacyLevel != null ? privacyLevel.hashCode() : 0);
-        result = 31 * result + (version != null ? version.hashCode() : 0);
+        int result = this.id != null ? this.id.hashCode() : 0;
+        result = 31 * result + (this.createdBy != null ? this.createdBy.hashCode() : 0);
+        result = 31 * result + (this.updatedBy != null ? this.updatedBy.hashCode() : 0);
+        result = 31 * result + (this.createdAt != null ? this.createdAt.hashCode() : 0);
+        result = 31 * result + (this.updatedAt != null ? this.updatedAt.hashCode() : 0);
+        result = 31 * result + (this.domain != null ? this.domain.hashCode() : 0);
+        result = 31 * result + (this.subDomain != null ? this.subDomain.hashCode() : 0);
+        result = 31 * result + (this.privacyLevel != null ? this.privacyLevel.hashCode() : 0);
+        result = 31 * result + (this.version != null ? this.version.hashCode() : 0);
         return result;
     }
 }

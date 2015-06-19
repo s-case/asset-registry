@@ -1,13 +1,13 @@
 package eu.scasefp7.assetregistry.service.db;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
+import org.junit.Rule;
+
 import de.akquinet.jbosscc.needle.annotation.ObjectUnderTest;
 import de.akquinet.jbosscc.needle.junit.DatabaseRule;
 import de.akquinet.jbosscc.needle.junit.NeedleRule;
-import eu.scasefp7.assetregistry.data.Project;
-import org.junit.Rule;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 /**
  * Created by missler on 15/05/15.
@@ -18,7 +18,7 @@ public class ProjectServiceImplTest {
     public DatabaseRule databaseRule = new DatabaseRule();
 
     @Rule
-    public NeedleRule needleRule = new NeedleRule(databaseRule);
+    public NeedleRule needleRule = new NeedleRule(this.databaseRule);
 
     @Inject
     private EntityManager entityManager;
