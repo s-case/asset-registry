@@ -1,7 +1,6 @@
 package eu.scasefp7.assetregistry.service.es;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
