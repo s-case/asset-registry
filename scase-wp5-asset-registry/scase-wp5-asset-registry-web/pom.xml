@@ -9,15 +9,14 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5-asset-registry</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.7-SNAPSHOT</version>
     </parent>
 
     <build>
-
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                     <webResources>
@@ -32,35 +31,29 @@
                     </webResources>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
 
     <dependencies>
         <dependency>
             <groupId>eu.scasefp7</groupId>
-            <artifactId>scase-wp5-asset-registry-backend</artifactId>
-            <version>1.0.0</version>
+            <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
         </dependency>
         <dependency>
             <groupId>eu.scasefp7</groupId>
-            <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
-            <version>1.0.0</version>
+            <artifactId>scase-wp5-asset-registry-backend</artifactId>
         </dependency>
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-wp5-asset-registry-backend-impl</artifactId>
-            <version>1.0.0</version>
             <type>ejb</type>
         </dependency>
     </dependencies>

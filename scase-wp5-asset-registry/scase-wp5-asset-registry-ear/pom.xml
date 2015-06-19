@@ -9,47 +9,42 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5-asset-registry</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.7-SNAPSHOT</version>
     </parent>
+
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
-
                     <modules>
                         <ejbModule>
                             <groupId>eu.scasefp7</groupId>
                             <artifactId>scase-wp5-asset-registry-backend-impl</artifactId>
                         </ejbModule>
                     </modules>
-
                 </configuration>
             </plugin>
-
         </plugins>
-
     </build>
 
     <dependencies>
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-wp5-asset-registry-backend</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-wp5-asset-registry-backend-impl</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>eu.scasefp7</groupId>
             <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
         </dependency>
- </dependencies>
+    </dependencies>
 
 </project>

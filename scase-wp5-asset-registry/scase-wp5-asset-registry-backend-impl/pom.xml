@@ -9,153 +9,73 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5-asset-registry</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.7-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <jackson.version>2.4.4</jackson.version>
-    </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>eu.scasefp7</groupId>
-            <artifactId>scase-base</artifactId>
-            <version>1.0.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.5</version>
-        </dependency>
-
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jaxrs</artifactId>
             <scope>provided</scope>
-            <version>3.0.10.Final</version>
         </dependency>
-
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
-            <version>1.2</version>
         </dependency>
-
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <scope>provided</scope>
-            <version>1.0.1.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.1.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>eu.scasefp7</groupId>
-            <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>eu.scasefp7</groupId>
-            <artifactId>scase-wp5-asset-registry-backend</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-        </dependency>
-
         <dependency>
             <groupId>com.wordnik</groupId>
             <artifactId>swagger-jaxrs</artifactId>
-            <version>1.5.1-M2</version>
         </dependency>
-
-        <dependency>
-            <groupId>de.akquinet.jbosscc</groupId>
-            <artifactId>jbosscc-needle</artifactId>
-            <version>2.2</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.2.8</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert-core</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
             <scope>test</scope>
-            <version>3.3.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <scope>test</scope>
-            <version>4.2.17.Final</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <scope>provided</scope>
-            <version>4.2.17.Final</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <scope>provided</scope>
-            <version>1.0.1.Final</version>
         </dependency>
-
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.2.8</version>
+            <groupId>de.akquinet.jbosscc</groupId>
+            <artifactId>jbosscc-needle</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>eu.scasefp7</groupId>
+            <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>eu.scasefp7</groupId>
+            <artifactId>scase-wp5-asset-registry-backend</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

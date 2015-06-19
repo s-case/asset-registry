@@ -1,7 +1,9 @@
 package eu.scasefp7.assetregistry.service;
 
 import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.Domain;
 import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.SubDomain;
 import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
@@ -60,13 +62,19 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project create(Project project) {
+    public List<ProjectDTO> find(String query, String domain, String subdomain){
+        List<ProjectDTO> projects = this.esService.find(query, domain, subdomain);
+        return projects;
+    }
 
+    @Override
+    public Project create(Project project) {
+        Project created = null;
         try {
-            project = dbService.create(project);
-            esService.index(project);
+            created = dbService.create(project);
+            esService.index(created);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Project.class, project.getId(), thrown);
+              throw new NotCreatedException(Project.class, project.getName(), getRootCause(thrown));
         }
 
         return project;
@@ -78,7 +86,7 @@ public class ProjectServiceImpl implements ProjectService {
             project = dbService.update(project);
             esService.update(project);
         } catch (Throwable thrown) {
-            throw new NotUpdatedException(Project.class, project.getId(), thrown);
+            throw new NotUpdatedException(Project.class, project.getId(), getRootCause(thrown));
         }
         return project;
     }
@@ -125,10 +133,12 @@ public class ProjectServiceImpl implements ProjectService {
         project.setVersion(jsonProject.getVersion());
 
         if(null!=jsonProject.getDomain()) {
-            domainDbService.findDomainByName(jsonProject.getDomain());
+          Domain domain =  domainDbService.findDomainByName(jsonProject.getDomain());
+            project.setDomain(domain);
         }
         if(null!=jsonProject.getSubDomain()) {
-            domainDbService.findSubDomainByName(jsonProject.getSubDomain());
+            SubDomain subdomain = domainDbService.findSubDomainByName(jsonProject.getSubDomain());
+            project.setSubDomain(subdomain);
         }
 
         project.setName(jsonProject.getName());
@@ -172,6 +182,12 @@ public class ProjectServiceImpl implements ProjectService {
             }
         }
         return jsonProject;
+    }
 
+    private Throwable getRootCause(Throwable thrown){
+        while(thrown.getCause()!=null){
+            thrown = thrown.getCause();
+        }
+        return thrown;
     }
 }

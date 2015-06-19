@@ -8,11 +8,11 @@ import javax.ejb.Stateless;
 
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.ArtefactPayload;
-import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.data.Domain;
+import eu.scasefp7.assetregistry.data.SubDomain;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
 import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.dto.JsonArtefactPayload;
-import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.index.ArtefactIndex;
 import eu.scasefp7.assetregistry.index.IndexType;
 import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
@@ -54,6 +54,12 @@ public class ArtefactServiceImpl
     }
 
     @Override
+    public List<ArtefactDTO> find(String query, String domain, String subdomain, String type){
+        List<ArtefactDTO> artefacts = this.esService.find(query, domain, subdomain, type);
+        return artefacts;
+    }
+
+    @Override
     public Artefact create(final Artefact artefact)
     {
 
@@ -61,13 +67,13 @@ public class ArtefactServiceImpl
         try {
             create = this.dbService.create(artefact);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Artefact.class, 0, thrown);
+            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(thrown));
         }
 
         try {
             this.esService.index(create);
         } catch (Throwable thrown) {
-            throw new NotCreatedException(Artefact.class, artefact.getId(), thrown);
+            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(thrown));
         }
 
         return create;
@@ -80,7 +86,7 @@ public class ArtefactServiceImpl
             artefact = this.dbService.update(artefact);
             this.esService.update(artefact);
         } catch (Throwable thrown) {
-            throw new NotUpdatedException(Artefact.class, artefact.getId(), thrown);
+            throw new NotUpdatedException(Artefact.class, artefact.getId(), getRootCause(thrown));
         }
         return artefact;
     }
@@ -111,10 +117,12 @@ public class ArtefactServiceImpl
         artefact.setVersion(jsonArtefact.getVersion());
 
         if(null!=jsonArtefact.getDomain()) {
-            domainDbService.findDomainByName(jsonArtefact.getDomain());
+            Domain domain = domainDbService.findDomainByName(jsonArtefact.getDomain());
+            artefact.setDomain(domain);
         }
         if(null!=jsonArtefact.getSubDomain()) {
-            domainDbService.findSubDomainByName(jsonArtefact.getSubDomain());
+            SubDomain subdomain = domainDbService.findSubDomainByName(jsonArtefact.getSubDomain());
+            artefact.setSubDomain(subdomain);
         }
 
         artefact.setName(jsonArtefact.getName());
@@ -197,5 +205,12 @@ public class ArtefactServiceImpl
 
         return payload;
 
+    }
+
+    private Throwable getRootCause(Throwable thrown){
+        while(thrown.getCause()!=null){
+            thrown = thrown.getCause();
+        }
+        return thrown;
     }
 }

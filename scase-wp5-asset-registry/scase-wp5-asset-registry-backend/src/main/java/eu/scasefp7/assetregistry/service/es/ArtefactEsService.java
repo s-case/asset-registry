@@ -11,4 +11,6 @@ import java.util.List;
 public interface ArtefactEsService extends AbstractEsService<Artefact>{
 
     List<ArtefactDTO> find(String query);
+
+    List<ArtefactDTO> find(String query, String domain, String subdomain, String artefacttype);
 }

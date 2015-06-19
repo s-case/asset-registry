@@ -19,7 +19,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -45,7 +44,7 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{id}")
+    @Path("{id}/id")
     public JsonProject get( @PathParam("id") long id ) {
         final Project projectEntity = this.projectService.find( id );
         final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
@@ -58,10 +57,24 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{name}")
+    @Path("{name}/name")
     public JsonProject get(@PathParam("name") String name){
-        final Project projectEntity = this.projectService.findByName(name);
-        final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
+
+        Project projectEntity = null;
+        JsonProject jsonProject = null;
+
+        try {
+            long id = Long.parseLong(name);
+            projectEntity = this.projectService.find(id);
+        } catch (NumberFormatException nfe){
+            LOG.warn("Value " + name +" could not be parsed into a number. Trying to find the project by name.");
+            projectEntity = this.projectService.findByName(name);
+        }
+
+        if(null!=projectEntity) {
+            jsonProject = projectService.convertEntityToJson(projectEntity);
+        }
+
         return jsonProject;
     }
     /**
@@ -71,30 +84,50 @@ public class ProjectResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("directsearch")
     public List<ProjectDTO> searchProjects(@QueryParam("q") final String query) {
         LOG.info("search '{}'", query);
         final List<ProjectDTO> projects = projectService.find(query);
         return projects;
     }
 
+
+    /**
+     *
+     * @param domain
+     * @param subdomain
+     * @return List<ProjectsDTO> projects
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("search")
+    public List<ProjectDTO> searchProjects(@QueryParam("query") final String query, @QueryParam("domain") final String domain, @QueryParam("subdomain") final String subdomain)
+    {
+        final List<ProjectDTO> projects = projectService.find(query, domain, subdomain);
+        return projects;
+    }
+
     /**
      * Create and store a new project in the repository
-     * @param project
-     * @return
+     * @param project The project to be stored inside of the Asset Repo
+     * @return {#link javax.ws.rs.core.Response Response}
      * @throws URISyntaxException
      */
     @POST
     public Response create( JsonProject project ) throws URISyntaxException {
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project created = this.projectService.create(projectEntity);
+
+
+
         return redirect( "project/" + created.getId() );
     }
 
     /**
-     * Update a project in the repository
-     * @param id
-     * @param project
-     * @return
+     * Update a project in the Asset Repo
+     * @param id Project ID
+     * @param project The project to be updated inside of the Asset Repo
+     * @return {#link javax.ws.rs.core.Response HTTP Response code}
      * @throws URISyntaxException
      */
     @PUT
@@ -107,8 +140,8 @@ public class ProjectResource {
     }
 
     /**
-     * Delete a project from the repository
-     * @param id
+     * Delete a project from the Asset Repo
+     * @param id ID of the project to be deleted
      */
     @DELETE
     @Path("{id}")
@@ -116,6 +149,10 @@ public class ProjectResource {
         this.projectService.delete(id);
     }
 
+    /**
+     * Delete a project from the Asset Repo
+     * @param name Name string of the project to be deleted
+     */
     @DELETE
     @Path("{name}")
     public void delete(@PathParam("name") String name) {

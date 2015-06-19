@@ -11,27 +11,26 @@ public class NotCreatedException extends ScaseException {
     private static final long serialVersionUID = 3162547251893625565L;
 
     private final Class<? extends BaseEntity> clazz;
-    private final long id;
+    private final String name;
 
 
     /**
      * constructor.
      *
      * @param clazz entity class
-     * @param id    primary key
+     * @param name  the name of the entity
      */
-    public NotCreatedException(Class<? extends BaseEntity> clazz, long id, Throwable thrown) {
-        super(clazz.getSimpleName() + " with ID " + id + " could not be stored inside of the Asset Registry.", thrown);
+    public NotCreatedException(Class<? extends BaseEntity> clazz, String name, Throwable thrown) {
+        super(clazz.getSimpleName() + " with name " + name + " could not be stored inside of the Asset Registry.", thrown);
         this.clazz = clazz;
-        this.id = id;
+        this.name = name;
     }
 
     public Class<? extends BaseEntity> getClazz() {
         return this.clazz;
     }
 
-    public long getId() {
-        return this.id;
+    public String getName() {
+        return this.name;
     }
-
 }
