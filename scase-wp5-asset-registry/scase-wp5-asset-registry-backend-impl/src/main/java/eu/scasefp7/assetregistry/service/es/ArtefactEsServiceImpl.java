@@ -1,13 +1,17 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.dto.ArtefactDTO;
-import eu.scasefp7.assetregistry.dto.JsonArtefact;
-import eu.scasefp7.assetregistry.index.ArtefactIndex;
-import eu.scasefp7.assetregistry.index.BaseIndex;
-import eu.scasefp7.assetregistry.index.IndexType;
-import eu.scasefp7.assetregistry.service.ArtefactService;
-import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -25,18 +29,14 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.dto.ArtefactDTO;
+import eu.scasefp7.assetregistry.dto.JsonArtefact;
+import eu.scasefp7.assetregistry.index.ArtefactIndex;
+import eu.scasefp7.assetregistry.index.BaseIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.service.ArtefactService;
+import eu.scasefp7.assetregistry.service.db.ArtefactDbService;
 
 /**
  * Service class for Artefact related ElasticSearch operations
@@ -148,7 +148,7 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 final Artefact artefact = this.dbService.find(artefactId);
                 if (null != artefact) {
                     ArtefactDTO dto = new ArtefactDTO();
-                    JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefact);
+                    JsonArtefact jsonArtefact = this.artefactService.convertEntityToJson(artefact);
                     dto.setArtefact(jsonArtefact);
                     dto.setScore(hit.getScore());
                     result.add(dto);
@@ -175,7 +175,7 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 .field(ArtefactIndex.PROJECT_NAME, artefact.getProjectName())
                 .field(ArtefactIndex.URI_FIELD, artefact.getUri())
                 .field(ArtefactIndex.GROUPID_FIELD, artefact.getGroupId())
-                .array(ArtefactIndex.DEPENDENCIES_FIELD, artefact.getDependencies().toArray(new Long[artefact
+                .array(ArtefactIndex.DEPENDENCIES_FIELD, (Object[])artefact.getDependencies().toArray(new Long[artefact
                         .getDependencies().size()]))
                 .field(ArtefactIndex.ARTEFACT_TYPE_FIELD, artefact.getType())
                 .field(ArtefactIndex.DESCRIPTION_FIELD, artefact.getDescription())

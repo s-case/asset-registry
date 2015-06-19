@@ -1,15 +1,17 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.data.PrivacyLevel;
-import eu.scasefp7.assetregistry.data.Project;
-import eu.scasefp7.assetregistry.dto.JsonProject;
-import eu.scasefp7.assetregistry.dto.ProjectDTO;
-import eu.scasefp7.assetregistry.index.BaseIndex;
-import eu.scasefp7.assetregistry.index.IndexType;
-import eu.scasefp7.assetregistry.index.ProjectIndex;
-import eu.scasefp7.assetregistry.service.ProjectService;
-import eu.scasefp7.assetregistry.service.db.ProjectDbService;
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
@@ -24,18 +26,16 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.PrivacyLevel;
+import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.JsonProject;
+import eu.scasefp7.assetregistry.dto.ProjectDTO;
+import eu.scasefp7.assetregistry.index.BaseIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.index.ProjectIndex;
+import eu.scasefp7.assetregistry.service.ProjectService;
+import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 
 /**
  * Service class for Project related ElasticSearch operations
@@ -111,7 +111,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     @Override
     public IndexResponse index(final Project project) throws IOException {
 
-        IndexResponse response = connectorService.getClient().prepareIndex(ProjectIndex.INDEX_NAME,
+        IndexResponse response = this.connectorService.getClient().prepareIndex(ProjectIndex.INDEX_NAME,
                 IndexType.TYPE_PROJECT, project.getId().toString()).setSource(builder(project)).execute()
                 .actionGet();
 
@@ -121,7 +121,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     @Override
     public UpdateResponse update(final Project project) throws IOException {
 
-        UpdateResponse response = connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
+        UpdateResponse response = this.connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
                 IndexType.TYPE_PROJECT, project.getId().toString()).setDoc(builder(project)).get();
         return response;
     }
@@ -129,7 +129,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
     @Override
     public UpdateResponse updatePrivacyLevel(final long id, final PrivacyLevel privacyLevel) throws IOException {
 
-        UpdateResponse response = connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
+        UpdateResponse response = this.connectorService.getClient().prepareUpdate(ProjectIndex.INDEX_NAME,
                 IndexType.TYPE_PROJECT, Long.toString(id)).setDoc(jsonBuilder().startObject
                 ().field(BaseIndex.PRIVACY_LEVEL_FIELD, privacyLevel).endObject()).get();
 
@@ -145,9 +145,9 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
 
             try {
                 Long projectId = Long.valueOf(documentId);
-                final Project project = dbService.find(projectId);
+                final Project project = this.dbService.find(projectId);
                 if (null != project) {
-                    final JsonProject jsonProject = projectService.convertEntityToJson(project);
+                    final JsonProject jsonProject = this.projectService.convertEntityToJson(project);
                     ProjectDTO dto = new ProjectDTO();
                     dto.setProject(jsonProject);
                     dto.setScore(hit.getScore());
@@ -185,7 +185,7 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
                 .field(BaseIndex.CREATED_AT_FIELD, project.getCreatedAt())
                 .field(BaseIndex.UPDATED_AT_FIELD, project.getUpdatedAt())
                 .field(BaseIndex.VERSION_FIELD, project.getVersion())
-                .array(ProjectIndex.ARTEFACTS_FIELD, artefactIds).endObject();
+                .array(ProjectIndex.ARTEFACTS_FIELD, (Object[])artefactIds).endObject();
 
         return builder;
     }
