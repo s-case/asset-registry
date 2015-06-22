@@ -225,7 +225,7 @@ public class ArtefactServiceImpl
     }
 
     /**
-     * Service to convert an {@link eu.scasefp7.assetregistry.dto.JsonArtefactPayload JsonArtefactPayload}
+     * Private service to convert an {@link eu.scasefp7.assetregistry.dto.JsonArtefactPayload JsonArtefactPayload}
      * into an {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPayload}.
      * @param jsonPayload {@link eu.scasefp7.assetregistry.dto.JsonArtefactPayload JsonArtefactPayload}
      * @return {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPayload}
