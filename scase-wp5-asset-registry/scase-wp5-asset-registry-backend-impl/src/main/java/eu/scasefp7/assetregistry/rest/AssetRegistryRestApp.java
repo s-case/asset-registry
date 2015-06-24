@@ -29,19 +29,19 @@ public class AssetRegistryRestApp extends Application
     public static final String PART_DOMAIN = "/domain";
     public static final String PART_SUBDOMAIN = "/subdomain";
 
+    public static final String REST_PACKAGE_NAME = "eu.scasefp7.assetregistry.rest";  // this.getClasses().getClass().getPackage().getName()
+
     // localhost:8080/s-case/assetregistry/swagger.json
     // localhost:8080/s-case/assetregistry/swagger.yaml
     public AssetRegistryRestApp()
     {
         BeanConfig beanConfig = new BeanConfig();
-//        beanConfig.setVersion("1.0.7-SNAPSHOT");
-        // TODO - Projekt-eigene Version statt der des parent poms (aus Parent-Projekt hierher verschieben)
         beanConfig.setVersion(BuildProperties.getBuildVersion());
         beanConfig.setSchemes(new String[]{"http", "https"});
         beanConfig.setHost("localhost:8080");
         beanConfig.setBasePath(BASE);
-        beanConfig.setResourcePackage("io.swagger.resources,eu.scasefp7.assetregistry.rest");
-        // this.getClasses().getClass().getPackage().getName()
+        beanConfig.setResourcePackage(String.format("io.swagger.resources,%s", REST_PACKAGE_NAME));
+
         beanConfig.setScan(true);
     }
 
@@ -59,7 +59,14 @@ public class AssetRegistryRestApp extends Application
 
     private void addRestResourceCLasses(Set<Class<?>> resources)
     {
-        final Reflections reflections = new Reflections("eu.scasefp7.assetregistry.rest", new SubTypesScanner(false));
+//        resources.add(eu.scasefp7.assetregistry.rest.ArtefactResource.class);
+//        resources.add(eu.scasefp7.assetregistry.rest.DomainResource.class);
+//        resources.add(eu.scasefp7.assetregistry.rest.ProjectResource.class);
+//        resources.add(eu.scasefp7.assetregistry.rest.SubDomainResource.class);
+//        resources.add(eu.scasefp7.assetregistry.rest.VersionResource.class);
+
+        // Add all classes in the rest package ending in Resource
+        final Reflections reflections = new Reflections(REST_PACKAGE_NAME, new SubTypesScanner(false));
         final Set<Class<?>> allRestPackageClasses = reflections.getSubTypesOf(Object.class);
 
         for (final Class<?> clazz : allRestPackageClasses) {
@@ -67,11 +74,5 @@ public class AssetRegistryRestApp extends Application
                 resources.add(clazz);
             }
         }
-
-//        resources.add(eu.scasefp7.assetregistry.rest.ArtefactResource.class);
-//        resources.add(eu.scasefp7.assetregistry.rest.DomainResource.class);
-//        resources.add(eu.scasefp7.assetregistry.rest.ProjectResource.class);
-//        resources.add(eu.scasefp7.assetregistry.rest.SubDomainResource.class);
-//        resources.add(eu.scasefp7.assetregistry.rest.VersionResource.class);
     }
 }
