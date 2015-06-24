@@ -7,7 +7,7 @@ import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import java.util.List;
 
 /**
- * Created by missler on 09/04/15.
+ * Interface for Artefact related services to interact with the S-Case Asset Repository.
  */
 public interface ArtefactService {
 

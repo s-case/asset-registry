@@ -22,7 +22,7 @@ import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
 import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
 
 /**
- * Created by missler on 16/03/15.
+ * Service implementation for Artefact related services to interact with the S-Case Asset Repository.
  */
 @Stateless
 @Local(ArtefactService.class)
@@ -46,6 +46,9 @@ public class ArtefactServiceImpl
         return artefact;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ArtefactDTO> find(String query)
     {
@@ -53,12 +56,18 @@ public class ArtefactServiceImpl
         return artefacts;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ArtefactDTO> find(String query, String domain, String subdomain, String type){
         List<ArtefactDTO> artefacts = this.esService.find(query, domain, subdomain, type);
         return artefacts;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Artefact create(final Artefact artefact)
     {
@@ -79,6 +88,9 @@ public class ArtefactServiceImpl
         return create;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Artefact update(final Artefact artefact)
     {
@@ -92,6 +104,9 @@ public class ArtefactServiceImpl
         return updated;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(long id)
     {
@@ -99,6 +114,9 @@ public class ArtefactServiceImpl
         this.dbService.delete(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Artefact artefact)
     {
@@ -106,6 +124,9 @@ public class ArtefactServiceImpl
         this.dbService.delete(artefact);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Artefact convertJsonToEntity(JsonArtefact jsonArtefact){
         Artefact artefact = new Artefact();
@@ -145,6 +166,9 @@ public class ArtefactServiceImpl
         return artefact;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JsonArtefact convertEntityToJson(Artefact artefact){
         JsonArtefact jsonArtefact = new JsonArtefact();
@@ -181,6 +205,12 @@ public class ArtefactServiceImpl
         return jsonArtefact;
     }
 
+    /**
+     * Private service to convert an {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPayload}
+     * into an {@link eu.scasefp7.assetregistry.dto.JsonArtefactPayload JsonArtefactPayload}.
+     * @param payload {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPayload}
+     * @return {@link eu.scasefp7.assetregistry.dto.JsonArtefactPayload JsonArtefactPayload}
+     */
     private JsonArtefactPayload convertEntityToJson(ArtefactPayload payload){
         JsonArtefactPayload jsonPayload = new JsonArtefactPayload();
 
@@ -194,6 +224,12 @@ public class ArtefactServiceImpl
         return jsonPayload;
     }
 
+    /**
+     * Private service to convert an {@link eu.scasefp7.assetregistry.dto.JsonArtefactPayload JsonArtefactPayload}
+     * into an {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPayload}.
+     * @param jsonPayload {@link eu.scasefp7.assetregistry.dto.JsonArtefactPayload JsonArtefactPayload}
+     * @return {@link eu.scasefp7.assetregistry.data.ArtefactPayload ArtefactPayload}
+     */
     private ArtefactPayload convertJsonToEntity(JsonArtefactPayload jsonPayload){
         ArtefactPayload payload = new ArtefactPayload();
 
@@ -208,6 +244,11 @@ public class ArtefactServiceImpl
 
     }
 
+    /**
+     * Private service to discover the root cause of an exception thrown.
+     * @param thrown - the thrown exception.
+     * @return Throwable thrown - The root cause of the exception thrown.
+     */
     private Throwable getRootCause(Throwable thrown){
         while(thrown.getCause()!=null){
             thrown = thrown.getCause();

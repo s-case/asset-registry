@@ -7,7 +7,7 @@ import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import java.util.List;
 
 /**
- * Created by missler on 09/04/15.
+ * Interface for Project related services to interact with the S-Case Asset Repository.
  */
 public interface ProjectService {
 

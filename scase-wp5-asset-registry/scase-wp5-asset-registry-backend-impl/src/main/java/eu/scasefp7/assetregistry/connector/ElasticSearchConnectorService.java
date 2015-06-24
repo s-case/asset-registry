@@ -14,6 +14,10 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Elastic Search Connector Service that will connect try to connect to an Elastic Search Node on start-up
+ * of the application server.
+ */
 @Singleton
 @Startup
 public class ElasticSearchConnectorService {

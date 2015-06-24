@@ -24,7 +24,7 @@ import javax.ejb.Stateless;
 import java.util.List;
 
 /**
- * Created by missler on 17/03/15.
+ * Service implementation for Project related services to interact with the S-Case Asset Repository.
  */
 @Stateless
 @Local(ProjectService.class)
@@ -44,30 +44,45 @@ public class ProjectServiceImpl implements ProjectService {
     @EJB
     private ProjectEsService esService;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project find(long id) {
         Project project = dbService.find(id);
         return project;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project findByName(String name){
         Project project = dbService.findByName(name);
         return project;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProjectDTO> find(String query) {
         List<ProjectDTO> projects = esService.find(query);
         return projects;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProjectDTO> find(String query, String domain, String subdomain){
         List<ProjectDTO> projects = this.esService.find(query, domain, subdomain);
         return projects;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project create(final Project project) {
         Project created;
@@ -81,6 +96,9 @@ public class ProjectServiceImpl implements ProjectService {
         return created;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project update(final Project project) {
         Project updated;
@@ -93,12 +111,18 @@ public class ProjectServiceImpl implements ProjectService {
         return updated;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(long id) {
         esService.delete(id, ProjectIndex.INDEX_NAME, IndexType.TYPE_PROJECT);
         dbService.delete(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(String name) {
         Project project;
@@ -117,12 +141,18 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Project project) {
         esService.delete(project, ProjectIndex.INDEX_NAME, IndexType.TYPE_PROJECT);
         dbService.delete(project);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project convertJsonToEntity(JsonProject jsonProject){
         Project project = new Project();
@@ -156,6 +186,9 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JsonProject convertEntityToJson(Project project){
         JsonProject jsonProject = new JsonProject();
@@ -186,6 +219,11 @@ public class ProjectServiceImpl implements ProjectService {
         return jsonProject;
     }
 
+    /**
+     * Private service to discover the root cause of an exception thrown.
+     * @param thrown - the thrown exception.
+     * @return Throwable thrown - The root cause of the exception thrown.
+     */
     private Throwable getRootCause(Throwable thrown){
         while(thrown.getCause()!=null){
             thrown = thrown.getCause();
