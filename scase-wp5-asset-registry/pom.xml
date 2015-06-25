@@ -10,7 +10,7 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5</artifactId>
-        <version>1.0.7-SNAPSHOT</version>
+        <version>1.0.7</version>
     </parent>
 
     <modules>
@@ -124,17 +124,17 @@
             <dependency>
                 <groupId>eu.scasefp7</groupId>
                 <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>eu.scasefp7</groupId>
                 <artifactId>scase-wp5-asset-registry-backend</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>eu.scasefp7</groupId>
                 <artifactId>scase-wp5-asset-registry-backend-impl</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.7</version>
                 <type>ejb</type>
             </dependency>
         </dependencies>
