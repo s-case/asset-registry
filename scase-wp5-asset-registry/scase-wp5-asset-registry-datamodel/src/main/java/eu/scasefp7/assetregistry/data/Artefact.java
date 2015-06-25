@@ -58,7 +58,6 @@ public class Artefact
     private Map<String, String> metadata = new HashMap<>();
 
     @OneToMany(cascade = javax.persistence.CascadeType.ALL)
-    @Column(name = "PAYLOAD")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<ArtefactPayload> payload = new ArrayList<ArtefactPayload>();
 

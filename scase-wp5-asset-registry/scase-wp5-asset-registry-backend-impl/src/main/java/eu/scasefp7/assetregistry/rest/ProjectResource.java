@@ -43,7 +43,8 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{id}/id")
+//    @Path("{id}/id")
+    @Path("{id}")
     public JsonProject get(@PathParam("id") long id) {
         final Project projectEntity = this.projectService.find(id);
         final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
@@ -57,10 +58,11 @@ public class ProjectResource {
      * @return Project project
      */
     @GET
-    @Path("{name}/name")
+//    @Path("{name}/name")
+    @Path("{name}")
     public JsonProject get(@PathParam("name") String name) {
 
-        Project projectEntity = null;
+        Project projectEntity;
         JsonProject jsonProject = null;
 
         try {

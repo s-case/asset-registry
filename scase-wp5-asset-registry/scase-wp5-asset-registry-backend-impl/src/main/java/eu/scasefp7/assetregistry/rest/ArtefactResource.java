@@ -1,6 +1,5 @@
 package eu.scasefp7.assetregistry.rest;
 
-
 import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.dto.ArtefactDTO;
@@ -94,7 +93,7 @@ public class ArtefactResource {
 
     /**
      * Find a list of Artefacts by free text search strings
-     * @param query
+     * @param query A free text string that should be searched for inside of the AR.
      * @param domain
      * @param subdomain
      * @param artefacttype
@@ -154,7 +153,7 @@ public class ArtefactResource {
     /**
      * Delete an artefact from the repository
      *
-     * @param id Artefact ID of the artefact that sould be deleted from the Asset Repo
+     * @param id Artefact ID of the artefact that sh ould be deleted from the Asset Repo
      */
     @DELETE
     @Path("{id}")
