@@ -10,7 +10,7 @@
     <parent>
         <groupId>eu.scasefp7</groupId>
         <artifactId>scase-wp5</artifactId>
-        <version>1.0.7-SNAPSHOT</version>
+        <version>1.0.8-SNAPSHOT</version>
     </parent>
 
     <modules>
@@ -47,6 +47,11 @@
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jaxrs</artifactId>
                 <version>3.0.10.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-jaxrs</artifactId>
+                <version>1.5.0</version>
             </dependency>
             <dependency>
                 <groupId>org.hsqldb</groupId>
@@ -95,12 +100,6 @@
             </dependency>
 
             <dependency>
-                <groupId>com.wordnik</groupId>
-                <artifactId>swagger-jaxrs</artifactId>
-                <version>1.5.1-M2</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>2.4.4</version>
@@ -125,17 +124,17 @@
             <dependency>
                 <groupId>eu.scasefp7</groupId>
                 <artifactId>scase-wp5-asset-registry-datamodel</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.8-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>eu.scasefp7</groupId>
                 <artifactId>scase-wp5-asset-registry-backend</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.8-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>eu.scasefp7</groupId>
                 <artifactId>scase-wp5-asset-registry-backend-impl</artifactId>
-                <version>1.0.7-SNAPSHOT</version>
+                <version>1.0.8-SNAPSHOT</version>
                 <type>ejb</type>
             </dependency>
         </dependencies>
