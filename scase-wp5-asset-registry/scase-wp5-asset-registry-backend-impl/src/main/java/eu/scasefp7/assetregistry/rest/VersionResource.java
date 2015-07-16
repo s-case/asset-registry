@@ -1,6 +1,10 @@
 package eu.scasefp7.assetregistry.rest;
 
 import eu.scasefp7.assetregistry.service.VersionServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -8,24 +12,29 @@ import javax.ws.rs.Path;
 
 /**
  * REST class for getting the version.
- * @author Robert Magnus
  *
+ * @author Robert Magnus
  */
-@Path( AssetRegistryRestApp.PART_VERSION)
-public class VersionResource {
-
+@Path(AssetRegistryRestApp.PART_VERSION)
+@Api(value = AssetRegistryRestApp.PART_SUBDOMAIN, description = "provides version info")
+public class VersionResource
+{
     @Inject
     private VersionServiceImpl versionService;
 
-
     /**
-     * returns the version.
+     * Return the version number
+     *
      * @return version
      */
     @GET
+    @ApiOperation(value = "Returns the version number")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
     public String version()
     {
         return this.versionService.getVersion();
     }
-
 }

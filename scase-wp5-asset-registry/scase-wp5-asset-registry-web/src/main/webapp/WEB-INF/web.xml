@@ -8,4 +8,61 @@
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
+
+    <!--
+        Swagger
+        Swagger Core RESTEasy 2.X Project Setup 1.5:
+        https://github.com/swagger-api/swagger-core/wiki/Swagger-Core-RESTEasy-2.X-Project-Setup-1.5#configure-and-initialize-swagger
+        Swagger Sample App:
+        https://github.com/swagger-api/swagger-samples/tree/master/java/java-resteasy
+    -->
+
+    <!-- Using RestEasy's <context-param> switches, you can set your applications resources manually. -->
+<!--
+    <context-param>
+        <param-name>resteasy.providers</param-name>
+        <param-value>
+            io.swagger.jaxrs.listing.ApiListingResource,
+            io.swagger.jaxrs.listing.SwaggerSerializers,
+            &lt;!&ndash;{your.application.providers}&ndash;&gt;
+            eu.scasefp7.assetregistry.rest.ArtefactResource,
+            eu.scasefp7.assetregistry.rest.DomainResource,
+            eu.scasefp7.assetregistry.rest.ProjectResource,
+            eu.scasefp7.assetregistry.rest.SubDomainResource,
+            eu.scasefp7.assetregistry.rest.VersionResource
+        </param-value>
+    </context-param>
+-->
+    <!--Note: {your.application.providers} is your application's list of comma separated providers acting as resources.-->
+
+    <!--
+        When using automatic scanning, swagger-core is unable to detect the resources automatically. To resolve that, you must tell
+        swagger-core which packages to scan. The suggested solution is to use the BeanConfig method (most likely as a Servlet).
+        Make sure to use the setResourcePackage(String) method in order to tell Swagger where it can find the resources.
+    -->
+
+    <!--
+        A few things to note:
+        1. The api.version should reflect the version of your own API.
+        2. swagger.api.basepath should point to the context root of your API. This defers from server to server and how you configured
+           your JAX-RS application.
+        3. There's no <servlet-mapping> for this servlet as it is only used for initialization and doesn't actually expose any interface.
+    -->
+<!--
+    <servlet>
+        <servlet-name>Jersey2Config</servlet-name>
+        <servlet-class>io.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
+        <init-param>
+            <param-name>api.version</param-name>
+            <param-value>1.0.7-SNAPSHOT</param-value>
+        </init-param>
+        <init-param>
+            <param-name>swagger.api.basepath</param-name>
+            <param-value>http://localhost:8080/s-case</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+-->
+
 </web-app>

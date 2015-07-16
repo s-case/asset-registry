@@ -7,7 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * Response Helpers.
+ * Response Helpers
  */
 public final class ResourceTools {
 
