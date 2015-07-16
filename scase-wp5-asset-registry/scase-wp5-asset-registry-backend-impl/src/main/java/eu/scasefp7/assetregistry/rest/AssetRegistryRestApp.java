@@ -64,7 +64,7 @@ public class AssetRegistryRestApp extends Application
         beanConfig.setVersion(BuildProperties.getBuildVersion());
         beanConfig.setSchemes(new String[]{"http", "https"});
         beanConfig.setHost("localhost:8080");
-        beanConfig.setBasePath(BASE);
+        beanConfig.setBasePath("/s-case" + BASE);
         beanConfig.setResourcePackage(String.format("io.swagger.resources,%s", REST_PACKAGE_NAME));
         beanConfig.setScan(true);
 

@@ -40,8 +40,7 @@ public class SubDomainResource
     @ApiOperation(value = "Finds a subdomain by ID in the Asset Repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public SubDomain find(@PathParam("id") @ApiParam(value = "subdomain ID") long id)
     {
@@ -58,8 +57,7 @@ public class SubDomainResource
     @ApiOperation(value = "Retrieves a list of all subdomains in the Asset Repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public List<SubDomain> findAll()
     {

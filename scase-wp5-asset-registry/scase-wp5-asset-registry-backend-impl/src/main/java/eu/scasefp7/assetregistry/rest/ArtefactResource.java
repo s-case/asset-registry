@@ -64,8 +64,7 @@ public class ArtefactResource {
     @ApiOperation(value = "Finds an artefact in the repository by ID")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArtefact get(@PathParam("id") @ApiParam(value = "Artefact ID") long id)
     {
@@ -81,11 +80,10 @@ public class ArtefactResource {
      * @return boolean true if artefact has been false, otherwise false
      */
     @GET
-    @ApiOperation(value = "Checks whether an artefact exists in the repository")
+    @ApiOperation(value = "Checks if an artefact does exist in the repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server errorm")})
     @Path("exists/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean exists(@PathParam("id") @ApiParam(value = "Artefact ID") long id)
@@ -104,13 +102,12 @@ public class ArtefactResource {
      */
     @GET
     @Path("directsearch")
-    @ApiOperation(value = "Finds a list of artefacts by search query")
+    @ApiOperation(value = "Finds a list of artefacts by search query. <BR>The search query has to be submitted in the Elastic Search JSON search syntax.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ArtefactDTO> searchArtefacts(@QueryParam("q") @ApiParam(value = "Elastic Search query string") final String query)
+    public List<ArtefactDTO> searchArtefacts(@QueryParam("q") @ApiParam(value = "Search query in the Elastic Search JSON syntax") final String query)
     {
         LOG.info("search '{}'", query);
         final List<ArtefactDTO> artefacts = artefactService.find(query);
@@ -128,17 +125,16 @@ public class ArtefactResource {
      */
     @GET
     @Path("search")
-    @ApiOperation(value = "Finds a list of artefacts by free text search strings")
+    @ApiOperation(value = "Finds a list of artefacts by free text search strings. <BR>All query parameters are optional and can be combined as needed but at least one parameter has to be submitted.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtefactDTO> searchArtefacts(
-            @QueryParam("query") @ApiParam(value = "Elastic Search query string") final String query,
-            @QueryParam("domain") @ApiParam(value = "Elastic Search domain") final String domain,
-            @QueryParam("subdomain") @ApiParam(value = "Elastic Search subdomain") final String subdomain,
-            @QueryParam("type") @ApiParam(value = "artefact type") final String artefacttype)
+            @QueryParam("query") @ApiParam(value = "Free text string that should be used to search inside of an artefact") final String query,
+            @QueryParam("domain") @ApiParam(value = "Domain name string an artefact should be assigned to") final String domain,
+            @QueryParam("subdomain") @ApiParam(value = "Subdomain name string an artefact should be assigned to") final String subdomain,
+            @QueryParam("type") @ApiParam(value = "The Artefact Type of an artefact (e.g. USE_CASE)") final String artefacttype)
     {
         final List<ArtefactDTO> artefacts = artefactService.find(query, domain, subdomain, artefacttype);
         return artefacts;
@@ -154,9 +150,8 @@ public class ArtefactResource {
     @POST
     @ApiOperation(value = "Creates and stores a new artefact in the repository")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 204, message = "No content (artefact has been created successfully)"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     public Response create(@ApiParam(value = "Artefact to be stored in the Asset Repo") JsonArtefact artefact) throws URISyntaxException
     {
         final Project project = this.projectService.findByName(artefact.getProjectName());
@@ -186,8 +181,7 @@ public class ArtefactResource {
     @ApiOperation(value = "Updates an artefact in the repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     public Response update(@PathParam("id") @ApiParam(value = "artefact id") long id,
                            @ApiParam(value = "The artefact to be updated") JsonArtefact artefact)
             throws URISyntaxException
@@ -208,8 +202,7 @@ public class ArtefactResource {
     @ApiOperation(value = "Deletes an artefact from the repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     public void delete(@PathParam("id") @ApiParam(value = "Artefact ID of the artefact that shall be deleted from the Asset Repo") long id)
     {
         this.artefactService.delete(id);

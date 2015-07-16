@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
  * @author Robert Magnus
  */
 @Path(AssetRegistryRestApp.PART_VERSION)
-@Api(value = AssetRegistryRestApp.PART_SUBDOMAIN, description = "provides version info")
+@Api(value = AssetRegistryRestApp.PART_VERSION, description = "provides version info")
 public class VersionResource
 {
     @Inject
@@ -31,8 +31,7 @@ public class VersionResource
     @ApiOperation(value = "Returns the version number")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     public String version()
     {
         return this.versionService.getVersion();
