@@ -2,6 +2,7 @@ package eu.scasefp7.assetregistry.rest;
 
 import eu.scasefp7.assetregistry.util.BuildProperties;
 import io.swagger.jaxrs.config.BeanConfig;
+
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -29,10 +30,11 @@ public class AssetRegistryRestApp extends Application
     public static final String PART_DOMAIN = "/domain";
     public static final String PART_SUBDOMAIN = "/subdomain";
 
-    public static final String REST_PACKAGE_NAME = "eu.scasefp7.assetregistry.rest";  // this.getClasses().getClass().getPackage().getName()
+    // this.getClasses().getClass().getPackage().getName()
+    public static final String REST_PACKAGE_NAME = "eu.scasefp7.assetregistry.rest"; 
 
     /**
-     * Configure Swagger
+     * Configure Swagger.
      * <ul>
      * <li>localhost:8080/s-case/assetregistry/swagger.json
      * <li>localhost:8080/s-case/assetregistry/swagger.yaml
@@ -93,7 +95,7 @@ public class AssetRegistryRestApp extends Application
     @Override
     public Set<Class<?>> getClasses()
     {
-        Set<Class<?>> resources = new HashSet();
+        Set<Class<?>> resources = new HashSet<Class<?>>();
 
         resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);

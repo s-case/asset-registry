@@ -26,11 +26,15 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 import static eu.scasefp7.assetregistry.rest.ResourceTools.redirect;
 
+/**
+ * rest api for a project.
+ * @author rmagnus
+ *
+ */
 @Path(AssetRegistryRestApp.PART_PROJECT)
 @Api(value = AssetRegistryRestApp.PART_PROJECT, description = "provides projects")
 @Produces("application/json;charset=UTF-8")
@@ -44,9 +48,9 @@ public class ProjectResource
     private ProjectService projectService;
 
     /**
-     * Find a project in the repository by ID
+     * Find a project in the repository by ID.
      *
-     * @param id
+     * @param id the project id
      * @return Project project
      */
     @GET
@@ -67,7 +71,7 @@ public class ProjectResource
     }
 
     /**
-     * Find a project in the repository by its name
+     * Find a project in the repository by its name.
      *
      * @param name - the name of the project
      * @return Project project
@@ -100,19 +104,21 @@ public class ProjectResource
     }
 
     /**
-     * Find a list of projects in the repository by search query
+     * Find a list of projects in the repository by search query.
      *
-     * @param query
+     * @param query the query
      * @return List<Projects> projects
      */
     @GET
     @Path("directsearch")
-    @ApiOperation(value = "Finds a list of projects in the repository by search query. <BR>The search query has to be submitted in the Elastic Search JSON search syntax.")
+    @ApiOperation(value = "Finds a list of projects in the repository by search query. <BR>"
+            + "The search query has to be submitted in the Elastic Search JSON search syntax.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
             @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ProjectDTO> searchProjects(@QueryParam("q") @ApiParam(value = "Search query in the Elastic Search JSON syntax") final String query)
+    public List<ProjectDTO> searchProjects(@QueryParam("q")
+                                           @ApiParam(value = "Search query in the Elastic Search JSON syntax") final String query)
     {
         LOG.info("search '{}'", query);
         final List<ProjectDTO> projects = projectService.find(query);
@@ -121,29 +127,34 @@ public class ProjectResource
 
 
     /**
-     * Find a list of projects by free text search strings
+     * Find a list of projects by free text search strings.
      *
-     * @param domain
-     * @param subdomain
+     * @param query the query
+     * @param domain the domain
+     * @param subdomain the sub domain
      * @return List<ProjectsDTO> projects
      */
     @GET
     @Path("search")
-    @ApiOperation(value = "Finds a list of projects by free text search strings. <BR> All query parameters are optional and can be combined as needed but at least one parameter has to be submitted.")
+    @ApiOperation(value = "Finds a list of projects by free text search strings. <BR> "
+            + "All query parameters are optional and can be combined as needed but at least one parameter has to be submitted.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
             @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ProjectDTO> searchProjects(@QueryParam("query") @ApiParam(value = "Free text string that should be used to search inside of a project") final String query,
-                                           @QueryParam("domain") @ApiParam(value = "Domain name string a project should be assigned to") final String domain,
-                                           @QueryParam("subdomain") @ApiParam(value = "Subdomain name string a project should be assigned to") final String subdomain)
+    public List<ProjectDTO> searchProjects(
+            @QueryParam("query") @ApiParam(value = "Free text string that should be used to search inside of a project")
+                final String query,
+            @QueryParam("domain") @ApiParam(value = "Domain name string a project should be assigned to") final String domain,
+            @QueryParam("subdomain") @ApiParam(value = "Subdomain name string a project should be assigned to")
+                final String subdomain)
     {
         final List<ProjectDTO> projects = projectService.find(query, domain, subdomain);
         return projects;
     }
 
     /**
-     * Create and store a new project in the repository
+     * Create and store a new project in the repository.
      *
      * @param project The project to be stored inside of the Asset Repo
      * @return {#link javax.ws.rs.core.Response Response}
@@ -152,10 +163,11 @@ public class ProjectResource
     @POST
     @ApiOperation(value = "Creates and stores a new project in the repository")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "No content (project has been created successfully)"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+            @ApiResponse(code = 204, message = "No content (project has been created successfully)"), 
+            @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), 
+            @ApiResponse(code = 500, message = "Internal Server error")})
     public Response create(@ApiParam(value = "The project to be stored inside of the Asset Repo") JsonProject project)
-            throws URISyntaxException
     {
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project created = this.projectService.create(projectEntity);
@@ -164,7 +176,7 @@ public class ProjectResource
     }
 
     /**
-     * Update a project in the Asset Repo
+     * Update a project in the Asset Repo.
      *
      * @param id      Project ID
      * @param project The project to be updated inside of the Asset Repo
@@ -179,7 +191,6 @@ public class ProjectResource
             @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     public Response update(@PathParam("id") @ApiParam(value = "Project ID") long id,
                            @ApiParam(value = "The project to be updated inside of the Asset Repo") JsonProject project)
-            throws URISyntaxException
     {
         project.setId(id);
         final Project projectEntity = projectService.convertJsonToEntity(project);
@@ -188,7 +199,7 @@ public class ProjectResource
     }
 
     /**
-     * Delete a project from the Asset Repo by ID
+     * Delete a project from the Asset Repo by ID.
      *
      * @param id ID of the project to be deleted
      */
@@ -204,7 +215,7 @@ public class ProjectResource
     }
 
     /**
-     * Delete a project from the Asset Repo by name
+     * Delete a project from the Asset Repo by name.
      *
      * @param name Name string of the project to be deleted
      */

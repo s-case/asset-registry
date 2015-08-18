@@ -23,7 +23,7 @@ public class VersionResource
     private VersionServiceImpl versionService;
 
     /**
-     * Return the version number
+     * Return the version number.
      *
      * @return version
      */
