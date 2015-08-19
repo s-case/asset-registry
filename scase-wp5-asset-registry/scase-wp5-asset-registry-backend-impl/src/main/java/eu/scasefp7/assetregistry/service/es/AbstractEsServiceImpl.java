@@ -12,6 +12,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 
 /**
  * Created by missler on 16/03/15.
+ * @param <E> the concrete type
  */
 public abstract class AbstractEsServiceImpl<E extends BaseEntity> implements AbstractEsService<E> {
 

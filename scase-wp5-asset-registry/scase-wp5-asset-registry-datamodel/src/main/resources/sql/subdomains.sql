@@ -83,7 +83,7 @@ INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(278,'Accounti
 INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(37,'Banking',7,1);
 INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(279,'Credit & Lending',7,1);
 INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(903,'Financial Planning & Management',7,1);
-INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(1282,'"Grants, Scholarships & Financial Aid"',7,1);
+INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(1282,'Grants, Scholarships & Financial Aid',7,1);
 INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(38,'Insurance',7,1);
 INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(107,'Investing',7,1);
 INSERT INTO ASSET_REPO.SUBDOMAIN (id,NAME,domainId,version) VALUES(560,'Beverages',71,1);

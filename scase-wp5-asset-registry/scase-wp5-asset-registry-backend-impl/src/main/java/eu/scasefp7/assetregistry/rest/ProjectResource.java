@@ -4,6 +4,11 @@ import eu.scasefp7.assetregistry.data.Project;
 import eu.scasefp7.assetregistry.dto.JsonProject;
 import eu.scasefp7.assetregistry.dto.ProjectDTO;
 import eu.scasefp7.assetregistry.service.ProjectService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,47 +25,67 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URISyntaxException;
+
 import java.util.List;
 
 import static eu.scasefp7.assetregistry.rest.ResourceTools.redirect;
 
+/**
+ * rest api for a project.
+ * @author rmagnus
+ *
+ */
 @Path(AssetRegistryRestApp.PART_PROJECT)
+@Api(value = AssetRegistryRestApp.PART_PROJECT, description = "provides projects")
 @Produces("application/json;charset=UTF-8")
 @Consumes("application/json")
 @Stateless
-public class ProjectResource {
-
+public class ProjectResource
+{
     private static final Logger LOG = LoggerFactory.getLogger(ProjectResource.class);
 
     @EJB
     private ProjectService projectService;
 
     /**
-     * Find a project in the repository by ID
+     * Find a project in the repository by ID.
      *
-     * @param id
+     * @param id the project id
      * @return Project project
      */
     @GET
-    @Path("{id}/id")
-    public JsonProject get(@PathParam("id") long id) {
+    @Path("{id}")
+    @ApiOperation(value = "Finds a project in the repository by ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+    public JsonProject get(@PathParam("id") @ApiParam(value = "project ID") long id)
+    {
+        JsonProject jsonProject = null;
+
         final Project projectEntity = this.projectService.find(id);
-        final JsonProject jsonProject = projectService.convertEntityToJson(projectEntity);
+        if(null!=projectEntity) {
+            jsonProject = projectService.convertEntityToJson(projectEntity);
+        }
         return jsonProject;
     }
 
     /**
-     * Find a project in the repository by its name
+     * Find a project in the repository by its name.
      *
      * @param name - the name of the project
      * @return Project project
      */
     @GET
-    @Path("{name}/name")
-    public JsonProject get(@PathParam("name") String name) {
+    @Path("{name}")
+    @ApiOperation(value = "Finds a project in the repository by its name")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+    public JsonProject get(@PathParam("name") @ApiParam(value = "the name of the project") String name)
+    {
 
-        Project projectEntity = null;
+        Project projectEntity;
         JsonProject jsonProject = null;
 
         try {
@@ -79,13 +104,22 @@ public class ProjectResource {
     }
 
     /**
-     * @param query
+     * Find a list of projects in the repository by search query.
+     *
+     * @param query the query
      * @return List<Projects> projects
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("directsearch")
-    public List<ProjectDTO> searchProjects(@QueryParam("q") final String query) {
+    @ApiOperation(value = "Finds a list of projects in the repository by search query. <BR>"
+            + "The search query has to be submitted in the Elastic Search JSON search syntax.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ProjectDTO> searchProjects(@QueryParam("q")
+                                           @ApiParam(value = "Search query in the Elastic Search JSON syntax") final String query)
+    {
         LOG.info("search '{}'", query);
         final List<ProjectDTO> projects = projectService.find(query);
         return projects;
@@ -93,37 +127,56 @@ public class ProjectResource {
 
 
     /**
-     * @param domain
-     * @param subdomain
+     * Find a list of projects by free text search strings.
+     *
+     * @param query the query
+     * @param domain the domain
+     * @param subdomain the sub domain
      * @return List<ProjectsDTO> projects
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Path("search")
-    public List<ProjectDTO> searchProjects(@QueryParam("query") final String query, @QueryParam("domain") final
-    String domain, @QueryParam("subdomain") final String subdomain) {
+    @ApiOperation(value = "Finds a list of projects by free text search strings. <BR> "
+            + "All query parameters are optional and can be combined as needed but at least one parameter has to be submitted.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ProjectDTO> searchProjects(
+            @QueryParam("query") @ApiParam(value = "Free text string that should be used to search inside of a project")
+                final String query,
+            @QueryParam("domain") @ApiParam(value = "Domain name string a project should be assigned to") final String domain,
+            @QueryParam("subdomain") @ApiParam(value = "Subdomain name string a project should be assigned to")
+                final String subdomain)
+    {
         final List<ProjectDTO> projects = projectService.find(query, domain, subdomain);
         return projects;
     }
 
     /**
-     * Create and store a new project in the repository
+     * Create and store a new project in the repository.
      *
      * @param project The project to be stored inside of the Asset Repo
      * @return {#link javax.ws.rs.core.Response Response}
      * @throws URISyntaxException
      */
     @POST
-    public Response create(JsonProject project) throws URISyntaxException {
+    @ApiOperation(value = "Creates and stores a new project in the repository")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content (project has been created successfully)"), 
+            @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), 
+            @ApiResponse(code = 500, message = "Internal Server error")})
+    public Response create(@ApiParam(value = "The project to be stored inside of the Asset Repo") JsonProject project)
+    {
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project created = this.projectService.create(projectEntity);
-
 
         return redirect("project/" + created.getId());
     }
 
     /**
-     * Update a project in the Asset Repo
+     * Update a project in the Asset Repo.
      *
      * @param id      Project ID
      * @param project The project to be updated inside of the Asset Repo
@@ -132,7 +185,13 @@ public class ProjectResource {
      */
     @PUT
     @Path("{id}")
-    public Response update(@PathParam("id") long id, JsonProject project) throws URISyntaxException {
+    @ApiOperation(value = "Updates a project in the Asset Repo")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+    public Response update(@PathParam("id") @ApiParam(value = "Project ID") long id,
+                           @ApiParam(value = "The project to be updated inside of the Asset Repo") JsonProject project)
+    {
         project.setId(id);
         final Project projectEntity = projectService.convertJsonToEntity(project);
         final Project updated = this.projectService.update(projectEntity);
@@ -140,25 +199,34 @@ public class ProjectResource {
     }
 
     /**
-     * Delete a project from the Asset Repo
+     * Delete a project from the Asset Repo by ID.
      *
      * @param id ID of the project to be deleted
      */
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") long id) {
+    @ApiOperation(value = "Deletes a project from the Asset Repo by ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+    public void delete(@PathParam("id") @ApiParam(value = "ID of the project to be deleted") long id)
+    {
         this.projectService.delete(id);
     }
 
     /**
-     * Delete a project from the Asset Repo
+     * Delete a project from the Asset Repo by name.
      *
      * @param name Name string of the project to be deleted
      */
     @DELETE
     @Path("{name}")
-    public void delete(@PathParam("name") String name) {
+    @ApiOperation(value = "Deletes a project from the Asset Repo by name")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+    public void delete(@PathParam("name") @ApiParam(value = "name of the project to be deleted") String name)
+    {
         this.projectService.delete(name);
     }
-
 }

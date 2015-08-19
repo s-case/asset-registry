@@ -1,0 +1,4261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <title>S-CASE Asset Registry REST API</title>
+</head>
+<body>
+<div class="container">
+    <h1>S-CASE Asset Registry REST API</h1>
+<p>Description of S-CASE Asset Registry REST API</p>
+
+<h2>Summary</h2>
+<table class="table table-bordered table-condensed swagger--summary">
+    <thead>
+    <tr>
+        <th>Path</th>
+        <th>Method</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--artefact">/artefact</a>
+                    </td>
+                <td>
+                    <a href="#method--artefact-post">POST</a>
+                </td>
+                <td>
+                    Creates and stores a new artefact in the repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--artefact-directsearch">/artefact/directsearch</a>
+                    </td>
+                <td>
+                    <a href="#method--artefact-directsearch-get">GET</a>
+                </td>
+                <td>
+                    Finds a list of artefacts by search query
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--artefact-exists--id-">/artefact/exists/{id}</a>
+                    </td>
+                <td>
+                    <a href="#method--artefact-exists--id--get">GET</a>
+                </td>
+                <td>
+                    Checks whether an artefact exists in the repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--artefact-search">/artefact/search</a>
+                    </td>
+                <td>
+                    <a href="#method--artefact-search-get">GET</a>
+                </td>
+                <td>
+                    Finds a list of artefacts by free text search strings
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="3">
+                        <a href="#path--artefact--id-">/artefact/{id}</a>
+                    </td>
+                <td>
+                    <a href="#method--artefact--id--delete">DELETE</a>
+                </td>
+                <td>
+                    Deletes an artefact from the repository
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#method--artefact--id--get">GET</a>
+                </td>
+                <td>
+                    Finds an artefact in the repository by ID
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#method--artefact--id--put">PUT</a>
+                </td>
+                <td>
+                    Updates an artefact in the repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--domain-domains">/domain/domains</a>
+                    </td>
+                <td>
+                    <a href="#method--domain-domains-get">GET</a>
+                </td>
+                <td>
+                    Retrieves a list of all domains in the repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--domain--id-">/domain/{id}</a>
+                    </td>
+                <td>
+                    <a href="#method--domain--id--get">GET</a>
+                </td>
+                <td>
+                    Finds a domain by ID in the repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--project">/project</a>
+                    </td>
+                <td>
+                    <a href="#method--project-post">POST</a>
+                </td>
+                <td>
+                    Creates and stores a new project in the repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--project-directsearch">/project/directsearch</a>
+                    </td>
+                <td>
+                    <a href="#method--project-directsearch-get">GET</a>
+                </td>
+                <td>
+                    Finds a list of projects in the repository by search query
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--project-search">/project/search</a>
+                    </td>
+                <td>
+                    <a href="#method--project-search-get">GET</a>
+                </td>
+                <td>
+                    Finds a list of projects by free text search strings
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="2">
+                        <a href="#path--project--id-">/project/{id}</a>
+                    </td>
+                <td>
+                    <a href="#method--project--id--delete">DELETE</a>
+                </td>
+                <td>
+                    Deletes a project from the Asset Repo by ID
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="#method--project--id--put">PUT</a>
+                </td>
+                <td>
+                    Updates a project in the Asset Repo
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--project--id--id">/project/{id}/id</a>
+                    </td>
+                <td>
+                    <a href="#method--project--id--id-get">GET</a>
+                </td>
+                <td>
+                    Finds a project in the repository by ID
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--project--name-">/project/{name}</a>
+                    </td>
+                <td>
+                    <a href="#method--project--name--delete">DELETE</a>
+                </td>
+                <td>
+                    Deletes a project from the Asset Repo by name
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--project--name--name">/project/{name}/name</a>
+                    </td>
+                <td>
+                    <a href="#method--project--name--name-get">GET</a>
+                </td>
+                <td>
+                    Finds a project in the repository by its name
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--subdomain-subdomains">/subdomain/subdomains</a>
+                    </td>
+                <td>
+                    <a href="#method--subdomain-subdomains-get">GET</a>
+                </td>
+                <td>
+                    Retrieves a list of all subdomains in the Asset Repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--subdomain--id-">/subdomain/{id}</a>
+                    </td>
+                <td>
+                    <a href="#method--subdomain--id--get">GET</a>
+                </td>
+                <td>
+                    Finds a subdomain by ID in the Asset Repository
+                </td>
+            </tr>
+            <tr>
+                    <td class="swagger--summary-path" rowspan="1">
+                        <a href="#path--version">/version</a>
+                    </td>
+                <td>
+                    <a href="#method--version-get">GET</a>
+                </td>
+                <td>
+                    Returns the version number
+                </td>
+            </tr>
+    </tbody>
+</table>
+
+
+
+<h2>Paths</h2>
+
+    
+<span id="path-/artefact"></span>
+    <div id="method--artefact-post" class="swagger--panel-method-post panel">
+    <div class="panel-heading">
+        <div class="method-summary">Creates and stores a new artefact in the repository</div>
+        <h3 class="panel-title"><span class="method-name">POST</span> <strong>/artefact</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Artefact to be stored in the Asset Repo</p>
+                    </div>
+                    <div class="col-md-6 sw-request-model">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonArtefact">JsonArtefact</a>
+
+    </div>
+</div></div>
+                </div>
+    </section>
+        
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/artefact/directsearch"></span>
+    <div id="method--artefact-directsearch-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a list of artefacts by search query</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/artefact/directsearch</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>q
+</td>
+                    <td>Elastic Search query string</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ArtefactDTO">ArtefactDTO</a>
+
+    </div>
+</section>    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ArtefactDTO">ArtefactDTO</a>
+
+    </div>
+</section>    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/artefact/exists/{id}"></span>
+    <div id="method--artefact-exists--id--get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Checks whether an artefact exists in the repository</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/artefact/exists/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>Artefact ID</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/artefact/search"></span>
+    <div id="method--artefact-search-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a list of artefacts by free text search strings</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/artefact/search</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>query
+</td>
+                    <td>Elastic Search query string</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>domain
+</td>
+                    <td>Elastic Search domain</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>subdomain
+</td>
+                    <td>Elastic Search subdomain</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>type
+</td>
+                    <td>artefact type</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ArtefactDTO">ArtefactDTO</a>
+
+    </div>
+</section>    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ArtefactDTO">ArtefactDTO</a>
+
+    </div>
+</section>    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/artefact/{id}"></span>
+    <div id="method--artefact--id--delete" class="swagger--panel-method-delete panel">
+    <div class="panel-heading">
+        <div class="method-summary">Deletes an artefact from the repository</div>
+        <h3 class="panel-title"><span class="method-name">DELETE</span> <strong>/artefact/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>Artefact ID of the artefact that shall be deleted from the Asset Repo</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    <div id="method--artefact--id--get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds an artefact in the repository by ID</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/artefact/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>Artefact ID</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonArtefact">JsonArtefact</a>
+
+    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonArtefact">JsonArtefact</a>
+
+    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    <div id="method--artefact--id--put" class="swagger--panel-method-put panel">
+    <div class="panel-heading">
+        <div class="method-summary">Updates an artefact in the repository</div>
+        <h3 class="panel-title"><span class="method-name">PUT</span> <strong>/artefact/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>The artefact to be updated</p>
+                    </div>
+                    <div class="col-md-6 sw-request-model">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonArtefact">JsonArtefact</a>
+
+    </div>
+</div></div>
+                </div>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>artefact id</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/domain/domains"></span>
+    <div id="method--domain-domains-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Retrieves a list of all domains in the repository</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/domain/domains</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/Domain">Domain</a>
+
+    </div>
+</section>    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/Domain">Domain</a>
+
+    </div>
+</section>    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/domain/{id}"></span>
+    <div id="method--domain--id--get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a domain by ID in the repository</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/domain/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>domain id</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/Domain">Domain</a>
+
+    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/Domain">Domain</a>
+
+    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/project"></span>
+    <div id="method--project-post" class="swagger--panel-method-post panel">
+    <div class="panel-heading">
+        <div class="method-summary">Creates and stores a new project in the repository</div>
+        <h3 class="panel-title"><span class="method-name">POST</span> <strong>/project</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>The project to be stored inside of the Asset Repo</p>
+                    </div>
+                    <div class="col-md-6 sw-request-model">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonProject">JsonProject</a>
+
+    </div>
+</div></div>
+                </div>
+    </section>
+        
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/project/directsearch"></span>
+    <div id="method--project-directsearch-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a list of projects in the repository by search query</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/project/directsearch</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>q
+</td>
+                    <td>search query</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ProjectDTO">ProjectDTO</a>
+
+    </div>
+</section>    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ProjectDTO">ProjectDTO</a>
+
+    </div>
+</section>    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/project/search"></span>
+    <div id="method--project-search-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a list of projects by free text search strings</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/project/search</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>query
+</td>
+                    <td>Elastic Search query string</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>domain
+</td>
+                    <td>Elastic Search domain</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>subdomain
+</td>
+                    <td>Elastic Search subdomain</td>
+                    <td>query</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ProjectDTO">ProjectDTO</a>
+
+    </div>
+</section>    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/ProjectDTO">ProjectDTO</a>
+
+    </div>
+</section>    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/project/{id}"></span>
+    <div id="method--project--id--delete" class="swagger--panel-method-delete panel">
+    <div class="panel-heading">
+        <div class="method-summary">Deletes a project from the Asset Repo by ID</div>
+        <h3 class="panel-title"><span class="method-name">DELETE</span> <strong>/project/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>ID of the project to be deleted</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    <div id="method--project--id--put" class="swagger--panel-method-put panel">
+    <div class="panel-heading">
+        <div class="method-summary">Updates a project in the Asset Repo</div>
+        <h3 class="panel-title"><span class="method-name">PUT</span> <strong>/project/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>The project to be updated inside of the Asset Repo</p>
+                    </div>
+                    <div class="col-md-6 sw-request-model">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonProject">JsonProject</a>
+
+    </div>
+</div></div>
+                </div>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>Project ID</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/project/{id}/id"></span>
+    <div id="method--project--id--id-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a project in the repository by ID</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/project/{id}/id</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>project ID</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonProject">JsonProject</a>
+
+    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonProject">JsonProject</a>
+
+    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/project/{name}"></span>
+    <div id="method--project--name--delete" class="swagger--panel-method-delete panel">
+    <div class="panel-heading">
+        <div class="method-summary">Deletes a project from the Asset Repo by name</div>
+        <h3 class="panel-title"><span class="method-name">DELETE</span> <strong>/project/{name}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>name
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>name of the project to be deleted</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/project/{name}/name"></span>
+    <div id="method--project--name--name-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a project in the repository by its name</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/project/{name}/name</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>name
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>the name of the project</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        string
+</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json;charset=UTF-8</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonProject">JsonProject</a>
+
+    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/JsonProject">JsonProject</a>
+
+    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/subdomain/subdomains"></span>
+    <div id="method--subdomain-subdomains-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Retrieves a list of all subdomains in the Asset Repository</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/subdomain/subdomains</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/SubDomain">SubDomain</a>
+
+    </div>
+</section>    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/SubDomain">SubDomain</a>
+
+    </div>
+</section>    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/subdomain/{id}"></span>
+    <div id="method--subdomain--id--get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Finds a subdomain by ID in the Asset Repository</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/subdomain/{id}</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+    <section class="sw-request-body">
+        <p><span class="label label-default">application/json</span> </p>
+    </section>
+        
+    <section class="sw-request-params">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-param-name"></th>
+                <th class="sw-param-description"></th>
+                <th class="sw-param-type"></th>
+                <th class="sw-param-data-type"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id
+                            <span class="json-property-required"></span>
+                        </td>
+                    <td>subdomain ID</td>
+                    <td>path</td>
+                    <td>
+                        <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+        
+    <section class="sw-response-body">
+        <p><span class="label label-default">application/json</span> </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/SubDomain">SubDomain</a>
+
+    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+            <a class="json-schema-ref" href="#/definitions/SubDomain">SubDomain</a>
+
+    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>    
+<span id="path-/version"></span>
+    <div id="method--version-get" class="swagger--panel-method-get panel">
+    <div class="panel-heading">
+        <div class="method-summary">Returns the version number</div>
+        <h3 class="panel-title"><span class="method-name">GET</span> <strong>/version</strong></h3>
+    </div>
+    <div class="panel-body">
+        <section class="sw-method-description">
+            
+        </section>
+        
+        
+        
+    <section class="sw-response-body">
+        <p></p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="sw-response-code"></th>
+                <th class="sw-response-description"></th>
+                <th class="sw-response-data-type hidden-xs hidden-sm"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            successful operation
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    </div>
+</div>                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+    <div class="panel panel-definition">
+    <div class="panel-body">
+        
+    </div>
+</div></td>
+                </tr>
+                <tr>
+                    <td>204</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            No content
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Request incorrect
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Unauthorized
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Forbidden
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Not found
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>
+                        <div class="sw-response-description-text">
+                            Server problem
+                        </div>
+                        <section class="visible-xs visible-sm">
+                            
+                        </section>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+            </div>
+</div>
+
+<h2>Definitions</h2>
+
+    
+    <div class="panel panel-definition">
+        <div class="panel-heading">
+                <h3 class="panel-title"><a name="/definitions/ProjectDTO"></a>ProjectDTO:
+                    <span class="json-property-type"><span class="json-property-type">
+        object
+</span>
+
+</span>
+                </h3>
+        </div>
+    <div class="panel-body">
+            <section class="json-schema-properties">
+    <dl>
+            <dt>
+                <span class="json-property-name">project:</span>
+                <span class="json-property-type">
+            <a class="json-schema-ref" href="#/definitions/JsonProject">JsonProject</a>
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">score:</span>
+                <span class="json-property-type">
+        number
+</span>
+    <span class="json-property-format">(float)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+    </dl>
+</section>
+
+    </div>
+</div>    
+    <div class="panel panel-definition">
+        <div class="panel-heading">
+                <h3 class="panel-title"><a name="/definitions/SubDomain"></a>SubDomain:
+                    <span class="json-property-type"><span class="json-property-type">
+        object
+</span>
+
+</span>
+                </h3>
+        </div>
+    <div class="panel-body">
+            <section class="json-schema-properties">
+    <dl>
+            <dt>
+                <span class="json-property-name">id:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">version:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">name:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">domain:</span>
+                <span class="json-property-type">
+            <a class="json-schema-ref" href="#/definitions/Domain">Domain</a>
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+    </dl>
+</section>
+
+    </div>
+</div>    
+    <div class="panel panel-definition">
+        <div class="panel-heading">
+                <h3 class="panel-title"><a name="/definitions/ArtefactDTO"></a>ArtefactDTO:
+                    <span class="json-property-type"><span class="json-property-type">
+        object
+</span>
+
+</span>
+                </h3>
+        </div>
+    <div class="panel-body">
+            <section class="json-schema-properties">
+    <dl>
+            <dt>
+                <span class="json-property-name">artefact:</span>
+                <span class="json-property-type">
+            <a class="json-schema-ref" href="#/definitions/JsonArtefact">JsonArtefact</a>
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">score:</span>
+                <span class="json-property-type">
+        number
+</span>
+    <span class="json-property-format">(float)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+    </dl>
+</section>
+
+    </div>
+</div>    
+    <div class="panel panel-definition">
+        <div class="panel-heading">
+                <h3 class="panel-title"><a name="/definitions/JsonArtefactPayload"></a>JsonArtefactPayload:
+                    <span class="json-property-type"><span class="json-property-type">
+        object
+</span>
+
+</span>
+                </h3>
+        </div>
+    <div class="panel-body">
+            <section class="json-schema-properties">
+    <dl>
+            <dt>
+                <span class="json-property-name">id:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">version:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">type:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-enum" title="Possible values">&isin; {
+            <span class="json-property-enum-item">BINARY</span>
+            ,
+
+            <span class="json-property-enum-item">TEXTUAL</span>
+            
+
+        }
+        </span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">format:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-enum" title="Possible values">&isin; {
+            <span class="json-property-enum-item">IMAGE</span>
+            ,
+
+            <span class="json-property-enum-item">XMI</span>
+            ,
+
+            <span class="json-property-enum-item">TEXT_ISO_639_3</span>
+            ,
+
+            <span class="json-property-enum-item">TEXT_UTF8</span>
+            ,
+
+            <span class="json-property-enum-item">OWL</span>
+            ,
+
+            <span class="json-property-enum-item">N3</span>
+            ,
+
+            <span class="json-property-enum-item">RDF</span>
+            ,
+
+            <span class="json-property-enum-item">JAVA_CODE</span>
+            ,
+
+            <span class="json-property-enum-item">JAVA_CODE_PACKED</span>
+            ,
+
+            <span class="json-property-enum-item">JSON</span>
+            ,
+
+            <span class="json-property-enum-item">WADL</span>
+            ,
+
+            <span class="json-property-enum-item">XML</span>
+            
+
+        }
+        </span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">name:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">payload:</span>
+                <span class="json-property-type">
+        string[]
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+        
+    </div>
+</section>                </div>
+            </dd>
+    </dl>
+</section>
+
+    </div>
+</div>    
+    <div class="panel panel-definition">
+        <div class="panel-heading">
+                <h3 class="panel-title"><a name="/definitions/Domain"></a>Domain:
+                    <span class="json-property-type"><span class="json-property-type">
+        object
+</span>
+
+</span>
+                </h3>
+        </div>
+    <div class="panel-body">
+            <section class="json-schema-properties">
+    <dl>
+            <dt>
+                <span class="json-property-name">id:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">version:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">name:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">subdomains:</span>
+                <span class="json-property-type">
+        array
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+    </dl>
+</section>
+
+    </div>
+</div>    
+    <div class="panel panel-definition">
+        <div class="panel-heading">
+                <h3 class="panel-title"><a name="/definitions/JsonProject"></a>JsonProject:
+                    <span class="json-property-type"><span class="json-property-type">
+        object
+</span>
+
+</span>
+                </h3>
+        </div>
+    <div class="panel-body">
+            <section class="json-schema-properties">
+    <dl>
+            <dt>
+                <span class="json-property-name">id:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">createdBy:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">updatedBy:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">createdAt:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-format">(date-time)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">updatedAt:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-format">(date-time)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">domain:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">subDomain:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">privacyLevel:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-enum" title="Possible values">&isin; {
+            <span class="json-property-enum-item">PUBLIC</span>
+            ,
+
+            <span class="json-property-enum-item">PRIVATE</span>
+            
+
+        }
+        </span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">version:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">name:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">artefacts:</span>
+                <span class="json-property-type">
+        object[]
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/JsonArtefact">JsonArtefact</a>
+
+    </div>
+</section>                </div>
+            </dd>
+    </dl>
+</section>
+
+    </div>
+</div>    
+    <div class="panel panel-definition">
+        <div class="panel-heading">
+                <h3 class="panel-title"><a name="/definitions/JsonArtefact"></a>JsonArtefact:
+                    <span class="json-property-type"><span class="json-property-type">
+        object
+</span>
+
+</span>
+                </h3>
+        </div>
+    <div class="panel-body">
+            <section class="json-schema-properties">
+    <dl>
+            <dt>
+                <span class="json-property-name">id:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">createdBy:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">updatedBy:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">createdAt:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-format">(date-time)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">updatedAt:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-format">(date-time)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">domain:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">subDomain:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">privacyLevel:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-enum" title="Possible values">&isin; {
+            <span class="json-property-enum-item">PUBLIC</span>
+            ,
+
+            <span class="json-property-enum-item">PRIVATE</span>
+            
+
+        }
+        </span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">version:</span>
+                <span class="json-property-type">
+        integer
+</span>
+    <span class="json-property-format">(int64)</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">projectName:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">uri:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">groupId:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">name:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">dependencies:</span>
+                <span class="json-property-type">
+        integer[]
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+        
+    </div>
+</section>                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">type:</span>
+                <span class="json-property-type">
+        string
+</span>
+    <span class="json-property-enum" title="Possible values">&isin; {
+            <span class="json-property-enum-item">USE_CASE</span>
+            ,
+
+            <span class="json-property-enum-item">ACTIVITY_DIAGRAM</span>
+            ,
+
+            <span class="json-property-enum-item">ANALYSIS_CLASS_DIAGRAM</span>
+            ,
+
+            <span class="json-property-enum-item">STORYBOARD</span>
+            ,
+
+            <span class="json-property-enum-item">TEXTUAL</span>
+            ,
+
+            <span class="json-property-enum-item">STATIC_ONTOLOGY</span>
+            ,
+
+            <span class="json-property-enum-item">DYNAMIC_ONTOLOGY</span>
+            ,
+
+            <span class="json-property-enum-item">AGGREGATED_ONTOLOGY</span>
+            ,
+
+            <span class="json-property-enum-item">CODE_SNIPPET</span>
+            ,
+
+            <span class="json-property-enum-item">NOTE</span>
+            ,
+
+            <span class="json-property-enum-item">CIM</span>
+            ,
+
+            <span class="json-property-enum-item">PIM</span>
+            ,
+
+            <span class="json-property-enum-item">PSM</span>
+            ,
+
+            <span class="json-property-enum-item">CODE</span>
+            ,
+
+            <span class="json-property-enum-item">SERVICE_DESCRIPTION</span>
+            ,
+
+            <span class="json-property-enum-item">COMPOSITE_SERVICE_DESCRIPTION</span>
+            ,
+
+            <span class="json-property-enum-item">SERVICE</span>
+            ,
+
+            <span class="json-property-enum-item">OSRF_PROJECT</span>
+            ,
+
+            <span class="json-property-enum-item">OSRF_FILE</span>
+            
+
+        }
+        </span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">description:</span>
+                <span class="json-property-type">
+        string
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">tags:</span>
+                <span class="json-property-type">
+        string[]
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+        
+    </div>
+</section>                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">metadata:</span>
+                <span class="json-property-type">
+        object
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                        <section class="json-schema-additionalProperties">
+    <span class="json-property-type"><span class="json-property-type">
+        string
+</span>
+
+</span>
+    
+</section>
+
+                </div>
+            </dd>
+            <dt>
+                <span class="json-property-name">payload:</span>
+                <span class="json-property-type">
+        object[]
+</span>
+
+            </dt>
+            <dd>
+                
+                <div class="json-inner-schema">
+                    
+    <section class="json-schema-array-items">
+    <div class="json-inner-schema">
+            <a class="json-schema-ref" href="#/definitions/JsonArtefactPayload">JsonArtefactPayload</a>
+
+    </div>
+</section>                </div>
+            </dd>
+    </dl>
+</section>
+
+    </div>
+</div></div>
+</body>
+</html>

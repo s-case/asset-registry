@@ -1,7 +1,7 @@
 package eu.scasefp7.assetregistry.data;
 
 /**
- * Enumeration of artefact types
+ * Enumeration of artefact types.
  */
 public enum ArtefactType {
     USE_CASE, ACTIVITY_DIAGRAM, ANALYSIS_CLASS_DIAGRAM, STORYBOARD, TEXTUAL, STATIC_ONTOLOGY, DYNAMIC_ONTOLOGY,

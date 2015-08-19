@@ -16,7 +16,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 /**
- * Entity representation of an artefact
+ * Entity representation of an artefact.
  */
 @XmlRootElement
 @Entity
@@ -58,7 +58,6 @@ public class Artefact
     private Map<String, String> metadata = new HashMap<>();
 
     @OneToMany(cascade = javax.persistence.CascadeType.ALL)
-    @Column(name = "PAYLOAD")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<ArtefactPayload> payload = new ArrayList<ArtefactPayload>();
 
@@ -165,6 +164,10 @@ public class Artefact
         this.payload = payload;
     }
 
+    /**
+     * adds a payload for an artefact.
+     * @param artefactPayload the payload.
+     */
     public void addPayload(ArtefactPayload artefactPayload)
     {
         if (null == this.payload) {

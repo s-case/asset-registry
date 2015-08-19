@@ -26,7 +26,7 @@ import eu.scasefp7.assetregistry.service.exception.NotCreatedException;
 import eu.scasefp7.assetregistry.service.exception.NotUpdatedException;
 
 /**
- * Created by missler on 17/03/15.
+ * Service implementation for Project related services to interact with the S-Case Asset Repository.
  */
 @Stateless
 @Local(ProjectService.class)
@@ -46,33 +46,48 @@ public class ProjectServiceImpl implements ProjectService {
     @EJB
     private ProjectEsService esService;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project find(long id) {
         Project project = this.dbService.find(id);
         return project;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project findByName(String name){
         Project project = this.dbService.findByName(name);
         return project;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProjectDTO> find(String query) {
         List<ProjectDTO> projects = this.esService.find(query);
         return projects;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ProjectDTO> find(String query, String domain, String subdomain){
         List<ProjectDTO> projects = this.esService.find(query, domain, subdomain);
         return projects;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project create(final Project project) {
-        Project created = null;
+        Project created;
         try {
             created = this.dbService.create(project);
             this.esService.index(created);
@@ -83,6 +98,9 @@ public class ProjectServiceImpl implements ProjectService {
         return created;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project update(final Project project) {
         Project updated;
@@ -95,15 +113,21 @@ public class ProjectServiceImpl implements ProjectService {
         return updated;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(long id) {
         this.esService.delete(id, ProjectIndex.INDEX_NAME, IndexType.TYPE_PROJECT);
         this.dbService.delete(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(String name) {
-        Project project = null;
+        Project project;
         try {
             long id = Long.parseLong(name);
             project = this.dbService.find(id);
@@ -119,12 +143,18 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(Project project) {
         this.esService.delete(project, ProjectIndex.INDEX_NAME, IndexType.TYPE_PROJECT);
         this.dbService.delete(project);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Project convertJsonToEntity(JsonProject jsonProject){
         Project project = new Project();
@@ -158,6 +188,9 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JsonProject convertEntityToJson(Project project){
         JsonProject jsonProject = new JsonProject();
@@ -188,6 +221,12 @@ public class ProjectServiceImpl implements ProjectService {
         return jsonProject;
     }
 
+    /**
+     * Private service to discover the root cause of an exception thrown.
+     *
+     * @param thrown - the thrown exception.
+     * @return Throwable thrown - The root cause of the exception thrown.
+     */
     private Throwable getRootCause(final Throwable thrown)
     {
         Throwable t = thrown;
