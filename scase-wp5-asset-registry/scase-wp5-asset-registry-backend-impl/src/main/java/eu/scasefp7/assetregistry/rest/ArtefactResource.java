@@ -194,7 +194,7 @@ public class ArtefactResource
      * @param artefact
      *            The artefact to be updated
      * @return HTTP Response Code
-     * @throws URISyntaxException
+     * @throws java.net.URISyntaxException
      */
     @PUT
     @Path("{id}")
