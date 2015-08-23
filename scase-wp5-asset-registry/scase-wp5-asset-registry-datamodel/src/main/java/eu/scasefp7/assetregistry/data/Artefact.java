@@ -164,6 +164,10 @@ public class Artefact
         this.payload = payload;
     }
 
+    /**
+     * adds a payload for an artefact.
+     * @param artefactPayload the payload.
+     */
     public void addPayload(ArtefactPayload artefactPayload)
     {
         if (null == this.payload) {

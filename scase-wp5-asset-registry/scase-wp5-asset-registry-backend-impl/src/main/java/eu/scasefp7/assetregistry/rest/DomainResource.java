@@ -19,6 +19,11 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.List;
 
+/**
+ * rest api for a domain.
+ * @author rmagnus
+ *
+ */
 @Path(AssetRegistryRestApp.PART_DOMAIN)
 @Api(value = AssetRegistryRestApp.PART_DOMAIN, description = "provides domains")
 @Produces("application/json;charset=UTF-8")
@@ -30,7 +35,7 @@ public class DomainResource
     private DomainDbService service;
 
     /**
-     * Find a {@link eu.scasefp7.assetregistry.data.Domain Domain} by ID in the repository
+     * Find a {@link eu.scasefp7.assetregistry.data.Domain Domain} by ID in the repository.
      *
      * @param id Domain ID
      * @return {@link eu.scasefp7.assetregistry.data.Domain Domain}
@@ -50,7 +55,7 @@ public class DomainResource
     }
 
     /**
-     * Retrieve a list of all {@link eu.scasefp7.assetregistry.data.Domain Domains} in the repository
+     * Retrieve a list of all {@link eu.scasefp7.assetregistry.data.Domain Domains} in the repository.
      *
      * @return list of all {@link eu.scasefp7.assetregistry.data.Domain Domains}
      */
