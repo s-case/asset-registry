@@ -149,7 +149,7 @@ public class ArtefactServiceImpl
 
         artefact.setName(jsonArtefact.getName());
         artefact.setPrivacyLevel(jsonArtefact.getPrivacyLevel());
-
+        artefact.setProjectName( jsonArtefact.getProjectName());
         artefact.setUri(jsonArtefact.getUri());
         artefact.setGroupId(jsonArtefact.getGroupId());
         artefact.setDependencies(jsonArtefact.getDependencies());
