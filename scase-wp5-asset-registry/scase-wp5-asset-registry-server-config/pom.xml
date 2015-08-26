@@ -20,8 +20,6 @@
 
         <serverProfile>standalone-full.xml</serverProfile>
         <serverRoot>${project.build.directory}/wildfly-${version.wildfly}</serverRoot>
-        <!-- The version can be passed as an argument: workaround for Jenkins with an older Maven version -->
-        <version.smartics-jboss-modules-maven-plugin>2.1.0</version.smartics-jboss-modules-maven-plugin>
 
         <mysql.jdbc.url>jdbc:mysql://localhost:3306/ASSET_REPO</mysql.jdbc.url>
         <mysql.user>scase</mysql.user>
