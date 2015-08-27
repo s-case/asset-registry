@@ -262,7 +262,6 @@
                                 --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker
                                 --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
                             </command>
-                            <command>data-source remove --name=ExampleDS</command>
                         </commands>
                     </execute-commands>
                 </configuration>
@@ -286,6 +285,42 @@
                 </executions>
             </plugin>
 
+            <plugin>
+              <groupId>org.jolokia</groupId>
+              <artifactId>docker-maven-plugin</artifactId>
+              <version>0.13.3</version>
+              <configuration>
+                <images>
+                  <image>
+                   <alias>elasticsearch</alias>
+                   <name>yaronr/elasticsearch</name>
+                    <run>
+                     <ports>
+                       <port>9300:9300</port>
+                       <port>9200:9200</port>
+                     </ports>
+                      <wait>
+                        <log>started</log>
+                     </wait>
+                    </run>
+                  </image>
+<!--
+                  <image>
+                   <alias>mysql</alias>
+                   <name>mysql</name>
+                    <run>
+                     <ports>
+                       <port>3306:3306</port>
+                     </ports>
+                      <wait>
+                        <log>port: 3306  MySQL Community Server (GPL)</log>
+                     </wait>
+                    </run>
+                  </image>
+-->
+                </images>
+              </configuration>
+            </plugin>
         </plugins>
     </build>
 
