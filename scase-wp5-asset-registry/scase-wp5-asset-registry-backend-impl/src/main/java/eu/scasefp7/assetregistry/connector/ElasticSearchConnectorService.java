@@ -43,8 +43,11 @@ public class ElasticSearchConnectorService {
         Settings settings = ImmutableSettings.settingsBuilder()
                 .put("cluster.name", clustername).build();
 
+        InetSocketTransportAddress inetSocketTransportAddress = new InetSocketTransportAddress(hostname, 9300);
+        LOG.info("es address: {}", inetSocketTransportAddress);
         this.client = new TransportClient(settings)
-                .addTransportAddress(new InetSocketTransportAddress(hostname, 9300));
+                .addTransportAddress(inetSocketTransportAddress);
+        LOG.info("es client: {}", client);
     }
 
     @Produces
