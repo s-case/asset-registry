@@ -261,7 +261,6 @@
                                 --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker
                                 --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
                             </command>
-                            <command>data-source remove --name=ExampleDS</command>
                         </commands>
                     </execute-commands>
                 </configuration>
