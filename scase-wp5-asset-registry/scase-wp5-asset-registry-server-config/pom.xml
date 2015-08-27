@@ -244,13 +244,12 @@
 
                     <execute-commands>
                         <commands>
-
                             <command>/system-property=${es.node}:add(value=${es.node.value})</command>
                             <command>/system-property=${es.clustername}:add(value=${es.clustername.value})</command>
                             <command>/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,
                                 driver-module-name=com.mysql,
                                 driver-class-name=com.mysql.jdbc.Driver,
-                                driver-xa-datasource-class-name=mysql.jdbc.jdbc2.optional.MysqlXADataSource)
+                                driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
                             </command>
                             <command>data-source add
                                 --name=AssetRegistryDS
