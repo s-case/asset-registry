@@ -303,20 +303,24 @@
                      </wait>
                     </run>
                   </image>
-<!--
                   <image>
                    <alias>mysql</alias>
                    <name>mysql</name>
                     <run>
+                     <env>
+                      <MYSQL_ROOT_PASSWORD>password</MYSQL_ROOT_PASSWORD>
+                     </env>
                      <ports>
-                       <port>3306:3306</port>
+                       <port>13306:3306</port>
                      </ports>
+                     <!--
                       <wait>
-                        <log>port: 3306  MySQL Community Server (GPL)</log>
+                        <log>MySQL Community Server</log>
+                        <time>20000</time>
                      </wait>
+                    -->
                     </run>
                   </image>
--->
                 </images>
               </configuration>
             </plugin>
