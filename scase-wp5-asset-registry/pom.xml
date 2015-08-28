@@ -18,7 +18,6 @@
         <module>scase-wp5-asset-registry-backend</module>
         <module>scase-wp5-asset-registry-backend-impl</module>
         <module>scase-wp5-asset-registry-web</module>
-        <module>scase-wp5-asset-registry-ear</module>
     </modules>
 
     <dependencyManagement>
