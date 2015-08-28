@@ -41,6 +41,10 @@ public class Project
         this.name = name;
     }
 
+    /**
+     * returns all artefacts for a project.
+     * @return list of Artefact
+     */
     public List<Artefact> getArtefacts()
     {
 

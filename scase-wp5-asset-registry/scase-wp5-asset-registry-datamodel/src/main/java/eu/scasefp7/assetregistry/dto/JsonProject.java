@@ -2,6 +2,7 @@ package eu.scasefp7.assetregistry.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class JsonProject
 
     private String name;
 
-    private List<JsonArtefact> artefacts;
+    private List<JsonArtefact> artefacts = new ArrayList<JsonArtefact>();
 
     public String getName()
     {

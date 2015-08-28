@@ -19,8 +19,13 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.List;
 
+/**
+ * rest api for a domain.
+ * @author rmagnus
+ *
+ */
 @Path(AssetRegistryRestApp.PART_DOMAIN)
-@Api(value = AssetRegistryRestApp.PART_SUBDOMAIN, description = "provides domains")
+@Api(value = AssetRegistryRestApp.PART_DOMAIN, description = "provides domains")
 @Produces("application/json;charset=UTF-8")
 @Consumes("application/json")
 @Stateless
@@ -30,7 +35,7 @@ public class DomainResource
     private DomainDbService service;
 
     /**
-     * Find a {@link eu.scasefp7.assetregistry.data.Domain Domain} by ID in the repository
+     * Find a {@link eu.scasefp7.assetregistry.data.Domain Domain} by ID in the repository.
      *
      * @param id Domain ID
      * @return {@link eu.scasefp7.assetregistry.data.Domain Domain}
@@ -40,8 +45,7 @@ public class DomainResource
     @ApiOperation(value = "Finds a domain by ID in the repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public Domain find(@PathParam("id") @ApiParam(value = "domain id") long id)
     {
@@ -51,7 +55,7 @@ public class DomainResource
     }
 
     /**
-     * Retrieve a list of all {@link eu.scasefp7.assetregistry.data.Domain Domains} in the repository
+     * Retrieve a list of all {@link eu.scasefp7.assetregistry.data.Domain Domains} in the repository.
      *
      * @return list of all {@link eu.scasefp7.assetregistry.data.Domain Domains}
      */
@@ -60,8 +64,7 @@ public class DomainResource
     @ApiOperation(value = "Retrieves a list of all domains in the repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public List<Domain> findAll()
     {

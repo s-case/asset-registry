@@ -10,7 +10,7 @@ import org.junit.Test;
 import javax.persistence.EntityManager;
 
 /**
- * Test class of artefact entity
+ * Test class of artefact entity.
  */
 public class ArtefactTest {
 

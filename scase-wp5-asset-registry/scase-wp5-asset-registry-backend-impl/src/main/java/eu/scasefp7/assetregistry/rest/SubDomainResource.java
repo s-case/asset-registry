@@ -19,6 +19,11 @@ import javax.ws.rs.core.MediaType;
 
 import java.util.List;
 
+/**
+ * rest api for sud domain.
+ * @author rmagnus
+ *
+ */
 @Path(AssetRegistryRestApp.PART_SUBDOMAIN)
 @Api(value = AssetRegistryRestApp.PART_SUBDOMAIN, description = "provides subdomains")
 @Produces("application/json;charset=UTF-8")
@@ -30,9 +35,9 @@ public class SubDomainResource
     private DomainDbService service;
 
     /**
-     * Find a {@link eu.scasefp7.assetregistry.data.SubDomain SubDomain} by ID in the Asset Repository
+     * Find a {@link eu.scasefp7.assetregistry.data.SubDomain SubDomain} by ID in the Asset Repository.
      *
-     * @param id
+     * @param id the id
      * @return {@link eu.scasefp7.assetregistry.data.SubDomain SubDomain}
      */
     @GET
@@ -40,8 +45,7 @@ public class SubDomainResource
     @ApiOperation(value = "Finds a subdomain by ID in the Asset Repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public SubDomain find(@PathParam("id") @ApiParam(value = "subdomain ID") long id)
     {
@@ -49,7 +53,7 @@ public class SubDomainResource
     }
 
     /**
-     * Retrieve a list of all {@link eu.scasefp7.assetregistry.data.SubDomain SubDomains} in the Asset Repository
+     * Retrieve a list of all {@link eu.scasefp7.assetregistry.data.SubDomain SubDomains} in the Asset Repository.
      *
      * @return list of all {@link eu.scasefp7.assetregistry.data.SubDomain SubDomains}
      */
@@ -58,8 +62,7 @@ public class SubDomainResource
     @ApiOperation(value = "Retrieves a list of all subdomains in the Asset Repository")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Server problem")})
+            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public List<SubDomain> findAll()
     {

@@ -139,17 +139,17 @@ public class ArtefactServiceImpl
         artefact.setVersion(jsonArtefact.getVersion());
 
         if(null!=jsonArtefact.getDomain()) {
-            Domain domain = domainDbService.findDomainByName(jsonArtefact.getDomain());
+            Domain domain = this.domainDbService.findDomainByName(jsonArtefact.getDomain());
             artefact.setDomain(domain);
         }
         if(null!=jsonArtefact.getSubDomain()) {
-            SubDomain subdomain = domainDbService.findSubDomainByName(jsonArtefact.getSubDomain());
+            SubDomain subdomain = this.domainDbService.findSubDomainByName(jsonArtefact.getSubDomain());
             artefact.setSubDomain(subdomain);
         }
 
         artefact.setName(jsonArtefact.getName());
         artefact.setPrivacyLevel(jsonArtefact.getPrivacyLevel());
-
+        artefact.setProjectName( jsonArtefact.getProjectName());
         artefact.setUri(jsonArtefact.getUri());
         artefact.setGroupId(jsonArtefact.getGroupId());
         artefact.setDependencies(jsonArtefact.getDependencies());
@@ -246,13 +246,17 @@ public class ArtefactServiceImpl
 
     /**
      * Private service to discover the root cause of an exception thrown.
+     *
      * @param thrown - the thrown exception.
      * @return Throwable thrown - The root cause of the exception thrown.
      */
-    private Throwable getRootCause(Throwable thrown){
-        while(thrown.getCause()!=null){
-            thrown = thrown.getCause();
+    private Throwable getRootCause(final Throwable thrown)
+    {
+        Throwable t = thrown;
+        while (t.getCause() != null) {
+            t = t.getCause();
         }
-        return thrown;
+        return t;
     }
+
 }

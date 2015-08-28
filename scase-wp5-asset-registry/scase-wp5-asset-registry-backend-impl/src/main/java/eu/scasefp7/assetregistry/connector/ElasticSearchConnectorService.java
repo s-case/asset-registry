@@ -26,6 +26,9 @@ public class ElasticSearchConnectorService {
 
     private Client client;
 
+    /**
+     * init.
+     */
     @SuppressWarnings("resource")
     @PostConstruct
     public void init(){
@@ -50,6 +53,9 @@ public class ElasticSearchConnectorService {
         return this.client;
     }
 
+    /**
+     * destroy.
+     */
     @PreDestroy
     public void destroy(){
 
