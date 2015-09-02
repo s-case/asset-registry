@@ -209,7 +209,7 @@
 									<run>
 										<env>
 											<MYSQL_ROOT_PASSWORD>password</MYSQL_ROOT_PASSWORD>
-                                            <STARTUP_SQL>/tmp/create-user.sql</STARTUP_SQL>
+											<STARTUP_SQL>/tmp/create-user.sql</STARTUP_SQL>
 										</env>
 										<ports>
 											<port>${mysql.jdbc.port}:3306</port>
@@ -308,20 +308,6 @@
 								</configuration>
 							</execution>
 
-							<execution>
-								<id>copy-asset-registry</id>
-
-								<goals>
-									<goal>copy-dependencies</goal>
-								</goals>
-
-								<configuration>
-									<includeArtifactIds>scase-wp5-asset-registry-web
-									</includeArtifactIds>
-									<outputDirectory>${serverRoot}/standalone/deployments</outputDirectory>
-								</configuration>
-							</execution>
-
 						</executions>
 					</plugin>
 
@@ -374,7 +360,6 @@
 						<configuration>
 							<jboss-home>${serverRoot}</jboss-home>
 							<serverConfig>${serverProfile}</serverConfig>
-
 							<execute-commands>
 								<commands>
 									<command>/system-property=${es.node}:add(value=${es.node.value})</command>
@@ -396,6 +381,10 @@
 									</command>
 								</commands>
 							</execute-commands>
+							<javaOpts>
+                                                                <javaOpt>-XX:MaxPermSize=512m</javaOpt>
+                                                                <javaOpt>${argLine},append=true,output=file</javaOpt>
+                                                        </javaOpts>
 						</configuration>
 						<executions>
 							<execution>
@@ -404,7 +393,14 @@
 								<goals>
 									<goal>start</goal>
 									<goal>execute-commands</goal>
+									<goal>deploy-artifact</goal>
 								</goals>
+								<configuration>
+									<groupId>eu.scasefp7</groupId>
+									<artifactId>scase-wp5-asset-registry-web</artifactId>
+									<packaging>war</packaging>
+								</configuration>
+
 							</execution>
 
 							<execution>
