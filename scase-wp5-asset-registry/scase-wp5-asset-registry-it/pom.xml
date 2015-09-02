@@ -19,7 +19,7 @@
 		<version.mysql>5.1.36</version.mysql>
 
 
-		<serverProfile>standalone-full.xml</serverProfile>
+		<serverProfile>standalone.xml</serverProfile>
 		<serverRoot>${project.build.directory}/wildfly-${version.wildfly}</serverRoot>
 
 		<mysql.jdbc.port>3306</mysql.jdbc.port>
@@ -34,6 +34,14 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>eu.scasefp7</groupId>
+			<artifactId>scase-wp5-asset-registry-web</artifactId>
+			<version>1.0.8-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.wildfly</groupId>
@@ -201,6 +209,7 @@
 									<run>
 										<env>
 											<MYSQL_ROOT_PASSWORD>password</MYSQL_ROOT_PASSWORD>
+                                            <STARTUP_SQL>/tmp/create-user.sql</STARTUP_SQL>
 										</env>
 										<ports>
 											<port>${mysql.jdbc.port}:3306</port>
@@ -208,6 +217,7 @@
 										<namingStrategy>
 											alias
 										</namingStrategy>
+										<cmd>/bin/bash -x /entrypoint.sh mysqld </cmd>
 									</run>
 								</image>
 							</images>
@@ -295,6 +305,20 @@
 										lucene-misc,lucene-join,lucene-grouping,lucene-spatial,lucene-expressions
 									</includeArtifactIds>
 									<outputDirectory>${serverRoot}/modules/org/elasticsearch/main</outputDirectory>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>copy-asset-registry</id>
+
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+
+								<configuration>
+									<includeArtifactIds>scase-wp5-asset-registry-web
+									</includeArtifactIds>
+									<outputDirectory>${serverRoot}/standalone/deployments</outputDirectory>
 								</configuration>
 							</execution>
 
