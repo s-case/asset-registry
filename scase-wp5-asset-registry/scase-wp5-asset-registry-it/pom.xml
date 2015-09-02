@@ -60,7 +60,6 @@
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
-			<version>1.6.0</version>
 		</dependency>
 
 		<dependency>
@@ -139,6 +138,28 @@
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-expressions</artifactId>
 			<version>4.10.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.scasefp7</groupId>
+			<artifactId>
+				scase-wp5-asset-registry-backend-impl
+			</artifactId>
+			<version>1.0.8-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>2.5.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -382,9 +403,9 @@
 								</commands>
 							</execute-commands>
 							<javaOpts>
-                                                                <javaOpt>-XX:MaxPermSize=512m</javaOpt>
-                                                                <javaOpt>${argLine},append=true,output=file</javaOpt>
-                                                        </javaOpts>
+								<javaOpt>-XX:MaxPermSize=512m</javaOpt>
+								<javaOpt>${argLine},append=true,output=file</javaOpt>
+							</javaOpts>
 						</configuration>
 						<executions>
 							<execution>
