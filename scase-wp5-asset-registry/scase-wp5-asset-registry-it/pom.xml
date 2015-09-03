@@ -142,9 +142,7 @@
 
 		<dependency>
 			<groupId>eu.scasefp7</groupId>
-			<artifactId>
-				scase-wp5-asset-registry-backend-impl
-			</artifactId>
+			<artifactId>scase-wp5-asset-registry-backend-impl</artifactId>
 			<version>1.0.8-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
@@ -259,6 +257,12 @@
 		<profile>
 			<id>it-tests</id>
 
+			<activation>
+				<property>
+					<name>it.test</name>
+				</property>
+			</activation>
+
 			<build>
 
 				<plugins>
@@ -278,6 +282,19 @@
 								<configuration>
 									<skip>false</skip>
 								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
 							</execution>
 						</executions>
 					</plugin>
@@ -445,26 +462,5 @@
 		</profile>
 
 	</profiles>
-
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.18.1</version>
-
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
 
 </project>
