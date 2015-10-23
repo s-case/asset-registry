@@ -21,7 +21,7 @@
                     if you change the version you have to update 
                     src/main/resources/modules/mysql/module.xml too
                 -->
-		<version.mysql>5.1.37</version.mysql>
+		<version.mysql>3.1.14</version.mysql>
 
 
 		<serverProfile>standalone.xml</serverProfile>
