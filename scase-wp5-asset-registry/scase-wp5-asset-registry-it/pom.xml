@@ -13,8 +13,8 @@
 	</parent>
 
 	<properties>
-		<version.plugin.resources>2.6</version.plugin.resources>
-		<version.plugin.dependency>2.8</version.plugin.dependency>
+		<version.plugin.resources>2.7</version.plugin.resources>
+		<version.plugin.dependency>2.10</version.plugin.dependency>
 		<version.wildfly>8.2.0.Final</version.wildfly>
 
                 <!--
