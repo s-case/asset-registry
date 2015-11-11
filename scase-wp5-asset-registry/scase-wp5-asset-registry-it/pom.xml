@@ -220,9 +220,6 @@
 											<port>9300:9300</port>
 											<port>9200:9200</port>
 										</ports>
-										<wait>
-											<log>started</log>
-										</wait>
 										<namingStrategy>
 											alias
 										</namingStrategy>
