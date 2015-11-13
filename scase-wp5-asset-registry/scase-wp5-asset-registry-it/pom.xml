@@ -291,6 +291,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.19</version>
 						<executions>
 							<execution>
 								<goals>
@@ -442,6 +443,7 @@
 									<goal>deploy-artifact</goal>
 								</goals>
 								<configuration>
+                                                                        <startupTimeout>180</startupTimeout>
 									<groupId>eu.scasefp7</groupId>
 									<artifactId>scase-wp5-asset-registry-web</artifactId>
 									<packaging>war</packaging>
