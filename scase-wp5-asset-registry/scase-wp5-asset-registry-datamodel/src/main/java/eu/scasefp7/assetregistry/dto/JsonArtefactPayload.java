@@ -81,12 +81,12 @@ public class JsonArtefactPayload
 
     public byte[] getPayload()
     {
-        return payload;
+        return payload.clone();
     }
 
     public void setPayload(byte[] payload)
     {
-        this.payload = payload;
+        this.payload = payload.clone();
     }
 
     @Override

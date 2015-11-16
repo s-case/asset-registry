@@ -66,12 +66,12 @@ public class ArtefactPayload
 
     public byte[] getPayload()
     {
-        return payload;
+        return payload.clone();
     }
 
     public void setPayload(byte[] playload)
     {
-        this.payload = playload;
+        this.payload = playload.clone();
     }
 
     public PayloadType getType()
