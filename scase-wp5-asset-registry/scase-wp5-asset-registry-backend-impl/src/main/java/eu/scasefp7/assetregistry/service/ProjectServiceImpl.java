@@ -91,7 +91,7 @@ public class ProjectServiceImpl implements ProjectService {
         try {
             created = this.dbService.create(project);
             this.esService.index(created);
-        } catch (Throwable thrown) {
+        } catch (Exception thrown) {
               throw new NotCreatedException(Project.class, project.getName(), getRootCause(thrown));
         }
 
@@ -107,7 +107,7 @@ public class ProjectServiceImpl implements ProjectService {
         try {
             updated = this.dbService.update(project);
             this.esService.update(updated);
-        } catch (Throwable thrown) {
+        } catch (Exception thrown) {
             throw new NotUpdatedException(Project.class, project.getId(), getRootCause(thrown));
         }
         return updated;
@@ -143,14 +143,6 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void delete(Project project) {
-        this.esService.delete(project, ProjectIndex.INDEX_NAME, IndexType.TYPE_PROJECT);
-        this.dbService.delete(project);
-    }
 
     /**
      * {@inheritDoc}
