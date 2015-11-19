@@ -6,6 +6,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
+import java.io.IOException;
+import java.util.UUID;
+
 import javax.ws.rs.core.Response;
 
 import org.junit.After;
@@ -17,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import com.jayway.restassured.response.ValidatableResponse;
 
+import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.Project;
 
 public class ProjectResourceIT
@@ -25,38 +29,24 @@ public class ProjectResourceIT
     private static Logger LOG = LoggerFactory.getLogger(ProjectResourceIT.class);
     
     private Project project;
+//  private Artefact artefact;
     
     @Before
-    public void createProject()
+    public void createProject() throws IOException
     {
-        project = new Project();
-        project.setName("testproject");
-        
-        ValidatableResponse body = given().
-            contentType("application/json").body(project).
-        when().
-            post(getUrl()).
-        then().
-            statusCode(200).
-            body("name", equalTo(project.getName()));
-        
-        assertThat(body).isNotNull();
-        project.setId(Long.valueOf(body.extract().path("id").toString()));
+        project = TestDataUtil.createProject();
+//      artefact = TestDataUtil.createArtefact(project);
     }
-    
+
     @After
     public void deleteProject()
     {
-        if (project == null) { return; }
-        
-        Long id = project.getId();
-        if (id != null) {
-            given().when().delete(getUrl() + "/" + id).then().statusCode(204);
-        }
+//      TestDataUtil.deleteArtefact(artefact);
+        TestDataUtil.deleteProject(project);
     }
-    
+
     @Test
-    public void canCreateAndGetProject()
+    public void canCreateAndGet()
     {
         Long id = project.getId();
         
@@ -72,12 +62,12 @@ public class ProjectResourceIT
     }
 
     @Test
-    public void canUpdateProject()
+    public void canUpdate()
     {
         com.jayway.restassured.response.Response response = given().when().get(getUrl() + "/" + project.getId());
         response.then().statusCode(200);
         Project project = response.as(Project.class);
-        String newName = project.getName()+"1";
+        String newName = project.getName() + "-" + UUID.randomUUID().toString();
         project.setName(newName);
         
         given().when().contentType("application/json").body(project).put(getUrl() + "/" + project.getId()).then().statusCode(200);
@@ -92,6 +82,7 @@ public class ProjectResourceIT
     {
         given().when().delete(getUrl() + "/" + project.getName()).then().statusCode(204);
         project = null;
+//      artefact = null;
     }
 
     @Test
@@ -104,7 +95,7 @@ public class ProjectResourceIT
     }
 
     @Test
-    public void canSearch() throws InterruptedException
+    public void canSearchDirect() throws InterruptedException
     {
         // wait 5 seconds for lucene indexing
         Thread.sleep(5 * 1000);
@@ -147,8 +138,10 @@ public class ProjectResourceIT
         
     }
 
-    protected String getUrl()
+    public static String getUrl()
     {
         return "http://localhost:8080/s-case/assetregistry" + AssetRegistryRestApp.PART_PROJECT;
     }
+
 }
+

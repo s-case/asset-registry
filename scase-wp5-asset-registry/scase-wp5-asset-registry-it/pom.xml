@@ -17,10 +17,8 @@
 		<version.plugin.dependency>2.10</version.plugin.dependency>
 		<version.wildfly>8.2.0.Final</version.wildfly>
 
-                <!--
-                    if you change the version you have to update 
-                    src/main/resources/modules/mysql/module.xml too
-                -->
+		<!-- if you change the version you have to update src/main/resources/modules/mysql/module.xml 
+			too -->
 		<version.mysql>5.1.37</version.mysql>
 
 
@@ -168,6 +166,13 @@
 		<dependency>
 			<groupId>org.easytesting</groupId>
 			<artifactId>fest-assert-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -443,7 +448,7 @@
 									<goal>deploy-artifact</goal>
 								</goals>
 								<configuration>
-                                                                        <startupTimeout>180</startupTimeout>
+									<startupTimeout>180</startupTimeout>
 									<groupId>eu.scasefp7</groupId>
 									<artifactId>scase-wp5-asset-registry-web</artifactId>
 									<packaging>war</packaging>
