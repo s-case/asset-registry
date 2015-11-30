@@ -66,53 +66,66 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
 
         QueryBuilder qb;
 
-        if (null != query) {
-
-            qb = QueryBuilders.matchQuery("_all", query);
-
-            if (query.contains("+") || query.contains(" ")) {
-                String q = query.replace("+", " ");
-                qb = multiMatchQuery(q, "_all");
-            }
-
-            if (null != domain || null != subdomain || null != artefacttype) {
-
-                QueryBuilder matchClause = qb;
-
-                BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
-
-                if (null != domain) {
-                    boolFilter.must(queryFilter(matchQuery(BaseIndex
-                            .DOMAIN_FIELD, domain)));
-                }
-                if (null != subdomain) {
-                    boolFilter.must(queryFilter(matchQuery(BaseIndex
-                            .SUBDOMAIN_FIELD, subdomain)));
-                }
-                if (null != artefacttype) {
-                    boolFilter.must(queryFilter(matchQuery(ArtefactIndex
-                            .ARTEFACT_TYPE_FIELD, artefacttype)));
-                }
-                qb = QueryBuilders.filteredQuery(matchClause,
-                        boolFilter);
-            }
+        if (null == query) {
+            qb = getDomainQueryOnly(domain, subdomain, artefacttype);
         } else {
-            qb = QueryBuilders.boolQuery();
-            if (null != domain) {
-                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex
-                        .DOMAIN_FIELD, domain));
-            }
-            if (null != subdomain) {
-                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex.SUBDOMAIN_FIELD, subdomain));
-            }
-            if (null != artefacttype) {
-                ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex.ARTEFACT_TYPE_FIELD, artefacttype));
-            }
+            qb = getQuery(query, domain, subdomain, artefacttype);
         }
 
         SearchResponse response = getSearchResponse(ArtefactIndex.INDEX_NAME, IndexType.TYPE_ARTEFACT, qb);
 
         return getArtefactDTOs(response);
+    }
+
+    private QueryBuilder getQuery(String query, String domain, String subdomain, String artefacttype)
+    {
+        QueryBuilder qb;
+        qb = QueryBuilders.matchQuery("_all", query);
+
+        if (query.contains("+") || query.contains(" ")) {
+            String q = query.replace("+", " ");
+            qb = multiMatchQuery(q, "_all");
+        }
+
+        if (null != domain || null != subdomain || null != artefacttype) {
+
+            QueryBuilder matchClause = qb;
+
+            BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
+
+            if (null != domain) {
+                boolFilter.must(queryFilter(matchQuery(BaseIndex
+                        .DOMAIN_FIELD, domain)));
+            }
+            if (null != subdomain) {
+                boolFilter.must(queryFilter(matchQuery(BaseIndex
+                        .SUBDOMAIN_FIELD, subdomain)));
+            }
+            if (null != artefacttype) {
+                boolFilter.must(queryFilter(matchQuery(ArtefactIndex
+                        .ARTEFACT_TYPE_FIELD, artefacttype)));
+            }
+            qb = QueryBuilders.filteredQuery(matchClause,
+                    boolFilter);
+        }
+        return qb;
+    }
+
+    private QueryBuilder getDomainQueryOnly(String domain, String subdomain, String artefacttype)
+    {
+        QueryBuilder qb;
+        qb = QueryBuilders.boolQuery();
+        if (null != domain) {
+            ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex
+                    .DOMAIN_FIELD, domain));
+        }
+        if (null != subdomain) {
+            ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(BaseIndex.SUBDOMAIN_FIELD, subdomain));
+        }
+        if (null != artefacttype) {
+            ((BoolQueryBuilder) qb).must(QueryBuilders.matchQuery(ArtefactIndex.ARTEFACT_TYPE_FIELD, artefacttype));
+        }
+        return qb;
     }
 
     @Override
