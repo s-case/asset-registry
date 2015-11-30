@@ -24,6 +24,10 @@
         </plugins>
     </build>
 
+    <properties>
+        <sonar.jacoco.itReportPath>${project.basedir}/../../target/jacoco-it.exec</sonar.jacoco.itReportPath>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax.enterprise</groupId>

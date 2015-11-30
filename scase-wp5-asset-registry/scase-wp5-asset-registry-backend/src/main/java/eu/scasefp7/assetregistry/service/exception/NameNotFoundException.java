@@ -5,7 +5,8 @@ import eu.scasefp7.base.ScaseException;
 /**
  * Exception to be thrown if an asset for a given name could not be found.
  */
-public class NameNotFoundException extends ScaseException{
+public class NameNotFoundException extends ScaseException 
+{
 
     private static final long serialVersionUID = 1L;
     private final Class<?> clazz;

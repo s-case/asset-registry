@@ -12,6 +12,10 @@
         <version>1.0.8-SNAPSHOT</version>
     </parent>
 
+    <properties>
+        <sonar.exclusions>**/lib/*.js,**/swagger-ui.js,**/swagger-ui.min.js</sonar.exclusions>
+    </properties>
+
     <build>
         <plugins>
             <plugin>

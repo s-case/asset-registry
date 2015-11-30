@@ -88,12 +88,6 @@ public interface ProjectService {
     void delete(String name);
 
     /**
-     * Service to remove an project from the repository by providing the project itself.
-     * @param project - the {@link eu.scasefp7.assetregistry.data.Project Project} to be deleted.
-     */
-    void delete(Project project);
-
-    /**
      * Service to convert an {@link eu.scasefp7.assetregistry.dto.JsonProject JsonProject} into a
      *  {@link eu.scasefp7.assetregistry.data.Project Project}.
      * @param jsonProject {@link eu.scasefp7.assetregistry.dto.JsonProject JsonProject}

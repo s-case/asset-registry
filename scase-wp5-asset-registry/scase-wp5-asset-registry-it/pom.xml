@@ -17,10 +17,8 @@
 		<version.plugin.dependency>2.10</version.plugin.dependency>
 		<version.wildfly>8.2.0.Final</version.wildfly>
 
-                <!--
-                    if you change the version you have to update 
-                    src/main/resources/modules/mysql/module.xml too
-                -->
+		<!-- if you change the version you have to update src/main/resources/modules/mysql/module.xml 
+			too -->
 		<version.mysql>5.1.37</version.mysql>
 
 
@@ -171,6 +169,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 
@@ -220,9 +225,6 @@
 											<port>9300:9300</port>
 											<port>9200:9200</port>
 										</ports>
-										<wait>
-											<log>started</log>
-										</wait>
 										<namingStrategy>
 											alias
 										</namingStrategy>
@@ -294,6 +296,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.19</version>
 						<executions>
 							<execution>
 								<goals>
@@ -445,6 +448,7 @@
 									<goal>deploy-artifact</goal>
 								</goals>
 								<configuration>
+									<startupTimeout>180</startupTimeout>
 									<groupId>eu.scasefp7</groupId>
 									<artifactId>scase-wp5-asset-registry-web</artifactId>
 									<packaging>war</packaging>

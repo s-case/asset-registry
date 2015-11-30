@@ -1,11 +1,18 @@
 package eu.scasefp7.assetregistry.service.db;
 
-import eu.scasefp7.assetregistry.data.Artefact;
+import java.util.ArrayList;
+import java.util.Date;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Date;
+import javax.persistence.TypedQuery;
+
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.ArtefactPayload;
+import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.service.exception.NotFoundException;
 
 /**
  * Service to handle CRUD operations of artefacts.
@@ -32,7 +39,7 @@ public class ArtefactDbServiceImpl extends BaseCrudDbServiceImpl<Artefact> imple
         loaded.setGroupId(entity.getGroupId());
         loaded.setName(entity.getName());
 
-        loaded.setPayload(entity.getPayload());
+        updatePayLoad(entity, loaded);
 
         loaded.setTags(entity.getTags());
         loaded.setType(entity.getType());
@@ -40,6 +47,40 @@ public class ArtefactDbServiceImpl extends BaseCrudDbServiceImpl<Artefact> imple
         loaded.setUpdatedAt(new Date());
 
         return loaded;
+    }
+
+    private void updatePayLoad(Artefact entity, Artefact loaded)
+    {
+        if (loaded.getPayload() != null) {
+            loaded.getPayload().clear();
+        }
+
+        if (entity.getPayload() != null) {
+            if (loaded.getPayload() == null) {
+                loaded.setPayload(new ArrayList<ArtefactPayload>());
+            }
+
+            for (ArtefactPayload element : entity.getPayload()) {
+                loaded.getPayload().add(entityManager.find(ArtefactPayload.class, element.getId()));
+            }
+        }
+
+    }
+
+    @Override
+    public void delete(final long entityId) {
+        final Artefact e = find(entityId);
+        if (e == null) {
+            throw new NotFoundException(getEntityClass(), entityId);
+        }
+        
+        String queryStr = "select p from Project p where name = :name";
+        TypedQuery<Project> query = entityManager.createQuery(queryStr, Project.class);
+        query.setParameter("name", e.getProjectName());
+        Project project = query.getSingleResult();
+        project.getArtefacts().remove(e);
+        
+        delete(e);
     }
 
     @Override
