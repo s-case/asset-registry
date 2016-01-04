@@ -1,12 +1,6 @@
 package eu.scasefp7.assetregistry.rest;
 
-import eu.scasefp7.assetregistry.data.Domain;
-import eu.scasefp7.assetregistry.service.db.DomainDbService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,7 +11,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import java.util.List;
+import org.apache.http.HttpStatus;
+
+import eu.scasefp7.assetregistry.data.Domain;
+import eu.scasefp7.assetregistry.service.db.DomainDbService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * rest api for a domain.
@@ -44,13 +46,15 @@ public class DomainResource
     @Path("{id}")
     @ApiOperation(value = "Finds a domain by ID in the repository")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+            @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public Domain find(@PathParam("id") @ApiParam(value = "domain id") long id)
     {
 
-        Domain domain = service.findDomain(id);
+        Domain domain = this.service.findDomain(id);
         return domain;
     }
 
@@ -63,8 +67,10 @@ public class DomainResource
     @Path("domains")
     @ApiOperation(value = "Retrieves a list of all domains in the repository")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+            @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public List<Domain> findAll()
     {

@@ -1,12 +1,6 @@
 package eu.scasefp7.assetregistry.rest;
 
-import eu.scasefp7.assetregistry.data.SubDomain;
-import eu.scasefp7.assetregistry.service.db.DomainDbService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,7 +11,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import java.util.List;
+import org.apache.http.HttpStatus;
+
+import eu.scasefp7.assetregistry.data.SubDomain;
+import eu.scasefp7.assetregistry.service.db.DomainDbService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * rest api for sud domain.
@@ -44,8 +46,10 @@ public class SubDomainResource
     @Path("{id}")
     @ApiOperation(value = "Finds a subdomain by ID in the Asset Repository")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+            @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public SubDomain find(@PathParam("id") @ApiParam(value = "subdomain ID") long id)
     {
@@ -61,8 +65,10 @@ public class SubDomainResource
     @Path("subdomains")
     @ApiOperation(value = "Retrieves a list of all subdomains in the Asset Repository")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "No content"), @ApiResponse(code = 400, message = "Request incorrect"),
-            @ApiResponse(code = 404, message = "Not found"), @ApiResponse(code = 500, message = "Internal Server error")})
+            @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error")})
     @Produces(MediaType.APPLICATION_JSON)
     public List<SubDomain> findAll()
     {

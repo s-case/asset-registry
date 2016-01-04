@@ -5,16 +5,18 @@ import javax.ejb.EJB;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.QueryBuilder;
 
 import eu.scasefp7.assetregistry.connector.ElasticSearchConnectorService;
 import eu.scasefp7.assetregistry.data.BaseEntity;
-import org.elasticsearch.index.query.QueryBuilder;
 
 /**
  * Created by missler on 16/03/15.
  * @param <E> the concrete type
  */
 public abstract class AbstractEsServiceImpl<E extends BaseEntity> implements AbstractEsService<E> {
+
+    private static final int MAX_SIZE = 500;
 
     @EJB
     protected ElasticSearchConnectorService connectorService;
@@ -35,7 +37,7 @@ public abstract class AbstractEsServiceImpl<E extends BaseEntity> implements Abs
         return client.prepareSearch(index)
                 .setTypes(type)
                 .setQuery(query)
-                .setFrom( 0 ).setSize( 500 ).setExplain( true )
+                .setFrom( 0 ).setSize( MAX_SIZE ).setExplain( true )
                 .execute()
                 .actionGet();
     }
@@ -46,7 +48,7 @@ public abstract class AbstractEsServiceImpl<E extends BaseEntity> implements Abs
         return client.prepareSearch(index)
                 .setTypes(type)
                 .setQuery(querybuilder)
-                .setFrom( 0 ).setSize( 500 ).setExplain( true )
+                .setFrom( 0 ).setSize( MAX_SIZE ).setExplain( true )
                 .execute()
                 .actionGet();
     }

@@ -1,15 +1,18 @@
 package eu.scasefp7.assetregistry.service.es;
 
-import eu.scasefp7.assetregistry.data.Artefact;
-import eu.scasefp7.assetregistry.data.PrivacyLevel;
-import eu.scasefp7.assetregistry.data.Project;
-import eu.scasefp7.assetregistry.dto.JsonProject;
-import eu.scasefp7.assetregistry.dto.ProjectDTO;
-import eu.scasefp7.assetregistry.index.BaseIndex;
-import eu.scasefp7.assetregistry.index.IndexType;
-import eu.scasefp7.assetregistry.index.ProjectIndex;
-import eu.scasefp7.assetregistry.service.ProjectService;
-import eu.scasefp7.assetregistry.service.db.ProjectDbService;
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -23,17 +26,16 @@ import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-import static org.elasticsearch.index.query.FilterBuilders.queryFilter;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.multiMatchQuery;
+import eu.scasefp7.assetregistry.data.Artefact;
+import eu.scasefp7.assetregistry.data.PrivacyLevel;
+import eu.scasefp7.assetregistry.data.Project;
+import eu.scasefp7.assetregistry.dto.JsonProject;
+import eu.scasefp7.assetregistry.dto.ProjectDTO;
+import eu.scasefp7.assetregistry.index.BaseIndex;
+import eu.scasefp7.assetregistry.index.IndexType;
+import eu.scasefp7.assetregistry.index.ProjectIndex;
+import eu.scasefp7.assetregistry.service.ProjectService;
+import eu.scasefp7.assetregistry.service.db.ProjectDbService;
 
 /**
  * Service class for Project related ElasticSearch operations.
@@ -175,9 +177,9 @@ public class ProjectEsServiceImpl extends AbstractEsServiceImpl<Project> impleme
         XContentBuilder builder = jsonBuilder().startObject()
                 .field(BaseIndex.NAME_FIELD, project.getName())
                 .field(BaseIndex.PRIVACY_LEVEL_FIELD, project.getPrivacyLevel())
-                .field(BaseIndex.DOMAIN_FIELD, (null != project.getDomain() ? project.getDomain().getName() : null))
-                .field(BaseIndex.SUBDOMAIN_FIELD, (null != project.getSubDomain() ? project.getSubDomain().getName()
-                        : null))
+                .field(BaseIndex.DOMAIN_FIELD, null != project.getDomain() ? project.getDomain().getName() : null)
+                .field(BaseIndex.SUBDOMAIN_FIELD, null != project.getSubDomain() ? project.getSubDomain().getName()
+                        : null)
                 .field(BaseIndex.CREATED_BY_FIELD, project.getCreatedBy())
                 .field(BaseIndex.UPDATED_BY_FIELD, project.getUpdatedBy())
                 .field(BaseIndex.CREATED_AT_FIELD, project.getCreatedAt())

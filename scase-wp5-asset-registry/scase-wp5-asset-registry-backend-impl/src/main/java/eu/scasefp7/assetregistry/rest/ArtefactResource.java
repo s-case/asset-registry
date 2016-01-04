@@ -1,11 +1,6 @@
 package eu.scasefp7.assetregistry.rest;
 
 import static eu.scasefp7.assetregistry.rest.ResourceTools.redirect;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 import java.util.List;
 
@@ -23,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +29,11 @@ import eu.scasefp7.assetregistry.dto.JsonArtefact;
 import eu.scasefp7.assetregistry.service.ArtefactService;
 import eu.scasefp7.assetregistry.service.ProjectService;
 import eu.scasefp7.assetregistry.service.db.DomainDbService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * rest api for artefact resource.
@@ -68,14 +69,15 @@ public class ArtefactResource
     @GET
     @Path("{id}")
     @ApiOperation(value = "Finds an artefact in the repository by ID")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
-            @ApiResponse(code = 400, message = "Request incorrect"), @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server error") })
+    @ApiResponses(value = { @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error") })
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArtefact get(@PathParam("id") @ApiParam(value = "Artefact ID") long id)
     {
         final Artefact artefactEntity = this.artefactService.find(id);
-        final JsonArtefact jsonArtefact = artefactService.convertEntityToJson(artefactEntity);
+        final JsonArtefact jsonArtefact = this.artefactService.convertEntityToJson(artefactEntity);
         return jsonArtefact;
     }
 
@@ -88,9 +90,10 @@ public class ArtefactResource
      */
     @GET
     @ApiOperation(value = "Checks if an artefact does exist in the repository")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
-            @ApiResponse(code = 400, message = "Request incorrect"), @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server errorm") })
+    @ApiResponses(value = { @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server errorm") })
     @Path("exists/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public boolean exists(@PathParam("id") @ApiParam(value = "Artefact ID") long id)
@@ -112,15 +115,16 @@ public class ArtefactResource
     @Path("directsearch")
     @ApiOperation(value = "Finds a list of artefacts by search query. <BR>"
             + "The search query has to be submitted in the Elastic Search JSON search syntax.")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
-            @ApiResponse(code = 400, message = "Request incorrect"), @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server error") })
+    @ApiResponses(value = { @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error") })
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtefactDTO> searchArtefacts(
             @QueryParam("q") @ApiParam(value = "Search query in the Elastic Search JSON syntax") final String query)
     {
         LOG.info("search '{}'", query);
-        final List<ArtefactDTO> artefacts = artefactService.find(query);
+        final List<ArtefactDTO> artefacts = this.artefactService.find(query);
         return artefacts;
     }
 
@@ -138,21 +142,22 @@ public class ArtefactResource
     @ApiOperation(value = "Finds a list of artefacts by free text search strings. <BR>"
             + "All query parameters are optional and can be combined as needed but "
             + "at least one parameter has to be submitted.")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
-            @ApiResponse(code = 400, message = "Request incorrect"), @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server error") })
+    @ApiResponses(value = { @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error") })
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtefactDTO> searchArtefacts(
-            @QueryParam("query") 
+            @QueryParam("query")
             @ApiParam(value = "Free text string that should be used to search inside of an artefact") final String query,
-            @QueryParam("domain") 
+            @QueryParam("domain")
             @ApiParam(value = "Domain name string an artefact should be assigned to") final String domain,
-            @QueryParam("subdomain") 
+            @QueryParam("subdomain")
             @ApiParam(value = "Subdomain name string an artefact should be assigned to") final String subdomain,
-            @QueryParam("type") 
+            @QueryParam("type")
             @ApiParam(value = "The Artefact Type of an artefact (e.g. USE_CASE)") final String artefacttype)
     {
-        final List<ArtefactDTO> artefacts = artefactService.find(query, domain, subdomain, artefacttype);
+        final List<ArtefactDTO> artefacts = this.artefactService.find(query, domain, subdomain, artefacttype);
         return artefacts;
     }
 
@@ -165,9 +170,11 @@ public class ArtefactResource
      */
     @POST
     @ApiOperation(value = "Creates and stores a new artefact in the repository")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "No content (artefact has been created successfully)"),
-            @ApiResponse(code = 400, message = "Request incorrect"), @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server error") })
+    @ApiResponses(value = {
+            @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content (artefact has been created successfully)"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error") })
     public Response create(@ApiParam(value = "Artefact to be stored in the Asset Repo") JsonArtefact artefact)
     {
         final Project project = this.projectService.findByName(artefact.getProjectName());
@@ -178,10 +185,10 @@ public class ArtefactResource
                             + " could not be found inside of the Artefact Repository").build();
 
         }
-        final Artefact artefactEntity = artefactService.convertJsonToEntity(artefact);
+        final Artefact artefactEntity = this.artefactService.convertJsonToEntity(artefact);
         final Artefact created = this.artefactService.create(artefactEntity);
         project.getArtefacts().add(created);
-        projectService.update(project);
+        this.projectService.update(project);
 
         return redirect("artefact/" + created.getId());
     }
@@ -199,14 +206,15 @@ public class ArtefactResource
     @PUT
     @Path("{id}")
     @ApiOperation(value = "Updates an artefact in the repository")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
-            @ApiResponse(code = 400, message = "Request incorrect"), @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server error") })
+    @ApiResponses(value = { @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error") })
     public Response update(@PathParam("id") @ApiParam(value = "artefact id") long id,
             @ApiParam(value = "The artefact to be updated") JsonArtefact artefact)
     {
         artefact.setId(id);
-        final Artefact artefactEntity = artefactService.convertJsonToEntity(artefact);
+        final Artefact artefactEntity = this.artefactService.convertJsonToEntity(artefact);
         final Artefact updated = this.artefactService.update(artefactEntity);
         return redirect("artefact/", updated);
     }
@@ -221,9 +229,10 @@ public class ArtefactResource
     @DELETE
     @Path("{id}")
     @ApiOperation(value = "Deletes an artefact from the repository")
-    @ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
-            @ApiResponse(code = 400, message = "Request incorrect"), @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal Server error") })
+    @ApiResponses(value = { @ApiResponse(code = HttpStatus.SC_NO_CONTENT, message = "No content"),
+            @ApiResponse(code = HttpStatus.SC_BAD_REQUEST, message = "Request incorrect"),
+            @ApiResponse(code = HttpStatus.SC_NOT_FOUND, message = "Not found"),
+            @ApiResponse(code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error") })
     public void delete(
             @PathParam("id")
             @ApiParam(value = "Artefact ID of the artefact that shall be deleted from the Asset Repo") long id)

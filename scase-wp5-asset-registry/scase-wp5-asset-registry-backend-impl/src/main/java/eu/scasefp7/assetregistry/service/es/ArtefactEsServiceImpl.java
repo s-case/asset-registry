@@ -194,10 +194,10 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
                 .field(ArtefactIndex.DESCRIPTION_FIELD, artefact.getDescription())
                 .array(ArtefactIndex.TAGS_FIELD, artefact.getTags().toArray(new String[artefact.getTags().size()]))
                 .field(ArtefactIndex.METADATA_FIELD, artefact.getMetadata())
-                .field(BaseIndex.DOMAIN_FIELD, (null != artefact.getDomain() ? artefact.getDomain().getName() :
-                        null))
-                .field(BaseIndex.SUBDOMAIN_FIELD, (null != artefact.getSubDomain() ? artefact.getSubDomain()
-                        .getName() : null))
+                .field(BaseIndex.DOMAIN_FIELD, null != artefact.getDomain() ? artefact.getDomain().getName() :
+                        null)
+                .field(BaseIndex.SUBDOMAIN_FIELD, null != artefact.getSubDomain() ? artefact.getSubDomain()
+                        .getName() : null)
                 .endObject();
 
         return builder;
