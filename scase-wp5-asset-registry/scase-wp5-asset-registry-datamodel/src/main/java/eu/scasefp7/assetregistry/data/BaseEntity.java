@@ -1,5 +1,8 @@
 package eu.scasefp7.assetregistry.data;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,8 +14,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
-import java.io.Serializable;
-import java.util.Date;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * base entity.
@@ -79,7 +83,7 @@ public abstract class BaseEntity
 
     public String getCreatedBy()
     {
-        return createdBy;
+        return this.createdBy;
     }
 
     public void setCreatedBy(String createdBy)
@@ -89,7 +93,7 @@ public abstract class BaseEntity
 
     public String getUpdatedBy()
     {
-        return updatedBy;
+        return this.updatedBy;
     }
 
     public void setUpdatedBy(String updatedBy)
@@ -99,7 +103,7 @@ public abstract class BaseEntity
 
     public Date getCreatedAt()
     {
-        return createdAt;
+        return this.createdAt;
     }
 
     public void setCreatedAt(Date createdAt)
@@ -109,7 +113,7 @@ public abstract class BaseEntity
 
     public Date getUpdatedAt()
     {
-        return updatedAt;
+        return this.updatedAt;
     }
 
     public void setUpdatedAt(Date updatedAt)
@@ -119,7 +123,7 @@ public abstract class BaseEntity
 
     public Domain getDomain()
     {
-        return domain;
+        return this.domain;
     }
 
     public void setDomain(Domain domain)
@@ -129,7 +133,7 @@ public abstract class BaseEntity
 
     public SubDomain getSubDomain()
     {
-        return subDomain;
+        return this.subDomain;
     }
 
     public void setSubDomain(SubDomain subDomain)
@@ -139,7 +143,7 @@ public abstract class BaseEntity
 
     public PrivacyLevel getPrivacyLevel()
     {
-        return privacyLevel;
+        return this.privacyLevel;
     }
 
     public void setPrivacyLevel(PrivacyLevel privacyLevel)
@@ -159,46 +163,32 @@ public abstract class BaseEntity
 
         BaseEntity that = (BaseEntity) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) {
-            return false;
-        }
-        if (createdBy != null ? !createdBy.equals(that.createdBy) : that.createdBy != null) {
-            return false;
-        }
-        if (updatedBy != null ? !updatedBy.equals(that.updatedBy) : that.updatedBy != null) {
-            return false;
-        }
-        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) {
-            return false;
-        }
-        if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) {
-            return false;
-        }
-        if (domain != null ? !domain.equals(that.domain) : that.domain != null) {
-            return false;
-        }
-        if (subDomain != null ? !subDomain.equals(that.subDomain) : that.subDomain != null) {
-            return false;
-        }
-        if (privacyLevel != that.privacyLevel) {
-            return false;
-        }
-        return !(version != null ? !version.equals(that.version) : that.version != null);
-
+        return new EqualsBuilder().append(this.id, that.id).
+                append(this.createdBy, that.createdBy).
+                append(this.updatedBy, that.updatedBy).
+                append(this.createdAt, that.createdAt).
+                append(this.updatedAt, that.updatedAt).
+                append(this.domain, that.domain).
+                append(this.subDomain, that.subDomain).
+                append(this.privacyLevel, that.privacyLevel).
+                append(this.version, that.version).
+                isEquals();
     }
 
     @Override
     public int hashCode()
     {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
-        result = 31 * result + (updatedBy != null ? updatedBy.hashCode() : 0);
-        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
-        result = 31 * result + (domain != null ? domain.hashCode() : 0);
-        result = 31 * result + (subDomain != null ? subDomain.hashCode() : 0);
-        result = 31 * result + (privacyLevel != null ? privacyLevel.hashCode() : 0);
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.createdBy)
+                .append(this.updatedBy)
+                .append(this.createdAt)
+                .append(this.updatedAt)
+                .append(this.domain)
+                .append(this.subDomain)
+                .append(this.privacyLevel)
+                .append(this.version)
+                .toHashCode();
     }
+
 }

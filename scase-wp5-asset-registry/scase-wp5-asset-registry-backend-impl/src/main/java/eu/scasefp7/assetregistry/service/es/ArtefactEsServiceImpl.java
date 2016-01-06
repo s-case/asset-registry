@@ -64,7 +64,7 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
     @Override
     public List<ArtefactDTO> find(String query, String domain, String subdomain, String artefacttype) {
 
-        QueryBuilder qb;
+        QueryBuilder qb = null;
 
         if (null == query) {
             qb = getDomainQueryOnly(domain, subdomain, artefacttype);
@@ -87,27 +87,24 @@ public class ArtefactEsServiceImpl extends AbstractEsServiceImpl<Artefact> imple
             qb = multiMatchQuery(q, "_all");
         }
 
-        if (null != domain || null != subdomain || null != artefacttype) {
-
-            QueryBuilder matchClause = qb;
-
-            BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
-
-            if (null != domain) {
-                boolFilter.must(queryFilter(matchQuery(BaseIndex
-                        .DOMAIN_FIELD, domain)));
-            }
-            if (null != subdomain) {
-                boolFilter.must(queryFilter(matchQuery(BaseIndex
-                        .SUBDOMAIN_FIELD, subdomain)));
-            }
-            if (null != artefacttype) {
-                boolFilter.must(queryFilter(matchQuery(ArtefactIndex
-                        .ARTEFACT_TYPE_FIELD, artefacttype)));
-            }
-            qb = QueryBuilders.filteredQuery(matchClause,
-                    boolFilter);
+        if (null == domain && null == subdomain && null == artefacttype) {
+            return qb;
         }
+
+        QueryBuilder matchClause = qb;
+
+        BoolFilterBuilder boolFilter = FilterBuilders.boolFilter();
+
+        if (null != domain) {
+            boolFilter.must(queryFilter(matchQuery(BaseIndex.DOMAIN_FIELD, domain)));
+        }
+        if (null != subdomain) {
+            boolFilter.must(queryFilter(matchQuery(BaseIndex.SUBDOMAIN_FIELD, subdomain)));
+        }
+        if (null != artefacttype) {
+            boolFilter.must(queryFilter(matchQuery(ArtefactIndex.ARTEFACT_TYPE_FIELD, artefacttype)));
+        }
+        qb = QueryBuilders.filteredQuery(matchClause, boolFilter);
         return qb;
     }
 

@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -191,52 +193,35 @@ public class Artefact
 
         Artefact artefact = (Artefact) o;
 
-        if (this.projectName != null ? !this.projectName.equals(artefact.projectName) : artefact.projectName != null) {
-            return false;
-        }
-        if (this.uri != null ? !this.uri.equals(artefact.uri) : artefact.uri != null) {
-            return false;
-        }
-        if (this.groupId != null ? !this.groupId.equals(artefact.groupId) : artefact.groupId != null) {
-            return false;
-        }
-        if (this.name != null ? !this.name.equals(artefact.name) : artefact.name != null) {
-            return false;
-        }
-        if (this.dependencies != null ? !this.dependencies.equals(artefact.dependencies)
-                : artefact.dependencies != null) {
-            return false;
-        }
-        if (this.type != artefact.type) {
-            return false;
-        }
-        if (this.description != null ? !this.description.equals(artefact.description) : artefact.description != null) {
-            return false;
-        }
-        if (this.tags != null ? !this.tags.equals(artefact.tags) : artefact.tags != null) {
-            return false;
-        }
-        if (this.metadata != null ? !this.metadata.equals(artefact.metadata) : artefact.metadata != null) {
-            return false;
-        }
-        return !(this.payload != null ? !this.payload.equals(artefact.payload) : artefact.payload != null);
+        return new EqualsBuilder().append(this.projectName, artefact.projectName).
+                append(this.uri, artefact.uri).
+                append(this.groupId, artefact.groupId).
+                append(this.name, artefact.name).
+                append(this.dependencies, artefact.dependencies).
+                append(this.type, artefact.type).
+                append(this.description, artefact.description).
+                append(this.tags, artefact.tags).
+                append(this.metadata, artefact.metadata).
+                append(this.payload, artefact.payload).
+                isEquals();
+
 
     }
 
     @Override
     public int hashCode()
     {
-        int result = super.hashCode();
-        result = 31 * result + (this.projectName != null ? this.projectName.hashCode() : 0);
-        result = 31 * result + (this.uri != null ? this.uri.hashCode() : 0);
-        result = 31 * result + (this.groupId != null ? this.groupId.hashCode() : 0);
-        result = 31 * result + (this.name != null ? this.name.hashCode() : 0);
-        result = 31 * result + (this.dependencies != null ? this.dependencies.hashCode() : 0);
-        result = 31 * result + (this.type != null ? this.type.hashCode() : 0);
-        result = 31 * result + (this.description != null ? this.description.hashCode() : 0);
-        result = 31 * result + (this.tags != null ? this.tags.hashCode() : 0);
-        result = 31 * result + (this.metadata != null ? this.metadata.hashCode() : 0);
-        result = 31 * result + (this.payload != null ? this.payload.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder()
+                .append(this.projectName)
+                .append(this.uri)
+                .append(this.groupId)
+                .append(this.name)
+                .append(this.dependencies)
+                .append(this.type)
+                .append(this.description)
+                .append(this.tags)
+                .append(this.metadata)
+                .append(this.payload)
+                .toHashCode();
     }
 }

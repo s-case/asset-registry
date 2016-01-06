@@ -1,5 +1,8 @@
 package eu.scasefp7.assetregistry.data;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,8 +14,9 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.List;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Entity representation of a domain as specified by Google Verticals.
@@ -42,7 +46,7 @@ public class Domain
 
     public Long getVersion()
     {
-        return version;
+        return this.version;
     }
 
     public void setVersion(Long version)
@@ -52,7 +56,7 @@ public class Domain
 
     public Long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id)
@@ -62,7 +66,7 @@ public class Domain
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     public void setName(String name)
@@ -72,7 +76,7 @@ public class Domain
 
     public List<SubDomain> getSubdomains()
     {
-        return subdomains;
+        return this.subdomains;
     }
 
     public void setSubdomains(List<SubDomain> subdomains)
@@ -83,6 +87,7 @@ public class Domain
     @Override
     public boolean equals(Object o)
     {
+
         if (this == o) {
             return true;
         }
@@ -90,28 +95,24 @@ public class Domain
             return false;
         }
 
+
         Domain domain = (Domain) o;
 
-        if (id != null ? !id.equals(domain.id) : domain.id != null) {
-            return false;
-        }
-        if (version != null ? !version.equals(domain.version) : domain.version != null) {
-            return false;
-        }
-        if (name != null ? !name.equals(domain.name) : domain.name != null) {
-            return false;
-        }
-        return !(subdomains != null ? !subdomains.equals(domain.subdomains) : domain.subdomains != null);
-
+        return new EqualsBuilder().append(this.id, domain.id).
+                append(this.version, domain.version).
+                append(this.name, domain.name).
+                append(this.subdomains, domain.subdomains).
+                isEquals();
     }
 
     @Override
     public int hashCode()
     {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (subdomains != null ? subdomains.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.version)
+                .append(this.name)
+                .append(this.subdomains)
+                .toHashCode();
     }
 }

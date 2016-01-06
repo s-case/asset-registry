@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import eu.scasefp7.assetregistry.data.PrivacyLevel;
 
 /**
@@ -140,46 +143,33 @@ public abstract class JsonBase
 
         JsonBase jsonBase = (JsonBase) o;
 
-        if (this.id != null ? !this.id.equals(jsonBase.id) : jsonBase.id != null) {
-            return false;
-        }
-        if (this.createdBy != null ? !this.createdBy.equals(jsonBase.createdBy) : jsonBase.createdBy != null) {
-            return false;
-        }
-        if (this.updatedBy != null ? !this.updatedBy.equals(jsonBase.updatedBy) : jsonBase.updatedBy != null) {
-            return false;
-        }
-        if (this.createdAt != null ? !this.createdAt.equals(jsonBase.createdAt) : jsonBase.createdAt != null) {
-            return false;
-        }
-        if (this.updatedAt != null ? !this.updatedAt.equals(jsonBase.updatedAt) : jsonBase.updatedAt != null) {
-            return false;
-        }
-        if (this.domain != null ? !this.domain.equals(jsonBase.domain) : jsonBase.domain != null) {
-            return false;
-        }
-        if (this.subDomain != null ? !this.subDomain.equals(jsonBase.subDomain) : jsonBase.subDomain != null) {
-            return false;
-        }
-        if (this.privacyLevel != jsonBase.privacyLevel) {
-            return false;
-        }
-        return !(this.version != null ? !this.version.equals(jsonBase.version) : jsonBase.version != null);
+        return new EqualsBuilder().append(this.id, jsonBase.id).
+                append(this.createdBy, jsonBase.createdBy).
+                append(this.updatedBy, jsonBase.updatedBy).
+                append(this.createdAt, jsonBase.createdAt).
+                append(this.updatedAt, jsonBase.updatedAt).
+                append(this.domain, jsonBase.domain).
+                append(this.subDomain, jsonBase.subDomain).
+                append(this.privacyLevel, jsonBase.privacyLevel).
+                append(this.version, jsonBase.version).
+                isEquals();
 
     }
 
     @Override
     public int hashCode()
     {
-        int result = this.id != null ? this.id.hashCode() : 0;
-        result = 31 * result + (this.createdBy != null ? this.createdBy.hashCode() : 0);
-        result = 31 * result + (this.updatedBy != null ? this.updatedBy.hashCode() : 0);
-        result = 31 * result + (this.createdAt != null ? this.createdAt.hashCode() : 0);
-        result = 31 * result + (this.updatedAt != null ? this.updatedAt.hashCode() : 0);
-        result = 31 * result + (this.domain != null ? this.domain.hashCode() : 0);
-        result = 31 * result + (this.subDomain != null ? this.subDomain.hashCode() : 0);
-        result = 31 * result + (this.privacyLevel != null ? this.privacyLevel.hashCode() : 0);
-        result = 31 * result + (this.version != null ? this.version.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.createdBy)
+                .append(this.updatedBy)
+                .append(this.createdAt)
+                .append(this.updatedAt)
+                .append(this.domain)
+                .append(this.subDomain)
+                .append(this.privacyLevel)
+                .append(this.version)
+                .toHashCode();
+
     }
 }

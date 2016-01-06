@@ -1,13 +1,17 @@
 package eu.scasefp7.assetregistry.dto;
 
-import eu.scasefp7.assetregistry.data.ArtefactType;
-
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import eu.scasefp7.assetregistry.data.ArtefactType;
 
 /**
  * Created by missler on 03/06/15.
@@ -42,7 +46,7 @@ public class JsonArtefact
 
     public String getProjectName()
     {
-        return projectName;
+        return this.projectName;
     }
 
     public void setProjectName(String projectName)
@@ -52,7 +56,7 @@ public class JsonArtefact
 
     public String getUri()
     {
-        return uri;
+        return this.uri;
     }
 
     public void setUri(String uri)
@@ -62,7 +66,7 @@ public class JsonArtefact
 
     public String getGroupId()
     {
-        return groupId;
+        return this.groupId;
     }
 
     public void setGroupId(String groupId)
@@ -72,7 +76,7 @@ public class JsonArtefact
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     public void setName(String name)
@@ -82,7 +86,7 @@ public class JsonArtefact
 
     public List<Long> getDependencies()
     {
-        return dependencies;
+        return this.dependencies;
     }
 
     public void setDependencies(List<Long> dependencies)
@@ -92,7 +96,7 @@ public class JsonArtefact
 
     public ArtefactType getType()
     {
-        return type;
+        return this.type;
     }
 
     public void setType(ArtefactType type)
@@ -102,7 +106,7 @@ public class JsonArtefact
 
     public String getDescription()
     {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description)
@@ -112,7 +116,7 @@ public class JsonArtefact
 
     public List<String> getTags()
     {
-        return tags;
+        return this.tags;
     }
 
     public void setTags(List<String> tags)
@@ -122,7 +126,7 @@ public class JsonArtefact
 
     public Map<String, String> getMetadata()
     {
-        return metadata;
+        return this.metadata;
     }
 
     public void setMetadata(Map<String, String> metadata)
@@ -132,7 +136,7 @@ public class JsonArtefact
 
     public List<JsonArtefactPayload> getPayload()
     {
-        return payload;
+        return this.payload;
     }
 
     public void setPayload(List<JsonArtefactPayload> payload)
@@ -155,51 +159,33 @@ public class JsonArtefact
 
         JsonArtefact that = (JsonArtefact) o;
 
-        if (projectName != null ? !projectName.equals(that.projectName) : that.projectName != null) {
-            return false;
-        }
-        if (uri != null ? !uri.equals(that.uri) : that.uri != null) {
-            return false;
-        }
-        if (groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) {
-            return false;
-        }
-        if (name != null ? !name.equals(that.name) : that.name != null) {
-            return false;
-        }
-        if (dependencies != null ? !dependencies.equals(that.dependencies) : that.dependencies != null) {
-            return false;
-        }
-        if (type != that.type) {
-            return false;
-        }
-        if (description != null ? !description.equals(that.description) : that.description != null) {
-            return false;
-        }
-        if (tags != null ? !tags.equals(that.tags) : that.tags != null) {
-            return false;
-        }
-        if (metadata != null ? !metadata.equals(that.metadata) : that.metadata != null) {
-            return false;
-        }
-        return !(payload != null ? !payload.equals(that.payload) : that.payload != null);
-
+        return new EqualsBuilder().append(this.projectName, that.projectName).
+                append(this.uri, that.uri).
+                append(this.groupId, that.groupId).
+                append(this.name, that.name).
+                append(this.dependencies, that.dependencies).
+                append(this.type, that.type).
+                append(this.description, that.description).
+                append(this.tags, that.tags).
+                append(this.metadata, that.metadata).
+                append(this.payload, that.payload).
+                isEquals();
     }
 
     @Override
     public int hashCode()
     {
-        int result = super.hashCode();
-        result = 31 * result + (projectName != null ? projectName.hashCode() : 0);
-        result = 31 * result + (uri != null ? uri.hashCode() : 0);
-        result = 31 * result + (groupId != null ? groupId.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (dependencies != null ? dependencies.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (tags != null ? tags.hashCode() : 0);
-        result = 31 * result + (metadata != null ? metadata.hashCode() : 0);
-        result = 31 * result + (payload != null ? payload.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder()
+                .append(this.projectName)
+                .append(this.uri)
+                .append(this.groupId)
+                .append(this.name)
+                .append(this.dependencies)
+                .append(this.type)
+                .append(this.description)
+                .append(this.tags)
+                .append(this.metadata)
+                .append(this.payload)
+                .toHashCode();
     }
 }

@@ -15,6 +15,9 @@ import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
@@ -100,26 +103,21 @@ public class SubDomain
 
         SubDomain subDomain = (SubDomain) o;
 
-        if (this.id != null ? !this.id.equals(subDomain.id) : subDomain.id != null) {
-            return false;
-        }
-        if (this.version != null ? !this.version.equals(subDomain.version) : subDomain.version != null) {
-            return false;
-        }
-        if (this.name != null ? !this.name.equals(subDomain.name) : subDomain.name != null) {
-            return false;
-        }
-        return !(this.domain != null ? !this.domain.equals(subDomain.domain) : subDomain.domain != null);
-
+        return new EqualsBuilder().append(this.id, subDomain.id).
+                append(this.version, subDomain.version).
+                append(this.name, subDomain.name).
+                append(this.domain, subDomain.domain).
+                isEquals();
     }
 
     @Override
     public int hashCode()
     {
-        int result = this.id != null ? this.id.hashCode() : 0;
-        result = 31 * result + (this.version != null ? this.version.hashCode() : 0);
-        result = 31 * result + (this.name != null ? this.name.hashCode() : 0);
-        result = 31 * result + (this.domain != null ? this.domain.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.version)
+                .append(this.name)
+                .append(this.domain)
+                .toHashCode();
     }
 }

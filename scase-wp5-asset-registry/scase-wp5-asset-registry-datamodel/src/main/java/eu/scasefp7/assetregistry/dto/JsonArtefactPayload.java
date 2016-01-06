@@ -1,11 +1,14 @@
 package eu.scasefp7.assetregistry.dto;
 
-import eu.scasefp7.assetregistry.data.PayloadFormat;
-import eu.scasefp7.assetregistry.data.PayloadType;
+import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.io.Serializable;
-import java.util.Arrays;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import eu.scasefp7.assetregistry.data.PayloadFormat;
+import eu.scasefp7.assetregistry.data.PayloadType;
 
 /**
  * Created by missler on 03/06/15.
@@ -31,7 +34,7 @@ public class JsonArtefactPayload
 
     public Long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id)
@@ -41,7 +44,7 @@ public class JsonArtefactPayload
 
     public Long getVersion()
     {
-        return version;
+        return this.version;
     }
 
     public void setVersion(Long version)
@@ -51,7 +54,7 @@ public class JsonArtefactPayload
 
     public PayloadType getType()
     {
-        return type;
+        return this.type;
     }
 
     public void setType(PayloadType type)
@@ -61,7 +64,7 @@ public class JsonArtefactPayload
 
     public PayloadFormat getFormat()
     {
-        return format;
+        return this.format;
     }
 
     public void setFormat(PayloadFormat format)
@@ -71,7 +74,7 @@ public class JsonArtefactPayload
 
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     public void setName(String name)
@@ -81,7 +84,7 @@ public class JsonArtefactPayload
 
     public byte[] getPayload()
     {
-        return payload.clone();
+        return this.payload.clone();
     }
 
     public void setPayload(byte[] payload)
@@ -101,34 +104,25 @@ public class JsonArtefactPayload
 
         JsonArtefactPayload that = (JsonArtefactPayload) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) {
-            return false;
-        }
-        if (version != null ? !version.equals(that.version) : that.version != null) {
-            return false;
-        }
-        if (type != that.type) {
-            return false;
-        }
-        if (format != that.format) {
-            return false;
-        }
-        if (name != null ? !name.equals(that.name) : that.name != null) {
-            return false;
-        }
-        return Arrays.equals(payload, that.payload);
-
+        return new EqualsBuilder().append(this.id, that.id).
+                append(this.version, that.version).
+                append(this.type, that.type).
+                append(this.format, that.format).
+                append(this.name, that.name).
+                append(this.payload, that.payload).
+                isEquals();
     }
 
     @Override
     public int hashCode()
     {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (format != null ? format.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (payload != null ? Arrays.hashCode(payload) : 0);
-        return result;
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.version)
+                .append(this.type)
+                .append(this.format)
+                .append(this.name)
+                .append(this.payload)
+                .toHashCode();
     }
 }
