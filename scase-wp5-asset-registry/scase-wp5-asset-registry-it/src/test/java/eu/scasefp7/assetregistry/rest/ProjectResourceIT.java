@@ -1,6 +1,5 @@
 package eu.scasefp7.assetregistry.rest;
 
-import static com.jayway.awaitility.Awaitility.await;
 import static com.jayway.restassured.RestAssured.given;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -98,16 +97,18 @@ public class ProjectResourceIT
     @Test
     public void canSearchDirect() throws InterruptedException
     {
+        // wait 5 seconds for lucene indexing
+        Thread.sleep(5 * 1000);
         String query = "{\"term\" : {\"name\" : \"" + this.project.getName() + "\"}}";
 
         RequestSpecification when = given().param("q", query).when();
 
-        await().until(() -> when.get(getUrl() + "/" + "directsearch").then().statusCode(200));
+//        await().until(() -> when.get(getUrl() + "/" + "directsearch").then().statusCode(200));
 
         ValidatableResponse response =
                 when.
                     get(getUrl() + "/" + "directsearch").
-                then();
+                then().statusCode(200);
 
         LOG.debug("response: {}", response.extract().asString());
 
