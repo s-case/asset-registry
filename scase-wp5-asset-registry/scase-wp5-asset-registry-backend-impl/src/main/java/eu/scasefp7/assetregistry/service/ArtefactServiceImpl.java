@@ -1,5 +1,6 @@
 package eu.scasefp7.assetregistry.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -75,14 +76,14 @@ public class ArtefactServiceImpl
         Artefact create;
         try {
             create = this.dbService.create(artefact);
-        } catch (Throwable thrown) {
-            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(thrown));
+        } catch (RuntimeException e) {
+            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(e));
         }
 
         try {
             this.esService.index(create);
-        } catch (Throwable thrown) {
-            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(thrown));
+        } catch (RuntimeException | IOException e) {
+            throw new NotCreatedException(Artefact.class, artefact.getName(), getRootCause(e));
         }
 
         return create;
@@ -98,8 +99,8 @@ public class ArtefactServiceImpl
         try {
             updated = this.dbService.update(artefact);
             this.esService.update(updated);
-        } catch (Throwable thrown) {
-            throw new NotUpdatedException(Artefact.class, artefact.getId(), getRootCause(thrown));
+        } catch (RuntimeException | IOException e) {
+            throw new NotUpdatedException(Artefact.class, artefact.getId(), getRootCause(e));
         }
         return updated;
     }

@@ -1,5 +1,6 @@
 package eu.scasefp7.assetregistry.rest;
 
+import static com.jayway.awaitility.Awaitility.await;
 import static com.jayway.restassured.RestAssured.given;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -19,22 +20,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jayway.restassured.response.ValidatableResponse;
+import com.jayway.restassured.specification.RequestSpecification;
 
-import eu.scasefp7.assetregistry.data.Artefact;
 import eu.scasefp7.assetregistry.data.Project;
 
 public class ProjectResourceIT
 {
-    
+
     private static Logger LOG = LoggerFactory.getLogger(ProjectResourceIT.class);
-    
+
     private Project project;
 //  private Artefact artefact;
-    
+
     @Before
     public void createProject() throws IOException
     {
-        project = TestDataUtil.createProject();
+        this.project = TestDataUtil.createProject();
 //      artefact = TestDataUtil.createArtefact(project);
     }
 
@@ -42,46 +43,46 @@ public class ProjectResourceIT
     public void deleteProject()
     {
 //      TestDataUtil.deleteArtefact(artefact);
-        TestDataUtil.deleteProject(project);
+        TestDataUtil.deleteProject(this.project);
     }
 
     @Test
     public void canCreateAndGet()
     {
-        Long id = project.getId();
-        
+        Long id = this.project.getId();
+
         assertThat(id).isNotNull();
-        
+
         given().
         when().
             get(getUrl() + "/" + id).
         then().
             statusCode(200).
-            body("name", equalTo(project.getName())).
+            body("name", equalTo(this.project.getName())).
             body("id", notNullValue());
     }
 
     @Test
     public void canUpdate()
     {
-        com.jayway.restassured.response.Response response = given().when().get(getUrl() + "/" + project.getId());
+        com.jayway.restassured.response.Response response = given().when().get(getUrl() + "/" + this.project.getId());
         response.then().statusCode(200);
         Project project = response.as(Project.class);
         String newName = project.getName() + "-" + UUID.randomUUID().toString();
         project.setName(newName);
-        
+
         given().when().contentType("application/json").body(project).put(getUrl() + "/" + project.getId()).then().statusCode(200);
-        
+
         given().when().get(getUrl() + "/" + project.getId()).then().statusCode(200).body("name",
                 equalTo(newName));
-        
+
     }
-    
+
     @Test
     public void canDeleteByName()
     {
-        given().when().delete(getUrl() + "/" + project.getName()).then().statusCode(204);
-        project = null;
+        given().when().delete(getUrl() + "/" + this.project.getName()).then().statusCode(204);
+        this.project = null;
 //      artefact = null;
     }
 
@@ -89,7 +90,7 @@ public class ProjectResourceIT
     @Ignore("Exception mapper doesn't work")
     public void canDeleteNonExistingByName()
     {
-        ValidatableResponse then = given().when().delete(getUrl() + "/" + project.getName() +  "1").then();
+        ValidatableResponse then = given().when().delete(getUrl() + "/" + this.project.getName() +  "1").then();
         then.statusCode(Response.Status.NOT_FOUND.ordinal());
         then.statusLine(containsString("The entity was not found."));
     }
@@ -97,23 +98,24 @@ public class ProjectResourceIT
     @Test
     public void canSearchDirect() throws InterruptedException
     {
-        // wait 5 seconds for lucene indexing
-        Thread.sleep(5 * 1000);
-        String query = "{\"term\" : {\"name\" : \"" + project.getName() + "\"}}";
-        ValidatableResponse response = 
-                given().
-                    param("q" , query).                 
-                when().
+        String query = "{\"term\" : {\"name\" : \"" + this.project.getName() + "\"}}";
+
+        RequestSpecification when = given().param("q", query).when();
+
+        await().until(() -> when.get(getUrl() + "/" + "directsearch").then().statusCode(200));
+
+        ValidatableResponse response =
+                when.
                     get(getUrl() + "/" + "directsearch").
-                then().statusCode(200);
-        
+                then();
+
         LOG.debug("response: {}", response.extract().asString());
-               
+
         response.
-            body("project.name[0]", equalTo(project.getName())).
-            body("project.id[0]", equalTo(Integer.valueOf(project.getId().toString()))).
+            body("project.name[0]", equalTo(this.project.getName())).
+            body("project.id[0]", equalTo(Integer.valueOf(this.project.getId().toString()))).
             body("score[0]", notNullValue());
-        
+
     }
 
     @Test
@@ -121,21 +123,21 @@ public class ProjectResourceIT
     {
         // wait 5 seconds for lucene indexing
         Thread.sleep(5 * 1000);
-        String query = "{\"term\" : {\"name\" : \"" + project.getName() + "\"}}";
-        ValidatableResponse response = 
+        String query = "{\"term\" : {\"name\" : \"" + this.project.getName() + "\"}}";
+        ValidatableResponse response =
                 given().
-                    param("query" , query).                 
+                    param("query" , query).
                 when().
                     get(getUrl() + "/" + "search").
                 then().statusCode(200);
-        
+
         LOG.debug("response: {}", response.extract().asString());
-               
+
         response.
-            body("project.name[0]", equalTo(project.getName())).
-            body("project.id[0]", equalTo(Integer.valueOf(project.getId().toString()))).
+            body("project.name[0]", equalTo(this.project.getName())).
+            body("project.id[0]", equalTo(Integer.valueOf(this.project.getId().toString()))).
             body("score[0]", notNullValue());
-        
+
     }
 
     public static String getUrl()
