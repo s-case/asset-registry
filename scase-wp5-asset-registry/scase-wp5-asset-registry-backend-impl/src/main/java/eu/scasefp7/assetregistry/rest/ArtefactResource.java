@@ -84,19 +84,19 @@ public class ArtefactResource {
      * @return OK  if artefact does exist, otherwise NOT_FOUND
      */
     @GET
-    @ApiOperation( value = "Checks if an artefact does exist in the repository", response = JsonArtefact.class )
+    @ApiOperation( value = "Checks if an artefact does exist in the repository" )
     @ApiResponses( value = {@ApiResponse( code = HttpStatus.SC_OK, message = "OK" ),
                             @ApiResponse( code = HttpStatus.SC_NOT_FOUND, message = "Not found" ),
                             @ApiResponse( code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error" )} )
     @Path( "exists/{id}" )
     @Produces( MediaType.APPLICATION_JSON )
-    public Response exists( @PathParam( "id" ) @ApiParam( value = "Artefact ID" ) long id ) {
+    public boolean exists( @PathParam( "id" ) @ApiParam( value = "Artefact ID" ) long id ) {
         Artefact artefact = this.artefactService.find( id );
 
         if ( null != artefact ) {
-            return Response.status( Response.Status.OK ).entity( artefactService.convertEntityToJson( artefact ) ).build();
+            return true;
         }
-        return Response.status( Response.Status.NOT_FOUND ).build();
+        return false;
     }
 
     /**
