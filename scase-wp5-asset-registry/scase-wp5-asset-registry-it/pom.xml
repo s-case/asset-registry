@@ -226,7 +226,7 @@
                             <images>
                                 <image>
                                     <alias>scase-wp5-elasticsearch</alias>
-                                    <name>yaronr/elasticsearch</name>
+                                    <name>elasticsearch:1.6</name>
                                     <run>
                                         <ports>
                                             <port>9300:9300</port>
