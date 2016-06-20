@@ -199,9 +199,9 @@
                 <plugins>
 
                     <plugin>
-                        <groupId>org.jolokia</groupId>
+                        <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.13.3</version>
+                        <version>0.15.7</version>
                         <executions>
                             <execution>
                                 <id>start-docker-container</id>
