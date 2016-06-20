@@ -208,25 +208,27 @@ public class ProjectResource {
      *
      * @param id ID of the project to be deleted
      */
-    @DELETE
-    @Path( "{id}" )
-    @ApiOperation( value = "Deletes a project from the Asset Repo by ID" )
-    @ApiResponses( value = {
-            @ApiResponse( code = HttpStatus.SC_OK, message = "OK" ),
-            @ApiResponse( code = HttpStatus.SC_NOT_FOUND, message = "Not found" ),
-            @ApiResponse( code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error" )} )
-    public Response delete( @PathParam( "id" ) @ApiParam( value = "ID of the project to be deleted" ) long id ) {
-        if ( null != projectService.find( id ) ) {
-            this.projectService.delete( id );
-            return Response.status( Response.Status.OK ).build();
-        }
-        return Response.status( Response.Status.NOT_FOUND ).build();
-    }
+/**
+ @DELETE
+ @Path( "{id}" )
+ @ApiOperation( value = "Deletes a project from the Asset Repo by ID" )
+ @ApiResponses( value = {
+ @ApiResponse( code = HttpStatus.SC_OK, message = "OK" ),
+ @ApiResponse( code = HttpStatus.SC_NOT_FOUND, message = "Not found" ),
+ @ApiResponse( code = HttpStatus.SC_INTERNAL_SERVER_ERROR, message = "Internal Server error" )} )
+ public Response delete( @PathParam( "id" ) @ApiParam( value = "ID of the project to be deleted" ) long id ) {
 
+ if ( null != projectService.find( id ) ) {
+ this.projectService.delete( id );
+ return Response.status( Response.Status.OK ).build();
+ }
+ return Response.status( Response.Status.NOT_FOUND ).build();
+ }
+ **/
     /**
      * Delete a project from the Asset Repo by name.
      *
-     * @param name Name string of the project to be deleted
+     * @param name Name or ID string of the project to be deleted
      */
     @DELETE
     @Path( "{name}" )
