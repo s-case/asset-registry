@@ -78,6 +78,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>de.akquinet.jbosscc</groupId>
             <artifactId>jbosscc-needle</artifactId>
             <scope>test</scope>

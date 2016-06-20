@@ -5,12 +5,16 @@ import io.swagger.jaxrs.config.BeanConfig;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * class for holding all the names.
@@ -20,6 +24,8 @@ import java.util.Set;
 @ApplicationPath(AssetRegistryRestApp.BASE)
 public class AssetRegistryRestApp extends Application
 {
+    private static final Logger LOG = LoggerFactory.getLogger( AssetRegistryRestApp.class );
+
     public static final String ROOT = "/rest";
 
     public static final String BASE = "/assetregistry";
@@ -65,7 +71,7 @@ public class AssetRegistryRestApp extends Application
         BeanConfig beanConfig = new BeanConfig();
         beanConfig.setVersion(BuildProperties.getBuildVersion());
         beanConfig.setSchemes(new String[]{"http", "https"});
-        beanConfig.setHost("localhost:8080");
+        beanConfig.setHost(getHostName());
         beanConfig.setBasePath("/s-case" + BASE);
         beanConfig.setResourcePackage(String.format("io.swagger.resources,%s", REST_PACKAGE_NAME));
         beanConfig.setScan(true);
@@ -103,6 +109,16 @@ public class AssetRegistryRestApp extends Application
 
         return resources;
     }
+
+    private String getHostName() {
+        try {
+            return InetAddress.getLocalHost().getCanonicalHostName() + ":8080";
+        } catch (UnknownHostException e) {
+            String msg = "Kann Hostnamen nicht bestimmen.";
+            LOG.warn(msg, e); 
+            return "localhost:8080";
+        }
+    }   
 
     private void addRestResourceCLasses(Set<Class<?>> resources)
     {
