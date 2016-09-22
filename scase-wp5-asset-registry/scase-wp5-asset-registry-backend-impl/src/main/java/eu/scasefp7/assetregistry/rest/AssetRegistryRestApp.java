@@ -79,7 +79,6 @@ public class AssetRegistryRestApp extends Application
         beanConfig.setTitle("S-CASE Asset Registry REST API");
         beanConfig.setDescription("Description of " + beanConfig.getTitle());
 
-
 //        beanConfig.setContact("lars.kuettner@akquinet.de");
 //
 //        io.swagger.models.Info info = new io.swagger.models.Info();
@@ -114,7 +113,7 @@ public class AssetRegistryRestApp extends Application
         try {
             return InetAddress.getLocalHost().getCanonicalHostName() + ":8080";
         } catch (UnknownHostException e) {
-            String msg = "Kann Hostnamen nicht bestimmen.";
+            String msg = "Host name could not be found.";
             LOG.warn(msg, e); 
             return "localhost:8080";
         }
